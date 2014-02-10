@@ -1,0 +1,19 @@
+{ 
+	"manifest_version": 2,
+
+	"name": "LinguaLeo dictionary export",
+	"description": "Export your dictionary from LinguaLeo.com",
+	"version": "1.0",
+	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
+	
+	"permissions": [
+		"http://lingualeo.com/"
+	],
+
+	"content_scripts": [
+	    {
+	      "matches": ["http://lingualeo.com/userdict"],
+	      "js": ["jquery-1.11.0.min.js", "FileSaver.js", "leo-export.js"]
+	    }
+	]
+}
