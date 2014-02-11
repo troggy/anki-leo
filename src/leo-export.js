@@ -1,7 +1,8 @@
 
 var allWordsRecieved = [],
-	wordsCount;
-	wordsCSVList = [];
+	wordsCount,
+	wordsCSVList = [],
+	isWorking;
 
 var showToolTip = function(message, style) {
 	window.postMessage({ 
@@ -51,7 +52,8 @@ var createExportButton = function(data) {
 	wordsCount = data.wordsCount;
 
 	$("<a class='btn' id='leo-export-extension-button'>Экспорт</a>").appendTo("div.dict-title-inner").click(function() {
-
+		if (isWorking) return;
+		isWorking = true;
 		var url = '/userdict/json?_hash=' + data.serverHash + '&page=';
 
 		wordsCSVList = [],
@@ -68,6 +70,8 @@ var createExportButton = function(data) {
 			 		);
 
 			 		showToolTip('Экспортировано ' + wordsCSVList.length + ' слов', "success")
+				}).always(function() {
+					isWorking = false;
 				});
 			});
 	});
