@@ -17,7 +17,7 @@ var showToolTip = function(message, style) {
 var wordsToCSV = function(words) {
 	return words.reduce(function(wordsList, category, i) { 
 				return wordsList.concat(category.words.map(function(word) {
-	 					 return word.word_value + ';' + word.user_translates[0].translate_value + ';http:' + word.user_translates[0].picture_url
+	 					 return word.word_value + ';' + word.user_translates[0].translate_value.replace(/;/g, '<br/>') + ';http:' + word.user_translates[0].picture_url
 		 		 		}));
  			}, new Array());
 }
