@@ -5,7 +5,7 @@
 	"description": "Export your dictionary from LinguaLeo.com",
 	"version": "1.0",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
-	
+
 	"permissions": [
 		"http://lingualeo.com/"
 	],
@@ -15,5 +15,7 @@
 	      "matches": ["http://lingualeo.com/userdict"],
 	      "js": ["jquery-1.11.0.min.js", "FileSaver.js", "leo-export.js"]
 	    }
-	]
+	],
+
+	"web_accessible_resources": ["leo-export-inject.js"]
 }
