@@ -10,12 +10,18 @@
 		"http://lingualeo.com/"
 	],
 
+	"icons": {
+        "128": "leo-export-128.png"
+    },
+
+
 	"content_scripts": [
 	    {
 	      "matches": ["http://lingualeo.com/userdict"],
 	      "js": ["jquery-1.11.0.min.js", "FileSaver.js", "leo-export.js"]
 	    }
 	],
+
 
 	"web_accessible_resources": ["leo-export-inject.js"]
 }
