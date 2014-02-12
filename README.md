@@ -31,3 +31,4 @@ Todo
 
 - Go Bower!
 - Decide what to do with several translations. Now they are spat in CSV separated by <br/>
+- Better icon
