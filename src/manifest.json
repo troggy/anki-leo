@@ -2,8 +2,9 @@
 	"manifest_version": 2,
 
 	"name": "LinguaLeo dictionary export",
-	"description": "Export your dictionary from LinguaLeo.com",
-	"version": "1.0",
+	"short_name": "LinguaLeo export",
+	"description": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
+	"version": "1.3",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 
 	"permissions": [
