@@ -11,7 +11,15 @@ LinguaLeo word trainings lacking interval repetition support. So I decided to ex
 Installation
 ============
 
-Since it's not in WebStore at the moment, install it as unpacked extension:
+Install it from Chrome WebStore:
+
+https://chrome.google.com/webstore/detail/lingualeo-dictionary-expo/mpaohidlipnfnkbogpmanchjfjpdgcml
+
+
+Development
+===========
+
+Install it as unpacked extension:
 
 1. Clone the repo
 2. Go to Chrome -> Tools -> Extensions
@@ -21,5 +29,5 @@ Since it's not in WebStore at the moment, install it as unpacked extension:
 Todo
 ====
 
-- Publish in Chrome WebStore
 - Go Bower!
+- Decide what to do with several translations. Now they are spat in CSV separated by <br/>
