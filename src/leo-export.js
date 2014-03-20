@@ -18,7 +18,8 @@ var wordsToCSV = function(words) {
 	return words.reduce(function(wordsList, category, i) { 
 				return wordsList.concat(category.words.map(function(word) {
 	 					 return word.word_value + ';' + word.user_translates[0].translate_value.replace(/;/g, '.')
-	 					  + ';http:' + word.user_translates[0].picture_url + ';' + word.transcription + ';' + (word.context ? word.context.replace(/;/g, '.').replace(/\n/, '') : '');
+	 					  + ';http:' + word.user_translates[0].picture_url + ';' + word.transcription + ';' 
+	 					  + (word.context ? word.context.replace(/;/g, '.').replace(/\n/, '').replace('"', "'") : '');
 		 		 		}));
  			}, new Array());
 }
