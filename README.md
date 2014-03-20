@@ -15,6 +15,9 @@ Install it from Chrome WebStore:
 
 https://chrome.google.com/webstore/detail/lingualeo-dictionary-expo/mpaohidlipnfnkbogpmanchjfjpdgcml
 
+Import to Anki
+==============
+[Импорт словаря из LinguaLeo в Anki](https://github.com/troggy/lingualeo-export-extension/wiki/%D0%98%D0%BC%D0%BF%D0%BE%D1%80%D1%82-%D1%81%D0%BB%D0%BE%D0%B2%D0%B0%D1%80%D1%8F-%D0%B8%D0%B7-LinguaLeo-%D0%B2-Anki).
 
 Development
 ===========
