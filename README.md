@@ -3,6 +3,9 @@ lingualeo-export-extension
 
 Chrome extension to export LinguaLeo user dictionary as CSV file. Once installed it adds Export button on [dictionary page](http://lingualeo.com/userdict).
 
+![Export button in UI](http://tools.whoot.me/lingua/screen-640x400.png "Export button is being added to LinguaLeo UI")
+
+
 Motivation
 ==========
 
