@@ -6,6 +6,6 @@ window.addEventListener("message", function(event) {
     return;
 
   if (event.data.type && (event.data.type == "LeoExportExtension.Message")) {
-  	LEO.ToolTip.show($("#leo-export-extension-button"), event.data.payload.message, "bottom", event.data.payload.style);	
+  	LEO.ToolTip.show($("#leo-export-extension-button"), {content:event.data.payload.message,position:"bottom",className:event.data.payload.style});	
   }
 }, false);
