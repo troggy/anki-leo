@@ -1,11 +1,14 @@
-window.postMessage({ type: 'LeoDict', payload: { wordsCount: CONFIG.pages.userdict3.count_words, serverHash: CONFIG_GLOBAL.serverHash } }, '*');
+di.require(["$tooltip"], function(tooltip){ 
 
-window.addEventListener("message", function(event) {
-  // We only accept messages from ourselves
-  if (event.source != window)
-    return;
+	window.postMessage({ type: 'LeoDict', payload: { wordsCount: CONFIG.pages.userdict3.count_words, serverHash: CONFIG_GLOBAL.serverHash } }, '*');
 
-  if (event.data.type && (event.data.type == "LeoExportExtension.Message")) {
-  	LEO.ToolTip.show($("#leo-export-extension-button"), {content:event.data.payload.message,position:"bottom",className:event.data.payload.style});	
-  }
-}, false);
+	window.addEventListener("message", function(event) {
+	  // We only accept messages from ourselves
+	  if (event.source != window)
+	    return;
+
+	  if (event.data.type && (event.data.type == "LeoExportExtension.Message")) {
+	  	tooltip.show($("#leo-export-extension-button"), {content:event.data.payload.message,position:"bottom",styleClass:event.data.payload.style});	
+	  }
+	}, false);
+});

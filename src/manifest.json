@@ -4,7 +4,7 @@
 	"name": "LinguaLeo dictionary export",
 	"short_name": "LinguaLeo export",
 	"description": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
-	"version": "1.8",
+	"version": "1.9",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 
 	"permissions": [
