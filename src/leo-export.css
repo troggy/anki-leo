@@ -1,0 +1,58 @@
+.dict-head .dict-title-inner {
+  overflow: visible !important;
+}
+
+.filter-level {
+  display: inline;
+}
+
+.leo-export-extension-btn {
+  padding-right: 25px !important;
+}
+
+.leo-export-extension-btn:after {
+  content: ' ';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: none;
+  border-top: 5px solid #666;
+  position: absolute;
+  top: 15px;
+  right: 8px;
+}
+
+.leo-export-extension-menu-container {
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  top: 37px;
+  left: 172px;
+  width: 230px;
+  z-index: 11;
+  border-radius: 2px;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.leo-export-extension-menu-container li a {
+  color: #666;
+  text-decoration: none !important;
+  white-space: nowrap;
+  padding: 9px 15px;
+  display: block;
+}
+
+.leo-export-extension-menu-container li a:hover {
+  background-color: #E8EDF5;
+}
+
+.leo-export-extension-menu-container .iconm-checklight {
+  background-position: -120px -60px;
+}
+
+.leo-export-extension-menu-container .iconm-none {
+  background-position: -120px -40px;
+}

@@ -1,106 +1,177 @@
+(function() { 
 
-var allWordsRecieved = [],
-	wordsCount,
-	wordsCSVList = [],
-	isWorking;
+	var wordsCount,
+		isWorking;
 
-var showToolTip = function(message, style) {
-	window.postMessage({ 
-		type: 'LeoExportExtension.Message',
-		 payload: { 
-		 	message: message,
-		 	style: style
-		 }
-	  }, '*');
-};
-
-var wordsToCSV = function(words) {
-	return words.reduce(function(wordsList, category, i) {
-				return wordsList.concat(category.words.map(function(word) {
- 						 var translations = word.user_translates.map(function(t) { 
-  					       return t.translate_value.replace(/;/g, '.');
-				         }).join(", ");
-
-	 					 return word.word_value + ';' + translations
-	 					  + ';http:' + word.user_translates[0].picture_url + ';' + word.transcription + ';' 
-	 					  + (word.context ? word.context.replace(/;/g, '.').replace(/\n/, '').replace('"', "'") : '');
-		 		 		}));
- 			}, new Array());
-}
-
-var requestAllWords = function(url) {
-	var allWordsRequested = $.Deferred();
-
-	var getWordsPage = function(url, page) {
-		var dfd = $.Deferred();
-		allWordsRecieved.push(dfd.promise());
-
-		$.ajax(url + page, { dataType: 'json' })
-			.success(function(data) {
-				wordsCSVList = wordsCSVList.concat(wordsToCSV(data.userdict3));
-		 		showToolTip("Загружаю слова.<br/>Готово: " + wordsCSVList.length + " из " + wordsCount)
-
-				if (data.show_more) {
-					getWordsPage(url, ++page);
-				} else {
-					allWordsRequested.resolve();
-				}			
-			}).always(function() {
-				dfd.resolve();
-			});
+	showToolTip = function(message, style) {
+		window.postMessage({ 
+			type: 'LeoExportExtension.ShowTooltip',
+			 payload: { 
+			 	message: message,
+			 	style: style
+			 }
+		  }, '*');
 	};
-	getWordsPage(url, 1);
 
-	return allWordsRequested.promise();
-};
+	bindCollapseHandler = function() {
+		window.postMessage({ type: 'LeoExportExtension.AddDropdownHideHandler' }, '*');
+	};
 
-var createExportButton = function(data) {
-	wordsCount = data.wordsCount;
+	sanitizeString = function(string) {
+		if (!string) return '';
+		return string.replace(/;/g, '.').replace(/\n/, '').replace('"', "'");
+	};
 
-	$("<a class='btn' id='leo-export-extension-button'>Экспорт</a>").appendTo("div.dict-title-inner").click(function() {
+	wordToCSV = function(word) {
+		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
+		var wordValue = sanitizeString(word.word_value);
+		var context = sanitizeString(word.context);
+		var picture = 'http:' + word.user_translates[0].picture_url;
+
+		return [wordValue, translations, picture, word.transcription, context].join(";");
+	};
+
+	flattenCategories = function(userdict) {
+		return userdict.reduce(function(wordsList, category, i) {
+					return wordsList.concat(category.words);
+	 			}, new Array());
+	};
+
+	getAllWords = function(filter, expectedNumberOfWords) {
+		var url = '/userdict/json?&page=',
+			allWordsRecieved = [],
+			allWordsRequested = $.Deferred();
+			wordList = [];
+
+		var getWordsPage = function(page) {
+			var received = $.Deferred();
+			allWordsRecieved.push(received.promise());
+
+			$.ajax(url + page, { dataType: 'json' })
+				.success(function(data) {
+					wordList = wordList.concat(flattenCategories(data.userdict3).filter(filter));
+			 		showToolTip("Загружаю слова.<br/>Готово: " + wordList.length + " из " + expectedNumberOfWords)
+
+					if (data.show_more && wordList.length < expectedNumberOfWords) {
+						getWordsPage(++page);
+					} else {
+						allWordsRequested.resolve();
+					}
+				}).always(function() {
+					received.resolve();
+				});
+		};
+		getWordsPage(1);
+
+		var done = $.Deferred();
+		allWordsRequested.promise().then(function() {
+			$.when.apply($, allWordsRecieved)
+				.then(function() {
+					done.resolve(wordList);
+				});
+		});
+		return done.promise();
+	};
+
+	download = function(filter, expectedNumberOfWords) {
 		if (isWorking) return;
 		isWorking = true;
-		var url = '/userdict/json?_hash=' + data.serverHash + '&page=';
+		
 
-		wordsCSVList = [],
-		allWordsRecieved = [];
+		getAllWords(filter, expectedNumberOfWords)
+			.then(function(words) {
+				var csv = words.map(wordToCSV).join('\n');
+		 		saveAs(
+		 			new Blob([csv], { type: "text/plain;charset=utf-8" }),
+		 			'lingualeo-dict-export.csv'
+		 		);
 
-		$.when(requestAllWords(url))
-			.then(function() {
-
-				$.when.apply($, allWordsRecieved).then(function() {
-
-			 		saveAs(
-			 			new Blob([wordsCSVList.join('\n')], {type: "text/plain;charset=utf-8"}),
-			 			'lingualeo-dict-export.csv'
-			 		);
-
-			 		showToolTip('Экспортировано ' + wordsCSVList.length + ' слов', "success")
-				}).always(function() {
-					isWorking = false;
-				});
+		 		showToolTip('Экспортировано ' + words.length + ' слов', "success")
+			})
+			.always(function() {
+				isWorking = false;
 			});
-	});
-};
+	};
+
+	selectedWordsIds = function() {
+		return $("div.dict-item-word.checked").map(function(i, e) { return $(e).data("word-id"); }).get();
+	};
+
+	progressFilter = {
+		all: function() {
+			return function(word) {
+				return true;
+			};
+		},
+		learning: function() {
+			return function(word) {
+				return word.progress_percent < 100;
+			};
+		}
+	};
+
+	selectedFilter = function(selectedWords) {
+		return function(word) {
+			return selectedWords.indexOf(word.word_id) > -1;
+		};
+	};
 
 
-// inject script in page that will send dictionary data using portMessage
-var s = document.createElement('script');
-s.src = chrome.extension.getURL('leo-export-inject.js');
-s.onload = function() {
-    this.parentNode.removeChild(this);
-};
-(document.head||document.documentElement).appendChild(s);
+	createExportButton = function() {
+		$('<div class="filter-level leo-export-extension"><a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a><ul class="leo-export-extension-menu-container" style="display:none"><li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"> <i class="iconm-none"></i> Все </a></li><li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"> <i class="iconm-w-big-25"></i> Неизученные </a></li><li class="active"><a href="javascript: void 0"  id="leo-export-extension-btn-selected"> <i class="iconm-checklight"></i> Выбранные </a></li></ul></div>').appendTo("div.dict-title-inner");
+		var menu = $(".leo-export-extension-menu-container");
+		menu.find("a").click(function() { menu.hide(); });
+
+		$("#leo-export-extension-btn-all").click(function() { 
+			download(progressFilter.all(), wordsCount);
+		});
+		$("#leo-export-extension-btn-new").click(function() {
+			download(progressFilter.learning(), wordsCount);
+		});
+		$("#leo-export-extension-btn-selected").click(function() {
+			selectedWords = selectedWordsIds();
+			if (selectedWords.length > 0) 
+				download(selectedFilter(selectedWords), selectedWords.length);
+		});
+
+		
+		$("#leo-export-extension-btn").click(function() {
+			if (menu.is(":hidden")) {
+				bindCollapseHandler();
+				menu.show();
+			} else {
+				menu.hide();
+			}
+		});
+	};
+
+	init = function() {
+		if (typeof document == 'undefined') return;
+		// inject script in page that will send dictionary data using portMessage
+		var s = document.createElement('script');
+		s.src = chrome.extension.getURL('leo-export-inject.js');
+		s.onload = function() {
+		    this.parentNode.removeChild(this);
+		};
+		(document.head||document.documentElement).appendChild(s);
 
 
-// subscribe to message to create dictionary export button once received data
-window.addEventListener("message", function(event) {
-  // We only accept messages from ourselves
-  if (event.source != window)
-    return;
+		// subscribe to message to create dictionary export button once received data
+		window.addEventListener("message", function(event) {
+		  // We only accept messages from ourselves
+		  if (event.source != window)
+		    return;
 
-  if (event.data.type && (event.data.type == "LeoDict")) {
-    createExportButton(event.data.payload);
-  }
-}, false);
+		  if (event.data.type && (event.data.type == "LeoDict")) {
+		  	wordsCount = event.data.payload.wordsCount;
+		    createExportButton();
+		  }
+		}, false);
+	};
 
+	init();
+
+	return {
+		_flattenCategories : flattenCategories
+	}
+})();

@@ -7,8 +7,14 @@ di.require(["$tooltip"], function(tooltip){
 	  if (event.source != window)
 	    return;
 
-	  if (event.data.type && (event.data.type == "LeoExportExtension.Message")) {
-	  	tooltip.show($("#leo-export-extension-button"), {content:event.data.payload.message,position:"bottom",styleClass:event.data.payload.style});	
+	  if (event.data.type && (event.data.type == "LeoExportExtension.ShowTooltip")) {
+	  	tooltip.show($("#leo-export-extension-btn"), {content:event.data.payload.message,position:"bottom",styleClass:event.data.payload.style});	
+	  }
+
+	  if (event.data.type && (event.data.type == "LeoExportExtension.AddDropdownHideHandler")) {
+	  	LEO.ui.BodyClickHider
+	  		.removeItem(".leo-export-extension-menu-container")
+	  		.addItem(".leo-export-extension-menu-container", function() { $(".leo-export-extension-menu-container").hide(); } );
 	  }
 	}, false);
 });
