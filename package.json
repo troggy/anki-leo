@@ -1,0 +1,23 @@
+{
+  "name": "anki-leo",
+  "version": "2.0.0",
+  "description": "Chrome extension to export dictionary from LinguaLeo to CSV/Anki",
+  "main": "src/leo-export.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/troggy/lingualeo-export-extension.git"
+  },
+  "author": "Kosta Korenkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/troggy/lingualeo-export-extension/issues"
+  },
+  "homepage": "https://github.com/troggy/lingualeo-export-extension"
+}

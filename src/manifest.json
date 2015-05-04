@@ -19,7 +19,7 @@
 	"content_scripts": [
 	    {
 	      "matches": ["http://lingualeo.com/*/userdict", "https://lingualeo.com/*/userdict"],
-	      "js": ["jquery-1.11.0.min.js", "FileSaver.js", "leo-export.js"],
+	      "js": ["jquery.min.js", "FileSaver.js", "leo-export.js"],
 	      "css": ["leo-export.css"]
 	    }
 	],
