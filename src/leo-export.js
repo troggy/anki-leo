@@ -1,7 +1,6 @@
 (function() { 
 
-	var wordsCount,
-		isWorking;
+	var isWorking;
 
 	var html = 
 	'<div class="filter-level leo-export-extension">' + 
@@ -128,17 +127,17 @@
 	};
 
 
-	createExportButton = function() {
+	createExportButton = function(totalWordsCount) {
 		$(html).appendTo("div.dict-title-inner");
 		
 		var menu = $(".leo-export-extension-menu-container");
 		menu.find("a").click(function() { menu.hide(); });
 
 		$("#leo-export-extension-btn-all").click(function() { 
-			download(progressFilter.all(), wordsCount);
+			download(progressFilter.all(), totalWordsCount);
 		});
 		$("#leo-export-extension-btn-new").click(function() {
-			download(progressFilter.learning(), wordsCount);
+			download(progressFilter.learning(), totalWordsCount);
 		});
 		$("#leo-export-extension-btn-selected").click(function() {
 			selectedWords = selectedWordsIds();
@@ -175,8 +174,7 @@
 		    return;
 
 		  if (event.data.type && (event.data.type == "LeoDict")) {
-		  	wordsCount = event.data.payload.wordsCount;
-		    createExportButton();
+		    createExportButton(event.data.payload.wordsCount);
 		  }
 		}, false);
 	};
