@@ -113,9 +113,19 @@
 				return true;
 			};
 		},
+		no_translate: function() {
+			return function(word) {
+				return word.progress_percent == 0;
+			};
+		},
 		learning: function() {
 			return function(word) {
 				return word.progress_percent < 100;
+			};
+		},
+		learned: function() {
+			return function(word) {
+				return word.progress_percent == 100;
 			};
 		}
 	};
@@ -141,8 +151,14 @@
 		});
 		$("#leo-export-extension-btn-selected").click(function() {
 			selectedWords = selectedWordsIds();
-			if (selectedWords.length > 0) 
-				download(selectedFilter(selectedWords), selectedWords.length);
+			if (selectedWords.length == 0) return;
+
+			var allSelected = $(".checkbox-word-con").is(".checked");
+			var filterName = $(".dict-filter button.selected").data("filter");
+			var selectedWordsCount = $(".dict-search-count").text();
+
+			var filter = allSelected ? progressFilter[filterName]() : selectedFilter(selectedWords);
+			download(filter, selectedWordsCount);
 		});
 
 		
