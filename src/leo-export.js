@@ -131,7 +131,7 @@
 		$(html).appendTo("div.dict-title-inner");
 		
 		var menu = $(".leo-export-extension-menu-container");
-		menu.find("a").click(function() { menu.hide(); });
+		menu.find("a").click(function() { $("body").click(); });
 
 		$("#leo-export-extension-btn-all").click(function() { 
 			download(progressFilter.all(), totalWordsCount);
