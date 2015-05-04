@@ -3,6 +3,16 @@
 	var wordsCount,
 		isWorking;
 
+	var html = 
+	'<div class="filter-level leo-export-extension">' + 
+		'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a>' + 
+		'<ul class="leo-export-extension-menu-container" style="display:none">' + 
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> Все </a></li>' + 
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> Неизученные </a></li>' + 
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> Выбранные </a></li>' + 
+		'</ul>' + 
+	'</div>';
+
 	showToolTip = function(message, style) {
 		window.postMessage({ 
 			type: 'LeoExportExtension.ShowTooltip',
@@ -118,7 +128,8 @@
 
 
 	createExportButton = function() {
-		$('<div class="filter-level leo-export-extension"><a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a><ul class="leo-export-extension-menu-container" style="display:none"><li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"> <i class="iconm-none"></i> Все </a></li><li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"> <i class="iconm-w-big-25"></i> Неизученные </a></li><li class="active"><a href="javascript: void 0"  id="leo-export-extension-btn-selected"> <i class="iconm-checklight"></i> Выбранные </a></li></ul></div>').appendTo("div.dict-title-inner");
+		$(html).appendTo("div.dict-title-inner");
+		
 		var menu = $(".leo-export-extension-menu-container");
 		menu.find("a").click(function() { menu.hide(); });
 
@@ -153,7 +164,7 @@
 		s.onload = function() {
 		    this.parentNode.removeChild(this);
 		};
-		(document.head||document.documentElement).appendChild(s);
+		(document.head || document.documentElement).appendChild(s);
 
 
 		// subscribe to message to create dictionary export button once received data
@@ -170,8 +181,4 @@
 	};
 
 	init();
-
-	return {
-		_flattenCategories : flattenCategories
-	}
 })();
