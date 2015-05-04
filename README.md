@@ -1,5 +1,8 @@
-Chrome extension to export dictionary from [LinguaLeo](http://lingualeo.com/) as CSV file usable for [Anki](http://ankisrs.net/).
-==========================
+#Anki-leo
+**Chrome extension to export dictionary from [LinguaLeo](http://lingualeo.com/) as CSV file usable for [Anki](http://ankisrs.net/).**
+
+**http://troggy.github.io/anki-leo/**
+
 
 Once installed it adds Download button on [dictionary page](http://lingualeo.com/userdict).
 
