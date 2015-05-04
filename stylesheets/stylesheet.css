@@ -53,6 +53,19 @@ a {
       margin-top: 1rem;
       margin-left: 0; } }
 
+.center {
+  text-align: center;
+  width: 300px;
+  height: 100px;
+  padding: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: -70px 0 0 -170px;
+   }
+
 .page-header {
   color: #fff;
   text-align: center;
