@@ -37,8 +37,9 @@
 		var wordValue = sanitizeString(word.word_value);
 		var context = sanitizeString(word.context);
 		var picture = 'http:' + word.user_translates[0].picture_url;
+		var sound = word.sound_url;
 
-		return [wordValue, translations, picture, word.transcription, context].join(";");
+		return [wordValue, translations, picture, word.transcription, context, sound].join(";");
 	};
 
 	flattenCategories = function(userdict) {
