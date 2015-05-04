@@ -1,6 +1,6 @@
 di.require(["$tooltip"], function(tooltip){ 
 
-	window.postMessage({ type: 'LeoDict', payload: { wordsCount: CONFIG.pages.userdict3.count_words, serverHash: CONFIG_GLOBAL.serverHash } }, '*');
+	window.postMessage({ type: 'LeoDict', payload: { wordsCount: CONFIG.pages.userdict3.count_words } }, '*');
 
 	window.addEventListener("message", function(event) {
 	  // We only accept messages from ourselves
