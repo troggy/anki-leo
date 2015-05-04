@@ -1,10 +1,10 @@
 { 
 	"manifest_version": 2,
 
-	"name": "LinguaLeo dictionary export",
-	"short_name": "LinguaLeo export",
+	"name": "Anki-leo - LinguaLeo dictionary export",
+	"short_name": "Anki-leo",
 	"description": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
-	"version": "2.0",
+	"version": "2.0.1",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 
 	"permissions": [
