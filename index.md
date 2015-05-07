@@ -27,9 +27,11 @@ layout: index
     *Front template:*  
 
     {% raw %}
+    ```
     <div>{{Front}}</div>
     <div class="transcription">{{Transcription}}</div>
     [sound:{{Sound}}]
+    ```
     {% endraw %}
     
     *Back template:*  
