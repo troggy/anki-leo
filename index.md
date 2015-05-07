@@ -25,6 +25,7 @@ layout: index
    За основу можно ипользовать следующие шаблоны:
    
    *Front template:*
+   
    ````
    <div>{{Front}}</div>
    <div class="transcription">{{Transcription}}</div>
@@ -32,6 +33,7 @@ layout: index
    ````
    
    *Back template:*
+
    ````
    <div>{{FrontSide}}</div>
    <hr id=answer>
@@ -41,6 +43,7 @@ layout: index
    ````
    
    *Styling:*
+
    ````
    .card {
      font-family: arial;
