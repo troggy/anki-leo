@@ -28,7 +28,7 @@
 
 	sanitizeString = function(string) {
 		if (!string) return '';
-		return string.replace(/;/g, '.').replace(/\n/, '').replace('"', "'");
+		return string.replace(/;/g, '.').replace(/\n/g, '<br>').replace(/"/g, "'");
 	};
 
 	wordToCSV = function(word) {
