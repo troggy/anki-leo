@@ -21,10 +21,49 @@ layout: index
 2. Создайте поля (Fields..) для этого типа карточки:  
 ![Fields..](http://tools.whoot.me/lingua/fields.png)
 3. Измените шаблон карточки (Cards..) по вкусу, чтобы в нём использовались новые поля.
-Например:  
-![Cards..](http://tools.whoot.me/lingua/cards.png)
+   
+   За основу можно ипользовать следующие шаблоны:
+   
+   *Front template:*
+   ````
+   <div>{{Front}}</div>
+   <div class="transcription">{{Transcription}}</div>
+   [sound:{{Sound}}]
+   ````
+   
+   *Back template:*
+   ````
+   <div>{{FrontSide}}</div>
+   <hr id=answer>
+   <div>{{Back}}</div>
+   <div><img src="{{Image}}"></div>
+   <div class="context">{{Context}}</div>
+   ````
+   
+   *Styling:*
+   ````
+   .card {
+     font-family: arial;
+     font-size: 16pt;
+     text-align: center;
+     color: black;
+     background-color: white;
+   }
+   
+   .transcription {
+     font-size: 12pt;
+   }
+   
+   .context {
+     font-style: italic;
+     font-size: 12pt;
+   }
+   ````
+   
+   ![Cards..](http://tools.whoot.me/lingua/cards.png)
+
 4. Создайте новую колоду (Create Deck), если необходимо
-5. Откройте окно импорта слов (Import File)и выберите csv файл, выгруженный с помощью расширения. Проверьте, что выбран новый тип карточки (Type) и нужная колода. Так же проверьте соответствие полей (Field mapping), разделитель и выставите опцию Update existing notes when first field matches, чтобы не создавать дубликаты при обновлении колоды новыми словами.  
+5. Откройте окно импорта слов (Import File) и выберите csv файл, выгруженный с помощью расширения. Проверьте, что выбран новый тип карточки (Type) и нужная колода. Так же проверьте соответствие полей (Field mapping), разделитель и выставите опцию Update existing notes when first field matches, чтобы не создавать дубликаты при обновлении колоды новыми словами.  
 ![Import File](http://tools.whoot.me/lingua/import.png)
 6. Нажмите Import
 
