@@ -25,7 +25,7 @@ layout: index
    За основу можно ипользовать следующие шаблоны:
    
    *Front template:*
-   
+
    ````
    <div>{{Front}}</div>
    <div class="transcription">{{Transcription}}</div>
@@ -34,13 +34,13 @@ layout: index
    
    *Back template:*
 
-   ````
+   ```
    <div>{{FrontSide}}</div>
    <hr id=answer>
    <div>{{Back}}</div>
    <div><img src="{{Image}}"></div>
    <div class="context">{{Context}}</div>
-   ````
+   ```
    
    *Styling:*
 
