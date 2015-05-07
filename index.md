@@ -20,11 +20,11 @@ layout: index
     Tools > Manage Note Types.. > Add 
 2. Создайте поля (Fields..) для этого типа карточки:  
 ![Fields..](img/fields.png)
-3. Измените шаблон карточки (Cards..) по вкусу, чтобы в нём использовались новые поля.
+3. Измените шаблон карточки (Cards..) по вкусу, чтобы в нём использовались новые поля.  
+
+   За основу можно ипользовать следующие шаблоны:  
    
-   За основу можно ипользовать следующие шаблоны:
-   
-   *Front template:*
+   *Front template:*  
 
    ````
    <div>{{Front}}</div>
@@ -32,7 +32,7 @@ layout: index
    [sound:{{Sound}}]
    ````
    
-   *Back template:*
+   *Back template:*  
 
    ```
    <div>{{FrontSide}}</div>
@@ -42,7 +42,7 @@ layout: index
    <div class="context">{{Context}}</div>
    ```
    
-   *Styling:*
+   *Styling:*  
 
    ````
    .card {
@@ -63,7 +63,7 @@ layout: index
    }
    ````
    
-   ![Cards..](img/cards.png)
+   ![Cards..](img/cards.png)  
 
 4. Создайте новую колоду (Create Deck), если необходимо
 5. Откройте окно импорта слов (Import File) и выберите csv файл, выгруженный с помощью расширения. Проверьте, что выбран новый тип карточки (Type) и нужная колода. Так же проверьте соответствие полей (Field mapping), разделитель и выставите опцию Update existing notes when first field matches, чтобы не создавать дубликаты при обновлении колоды новыми словами.  
