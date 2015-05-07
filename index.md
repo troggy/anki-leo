@@ -27,8 +27,8 @@ layout: index
     *Front template:*  
 
     ```html
-    <div>{{Front}}</div>
-    <div class="transcription">{{Transcription}}</div>
+    <div>\{\{Front\}\}</div>
+    <div class="transcription">{{{{Transcription}}}}</div>
     [sound:{{Sound}}]
     ```
     
