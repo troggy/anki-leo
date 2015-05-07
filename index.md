@@ -36,6 +36,7 @@ layout: index
     
     *Back template:*  
 
+    {% raw %}
     ```html
     <div>{{FrontSide}}</div>
     <hr id=answer>
@@ -43,9 +44,11 @@ layout: index
     <div><img src="{{Image}}"></div>
     <div class="context">{{Context}}</div>
     ```
+    {% endraw %}
    
     *Styling:*  
 
+    {% raw %}
     ```css
     .card {
       font-family: arial;
@@ -64,6 +67,7 @@ layout: index
       font-size: 12pt;
     }
     ```
+    {% endraw %}
     
     ![Cards..](img/cards.png)  
 
