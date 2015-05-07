@@ -26,15 +26,15 @@ layout: index
    
     *Front template:*  
 
-    ````
+    ```html
     <div>{{Front}}</div>
     <div class="transcription">{{Transcription}}</div>
     [sound:{{Sound}}]
-    ````
+    ```
     
     *Back template:*  
 
-    ```
+    ```html
     <div>{{FrontSide}}</div>
     <hr id=answer>
     <div>{{Back}}</div>
@@ -44,7 +44,7 @@ layout: index
    
     *Styling:*  
 
-    ````
+    ```css
     .card {
       font-family: arial;
       font-size: 16pt;
@@ -61,7 +61,7 @@ layout: index
       font-style: italic;
       font-size: 12pt;
     }
-    ````
+    ```
     
     ![Cards..](img/cards.png)  
 
