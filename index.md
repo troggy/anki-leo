@@ -19,7 +19,7 @@ layout: index
 1. Создайте новый тип карточки в Anki:  
     Tools > Manage Note Types.. > Add 
 2. Создайте поля (Fields..) для этого типа карточки:  
-![Fields..](/img/fields.png)
+![Fields..](img/fields.png)
 3. Измените шаблон карточки (Cards..) по вкусу, чтобы в нём использовались новые поля.
    
    За основу можно ипользовать следующие шаблоны:
@@ -60,11 +60,11 @@ layout: index
    }
    ````
    
-   ![Cards..](/img/cards.png)
+   ![Cards..](img/cards.png)
 
 4. Создайте новую колоду (Create Deck), если необходимо
 5. Откройте окно импорта слов (Import File) и выберите csv файл, выгруженный с помощью расширения. Проверьте, что выбран новый тип карточки (Type) и нужная колода. Так же проверьте соответствие полей (Field mapping), разделитель и выставите опцию Update existing notes when first field matches, чтобы не создавать дубликаты при обновлении колоды новыми словами.  
-![Import File](/img/import.png)
+![Import File](img/import.png)
 6. Нажмите Import
 
 # Добавление новых слов
