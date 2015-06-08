@@ -1,21 +1,21 @@
-(function() { 
+(function() {
 
 	var isWorking;
 
-	var html = 
-	'<div class="filter-level leo-export-extension">' + 
-		'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a>' + 
-		'<ul class="leo-export-extension-menu-container" style="display:none">' + 
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> Все </a></li>' + 
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> Неизученные </a></li>' + 
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> Выбранные </a></li>' + 
-		'</ul>' + 
+	var html =
+	'<div class="filter-level leo-export-extension">' +
+		'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a>' +
+		'<ul class="leo-export-extension-menu-container" style="display:none">' +
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> Все </a></li>' +
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> Неизученные </a></li>' +
+			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> Выбранные </a></li>' +
+		'</ul>' +
 	'</div>';
 
 	showToolTip = function(message, style) {
-		window.postMessage({ 
+		window.postMessage({
 			type: 'LeoExportExtension.ShowTooltip',
-			 payload: { 
+			 payload: {
 			 	message: message,
 			 	style: style
 			 }
@@ -26,6 +26,11 @@
 		window.postMessage({ type: 'LeoExportExtension.AddDropdownHideHandler' }, '*');
 	};
 
+	highlightWord = function(word, string) {
+		var re = new RegExp("\\b" + word + "\\b", "ig");
+		return string.replace(re, '<b>$&</b>');
+	};
+
 	sanitizeString = function(string) {
 		if (!string) return '';
 		return string.replace(/;/g, '.').replace(/\n/g, '<br>').replace(/"/g, "'");
@@ -34,7 +39,7 @@
 	wordToCSV = function(word) {
 		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
 		var wordValue = sanitizeString(word.word_value);
-		var context = sanitizeString(word.context);
+		var context = highlightWord(wordValue, sanitizeString(word.context));
 		var picture = 'http:' + word.user_translates[0].picture_url;
 		var sound = word.sound_url;
 
@@ -86,7 +91,7 @@
 	download = function(filter, expectedNumberOfWords) {
 		if (isWorking) return;
 		isWorking = true;
-		
+
 
 		getAllWords(filter, expectedNumberOfWords)
 			.then(function(words) {
@@ -139,11 +144,11 @@
 
 	createExportButton = function(totalWordsCount) {
 		$(html).appendTo("div.dict-title-inner");
-		
+
 		var menu = $(".leo-export-extension-menu-container");
 		menu.find("a").click(function() { $("body").click(); });
 
-		$("#leo-export-extension-btn-all").click(function() { 
+		$("#leo-export-extension-btn-all").click(function() {
 			download(progressFilter.all(), totalWordsCount);
 		});
 		$("#leo-export-extension-btn-new").click(function() {
@@ -161,7 +166,7 @@
 			download(filter, selectedWordsCount);
 		});
 
-		
+
 		$("#leo-export-extension-btn").click(function() {
 			if (menu.is(":hidden")) {
 				bindCollapseHandler();
