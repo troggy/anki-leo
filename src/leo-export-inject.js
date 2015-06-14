@@ -13,6 +13,7 @@ var getWordCount = function() {
 
 var initExportButton = function() {
 	var groupId = pageMatcher.getWordGroupId(window.location.pathname);
+	// don't add export button, if there is no groupId in URL
 	if (groupId === false) return;
 
 	if ($("div.dict-title-inner").length > 0) {

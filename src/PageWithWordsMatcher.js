@@ -1,6 +1,7 @@
 var PageWithWordsMatcher = function() {
   this.targetUrls = [
-    '\/ru\/userdict',
+    '\/ru\/userdict$',
+    '\/ru\/userdict\/wordSets\/(\.+)$',
     '\/ru\/glossary\/learn\/(\.+)$',
     '\/ru\/glossary\/learned\/(\.+)$',
     '\/ru\/glossary\/wordSets\/(\.+)$'

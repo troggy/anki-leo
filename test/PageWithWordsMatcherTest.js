@@ -6,6 +6,7 @@ describe('PageWithWordsMatcher', function(){
   describe('getWordGroupId', function() {
     var tests = [
       { url: '/ru/userdict',                  expected: '' },
+      { url: '/ru/userdict/wordSets/6505',    expected: '6505' },
       { url: '/ru/glossary/learn',            expected: false },
       { url: '/ru/glossary/learn/jungle',     expected: 'jungle' },
       { url: '/ru/glossary/learn/somessome',  expected: 'somessome' },
@@ -17,7 +18,7 @@ describe('PageWithWordsMatcher', function(){
     ];
 
     tests.forEach(function(test) {
-      it('should ' + (!test.expected ? 'NOT ' : '') + 'match ' + test.url, function() {
+      it('should ' + (test.expected === false ? 'NOT ' : '') + 'match ' + test.url, function() {
         var res = matcher.getWordGroupId(test.url);
         assert.equal(res, test.expected);
       });
