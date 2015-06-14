@@ -11,7 +11,9 @@
     "gulp": "~3.8.11",
     "gulp-zip": "~3.0.2",
     "event-stream": "~3.3.0",
-    "gulp-watch": "~4.2.4"
+    "gulp-watch": "~4.2.4",
+    "mocha": "~2.2.5",
+    "chai": "~3.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

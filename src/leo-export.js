@@ -52,8 +52,8 @@
 	 			}, new Array());
 	};
 
-	getAllWords = function(filter, expectedNumberOfWords) {
-		var url = '/userdict/json?&page=',
+	getAllWords = function(filter, groupId, expectedNumberOfWords) {
+		var url = '/userdict/json?groupId=' + groupId + '&page=',
 			allWordsRecieved = [],
 			allWordsRequested = $.Deferred();
 			wordList = [];
@@ -88,12 +88,12 @@
 		return done.promise();
 	};
 
-	download = function(filter, expectedNumberOfWords) {
+	download = function(filter, groupId, expectedNumberOfWords) {
 		if (isWorking) return;
 		isWorking = true;
 
 
-		getAllWords(filter, expectedNumberOfWords)
+		getAllWords(filter, groupId, expectedNumberOfWords)
 			.then(function(words) {
 				var csv = words.map(wordToCSV).join('\n');
 		 		saveAs(
@@ -141,18 +141,18 @@
 		};
 	};
 
-
-	createExportButton = function(totalWordsCount) {
+	createExportButton = function(totalWordsCount, groupId) {
+		if ($(".leo-export-extension").length > 0) $(".leo-export-extension").remove();
 		$(html).appendTo("div.dict-title-inner");
 
 		var menu = $(".leo-export-extension-menu-container");
 		menu.find("a").click(function() { $("body").click(); });
-
+		console.log("Bound events for: " + groupId);
 		$("#leo-export-extension-btn-all").click(function() {
-			download(progressFilter.all(), totalWordsCount);
+			download(progressFilter.all(), groupId, totalWordsCount);
 		});
 		$("#leo-export-extension-btn-new").click(function() {
-			download(progressFilter.learning(), totalWordsCount);
+			download(progressFilter.learning(), groupId, totalWordsCount);
 		});
 		$("#leo-export-extension-btn-selected").click(function() {
 			selectedWords = selectedWordsIds();
@@ -163,7 +163,7 @@
 			var selectedWordsCount = $(".dict-search-count").text();
 
 			var filter = allSelected ? progressFilter[filterName]() : selectedFilter(selectedWords);
-			download(filter, selectedWordsCount);
+			download(filter, groupId, selectedWordsCount);
 		});
 
 
@@ -177,16 +177,20 @@
 		});
 	};
 
+  injectScript = function(script) {
+		var s = document.createElement('script');
+		s.src = chrome.extension.getURL(script);
+		s.onload = function() {
+				this.parentNode.removeChild(this);
+		};
+		(document.head || document.documentElement).appendChild(s);
+	};
+
 	init = function() {
 		if (typeof document == 'undefined') return;
 		// inject script in page that will send dictionary data using portMessage
-		var s = document.createElement('script');
-		s.src = chrome.extension.getURL('leo-export-inject.js');
-		s.onload = function() {
-		    this.parentNode.removeChild(this);
-		};
-		(document.head || document.documentElement).appendChild(s);
-
+		injectScript('PageWithWordsMatcher.js');
+		injectScript('leo-export-inject.js');
 
 		// subscribe to message to create dictionary export button once received data
 		window.addEventListener("message", function(event) {
@@ -195,7 +199,7 @@
 		    return;
 
 		  if (event.data.type && (event.data.type == "LeoDict")) {
-		    createExportButton(event.data.payload.wordsCount);
+		    createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
 		  }
 		}, false);
 	};
