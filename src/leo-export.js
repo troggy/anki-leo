@@ -53,7 +53,9 @@
 	};
 
 	getAllWords = function(filter, groupId, expectedNumberOfWords) {
-		var url = '/userdict/json?groupId=' + groupId + '&page=',
+		var wordType = $(".word-type-btn.selected").data("word-type");
+		var leoFilter = $(".dict-filter button.selected").data("filter");
+		var url = '/userdict/json?groupId=' + groupId + '&filter=' + leoFilter + '&wordType=' + wordType + '&page=',
 			allWordsRecieved = [],
 			allWordsRequested = $.Deferred();
 			wordList = [];
