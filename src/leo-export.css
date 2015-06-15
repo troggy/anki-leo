@@ -4,6 +4,8 @@
 
 .filter-level {
   display: inline;
+  float: right;
+  margin-left: 10px;
 }
 
 .leo-export-extension-btn {
@@ -29,7 +31,7 @@
   background: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.5);
   top: 37px;
-  left: 172px;
+  right: 0;
   width: 230px;
   z-index: 11;
   border-radius: 2px;
