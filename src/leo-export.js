@@ -95,13 +95,17 @@
 
 		getAllWords(filter, groupId, expectedNumberOfWords)
 			.then(function(words) {
-				var csv = words.map(wordToCSV).join('\n');
-		 		saveAs(
-		 			new Blob([csv], { type: "text/plain;charset=utf-8" }),
-		 			'lingualeo-dict-export.csv'
-		 		);
+				if (words.length == 0) {
+					showToolTip('Нет слов для экпорта.', "success")
+				} else {
+					var csv = words.map(wordToCSV).join('\n');
+			 		saveAs(
+			 			new Blob([csv], { type: "text/plain;charset=utf-8" }),
+			 			'lingualeo-dict-export.csv'
+			 		);
 
-		 		showToolTip('Экспортировано ' + words.length + ' слов', "success")
+			 		showToolTip('Экспортировано ' + words.length + ' слов', "success")
+				}
 			})
 			.always(function() {
 				isWorking = false;
