@@ -40,7 +40,7 @@
 		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
 		var wordValue = sanitizeString(word.word_value);
 		var context = highlightWord(wordValue, sanitizeString(word.context));
-		var picture = 'http:' + word.user_translates[0].picture_url;
+		var picture = word.user_translates && word.user_translates[0] ? 'http:' + word.user_translates[0].picture_url : '';
 		var sound = word.sound_url;
 
 		return [wordValue, translations, picture, word.transcription, context, sound].join(";");
