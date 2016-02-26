@@ -7,7 +7,8 @@ var srcWithDeps = function() {
 	var src = gulp.src('src/*');
 	var filesaver = gulp.src('bower_components/file-saver.js/FileSaver.js');
 	var jquery = gulp.src('bower_components/jquery/dist/jquery.min.js');
-    return es.merge(src, filesaver, jquery);
+	var icons = gulp.src('resources/icons/*');
+  return es.merge(src, filesaver, jquery, icons);
 };
 
 gulp.task('build', function () {

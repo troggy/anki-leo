@@ -4,7 +4,7 @@
 	"name": "Anki-leo - LinguaLeo dictionary export",
 	"short_name": "Anki-leo",
 	"description": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 
 	"permissions": [
@@ -12,8 +12,10 @@
 	],
 
 	"icons": {
-        "128": "leo-export-128.png"
-    },
+    "16": "16x16.png",
+    "48": "48x48.png",
+    "128": "128x128.png"
+  },
 
 
 	"content_scripts": [
