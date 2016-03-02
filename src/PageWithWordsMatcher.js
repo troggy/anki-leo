@@ -14,9 +14,10 @@ var PageWithWordsMatcher = function() {
 
 PageWithWordsMatcher.prototype.getWordGroupId = function(url) {
   for (var i = 0; i < this.targetUrlsRE.length; i++) {
-      if (match = url.match(this.targetUrlsRE[i])) {
-        return match.length == 2 ? match[1] : '';
-      }
+    var match = url.match(this.targetUrlsRE[i]);
+    if (match) {
+      return match.length === 2 ? match[1] : '';
+    }
   }
   return false;
 };

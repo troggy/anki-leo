@@ -4,7 +4,7 @@ var getWordCount = function() {
 	if (typeof CONFIG.pages.glossary.wordSets !== 'undefined') {
 		return CONFIG.pages.glossary
 										.wordSets.filter(function(g) {
-												return g.name == $(".dict-title-main").text();
+												return g.name === $(".dict-title-main").text();
 										})[0].countWords;
 	} else {
 		return CONFIG.pages.userdict3.count_words;
@@ -34,14 +34,14 @@ di.require(["$tooltip"], function(tooltip) {
 
 	window.addEventListener("message", function(event) {
 	  // We only accept messages from ourselves
-	  if (event.source != window)
+	  if (event.source !== window)
 	    return;
 
-	  if (event.data.type && (event.data.type == "LeoExportExtension.ShowTooltip")) {
+	  if (event.data.type && (event.data.type === "LeoExportExtension.ShowTooltip")) {
 	  	tooltip.show($("#leo-export-extension-btn"), { content:event.data.payload.message,position: "bottom", styleClass: event.data.payload.style });
 	  }
 
-	  if (event.data.type && (event.data.type == "LeoExportExtension.AddDropdownHideHandler")) {
+	  if (event.data.type && (event.data.type === "LeoExportExtension.AddDropdownHideHandler")) {
 	  	LEO.ui.BodyClickHider
 	  		.removeItem(".leo-export-extension-menu-container")
 	  		.addItem(".leo-export-extension-menu-container", function() { $(".leo-export-extension-menu-container").hide(); });

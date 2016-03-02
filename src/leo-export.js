@@ -49,7 +49,7 @@
 	flattenCategories = function(userdict) {
 		return userdict.reduce(function(wordsList, category, i) {
 					return wordsList.concat(category.words);
-	 			}, new Array());
+	 			}, []);
 	};
 
 	getAllWords = function(filter, groupId, expectedNumberOfWords) {
@@ -67,7 +67,7 @@
 			$.ajax(url + page, { dataType: 'json' })
 				.success(function(data) {
 					wordList = wordList.concat(flattenCategories(data.userdict3).filter(filter));
-			 		showToolTip("Загружаю слова.<br/>Готово: " + wordList.length + " из " + expectedNumberOfWords)
+			 		showToolTip("Загружаю слова.<br/>Готово: " + wordList.length + " из " + expectedNumberOfWords);
 
 					if (data.show_more && wordList.length < expectedNumberOfWords) {
 						getWordsPage(++page);
@@ -97,8 +97,8 @@
 
 		getAllWords(filter, groupId, expectedNumberOfWords)
 			.then(function(words) {
-				if (words.length == 0) {
-					showToolTip('Нет слов для экпорта.', "success")
+				if (words.length === 0) {
+					showToolTip('Нет слов для экпорта.', "success");
 				} else {
 					var csv = words.map(wordToCSV).join('\n');
 			 		saveAs(
@@ -106,7 +106,7 @@
 			 			'lingualeo-dict-export.csv'
 			 		);
 
-			 		showToolTip('Экспортировано ' + words.length + ' слов', "success")
+			 		showToolTip('Экспортировано ' + words.length + ' слов', "success");
 				}
 			})
 			.always(function() {
@@ -126,7 +126,7 @@
 		},
 		no_translate: function() {
 			return function(word) {
-				return word.progress_percent == 0;
+				return word.progress_percent === 0;
 			};
 		},
 		learning: function() {
@@ -136,7 +136,7 @@
 		},
 		learned: function() {
 			return function(word) {
-				return word.progress_percent == 100;
+				return word.progress_percent === 100;
 			};
 		}
 	};
@@ -162,7 +162,7 @@
 		});
 		$("#leo-export-extension-btn-selected").click(function() {
 			selectedWords = selectedWordsIds();
-			if (selectedWords.length == 0) return;
+			if (selectedWords.length === 0) return;
 
 			var allSelected = $(".checkbox-word-con").is(".checked");
 			var filterName = $(".dict-filter button.selected").data("filter");
@@ -193,7 +193,7 @@
 	};
 
 	init = function() {
-		if (typeof document == 'undefined') return;
+		if (typeof document === 'undefined') return;
 		// inject script in page that will send dictionary data using portMessage
 		injectScript('PageWithWordsMatcher.js');
 		injectScript('leo-export-inject.js');
@@ -204,11 +204,11 @@
 		  if (event.source != window)
 		    return;
 
-		  if (event.data.type && (event.data.type == "LeoDict")) {
+		  if (event.data.type && (event.data.type === "LeoDict")) {
 		    createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
 		  }
 		}, false);
 	};
 
 	init();
-})();
+}());
