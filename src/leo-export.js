@@ -26,8 +26,12 @@
 		window.postMessage({ type: 'LeoExportExtension.AddDropdownHideHandler' }, '*');
 	};
 
+	escapeRegExp = function(str) {
+		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+	};
+
 	highlightWord = function(word, string) {
-		var re = new RegExp("\\b" + word + "\\b", "ig");
+		var re = new RegExp("\\b" + escapeRegExp(word) + "\\b", "ig");
 		return string.replace(re, '<b>$&</b>');
 	};
 
