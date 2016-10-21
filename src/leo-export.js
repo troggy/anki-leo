@@ -47,7 +47,7 @@
 		var picture = word.user_translates && word.user_translates[0] ? 'http:' + word.user_translates[0].picture_url : '';
 		var sound = word.sound_url;
 
-		return [wordValue, translations, picture, word.transcription, context, sound].join(";");
+		return [wordValue, translations, picture, word.transcription, context, sound].map(function(item){return '"' + item + '"'}).join(";");
 	};
 
 	flattenCategories = function(userdict) {
