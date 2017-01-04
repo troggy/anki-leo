@@ -41,14 +41,21 @@
 	};
 
 	var encloseInDoubleQuotes = function(string) {
+		if (string === '') return string;
 		return '"' + string + '"';
+	};
+
+	var wordPicture = function(word) {
+		if (!word.user_translates) return '';
+		var translation = word.user_translates.find(function(translation) { return !!translation.picture_url; })
+		return translation ? 'http:' + translation.picture_url : ''
 	};
 
 	wordToCSV = function(word) {
 		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
 		var wordValue = sanitizeString(word.word_value);
 		var context = highlightWord(wordValue, sanitizeString(word.context));
-		var picture = word.user_translates && word.user_translates[0] ? 'http:' + word.user_translates[0].picture_url : '';
+		var picture = wordPicture(word);
 		var sound = word.sound_url;
 
 		return [wordValue, translations, picture, word.transcription, context, sound].map(encloseInDoubleQuotes).join(";");
