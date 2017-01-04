@@ -40,6 +40,10 @@
 		return string.replace(/;/g, '.').replace(/\r*\n/g, '<br>').replace(/"/g, "'");
 	};
 
+	var encloseInDoubleQuotes = function(string) {
+		return '"' + string + '"';
+	};
+
 	wordToCSV = function(word) {
 		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
 		var wordValue = sanitizeString(word.word_value);
@@ -47,7 +51,7 @@
 		var picture = word.user_translates && word.user_translates[0] ? 'http:' + word.user_translates[0].picture_url : '';
 		var sound = word.sound_url;
 
-		return [wordValue, translations, picture, word.transcription, context, sound].map(function(item){return '"' + item + '"'}).join(";");
+    return [wordValue, translations, picture, word.transcription, context, sound].map(encloseInDoubleQuotes).join(";");
 	};
 
 	flattenCategories = function(userdict) {
