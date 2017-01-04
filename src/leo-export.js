@@ -37,7 +37,7 @@
 
 	sanitizeString = function(string) {
 		if (!string) return '';
-		return string.replace(/;/g, '.').replace(/\r*\n/g, '<br>').replace(/"/g, "'");
+		return string.replace(/;/g, '.').replace(/\r*\n/g, '<br>').replace(/"/g, '""');
 	};
 
 	var encloseInDoubleQuotes = function(string) {
