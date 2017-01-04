@@ -1,6 +1,7 @@
 (function() {
 
-	var isWorking;
+	var isWorking,
+			wordSetsMap = [];
 
 	var html =
 	'<div class="filter-level leo-export-extension">' +
@@ -11,6 +12,13 @@
 			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> Выбранные </a></li>' +
 		'</ul>' +
 	'</div>';
+
+	var mapWordSets = function(wordSets) {
+		return wordSets.reduce(function(wordSetsMap, wordSet, i) {
+					wordSetsMap[wordSet.id] = wordSet.name.replace(/\s/ig, '_');
+					return wordSetsMap;
+	 			}, {});
+	};
 
 	showToolTip = function(message, style) {
 		window.postMessage({
@@ -57,8 +65,9 @@
 		var context = highlightWord(wordValue, sanitizeString(word.context));
 		var picture = wordPicture(word);
 		var sound = word.sound_url;
+		var groups = word.groups ? word.groups.map(function(group) { return wordSetsMap[group]; }).join(" ") : '';
 
-		return [wordValue, translations, picture, word.transcription, context, sound].map(encloseInDoubleQuotes).join(";");
+		return [wordValue, translations, picture, word.transcription, context, sound, groups].map(encloseInDoubleQuotes).join(";");
 	};
 
 	flattenCategories = function(userdict) {
@@ -220,6 +229,7 @@
 		    return;
 
 		  if (event.data.type && (event.data.type === "LeoDict")) {
+				wordSetsMap = mapWordSets(event.data.payload.wordSets || wordSets);
 		    createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
 		  }
 		}, false);

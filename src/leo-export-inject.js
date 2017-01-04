@@ -17,7 +17,14 @@ var initExportButton = function() {
 	if (groupId === false) return;
 
 	if ($("div.dict-title-inner").length > 0) {
-		window.postMessage({ type: 'LeoDict', payload: { wordsCount: getWordCount(), groupId: groupId } }, '*');
+		window.postMessage({
+			type: 'LeoDict',
+			payload: {
+				wordsCount: getWordCount(),
+				groupId: groupId,
+				wordSets: CONFIG.pages.glossary.wordSets
+			}
+	  }, '*');
 	}
 };
 
