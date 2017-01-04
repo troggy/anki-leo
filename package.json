@@ -1,6 +1,6 @@
 {
   "name": "anki-leo",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Chrome extension to export dictionary from LinguaLeo to CSV/Anki",
   "main": "src/leo-export.js",
   "directories": {
