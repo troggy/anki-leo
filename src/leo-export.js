@@ -38,9 +38,12 @@
 		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 	};
 
+	var wordRegExp = function(word) {
+		return new RegExp("\\b" + escapeRegExp(word) + "\\b", "ig");
+	};
+
 	highlightWord = function(word, string) {
-		var re = new RegExp("\\b" + escapeRegExp(word) + "\\b", "ig");
-		return string.replace(re, '<b>$&</b>');
+		return string.replace(wordRegExp(word), '<b>$&</b>');
 	};
 
 	sanitizeString = function(string) {
@@ -59,15 +62,30 @@
 		return translation ? 'http:' + translation.picture_url : ''
 	};
 
+	var clozefy = function(word, string) {
+		return string.replace(wordRegExp(word), '{{c1::$&}}');
+	};
+
 	wordToCSV = function(word) {
 		var translations = word.user_translates.map(function(t) { return sanitizeString(t.translate_value); }).join(", ");
 		var wordValue = sanitizeString(word.word_value);
-		var context = highlightWord(wordValue, sanitizeString(word.context));
+		var context = sanitizeString(word.context);
+		var highlightedContext = highlightWord(wordValue, context);
+		var clozefiedContext = clozefy(wordValue, context);
 		var picture = wordPicture(word);
 		var sound = word.sound_url;
 		var groups = word.groups ? word.groups.map(function(group) { return wordSetsMap[group]; }).join(" ") : '';
 
-		return [wordValue, translations, picture, word.transcription, context, sound, groups].map(encloseInDoubleQuotes).join(";");
+		return [
+			wordValue,
+			translations,
+			picture,
+			word.transcription,
+			highlightedContext,
+			sound,
+			groups,
+			clozefiedContext
+		].map(encloseInDoubleQuotes).join(";");
 	};
 
 	flattenCategories = function(userdict) {
