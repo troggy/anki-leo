@@ -9,7 +9,7 @@
 
 Скачайте ваш словарь с [ЛингуаЛео](http://lingualeo.com/) в CSV-формате, пригодном для импорта в [Анки](http://ankisrs.net/).
 
-[![установить anki-leo из chrome web store](https://raw.githubusercontent.com/troggy/anki-leo/master/resources/webstore/ChromeWebStore_Badge_v2_206x58.png)](#)
+[![установить anki-leo из chrome web store](https://raw.githubusercontent.com/troggy/anki-leo/master/resources/webstore/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/lingualeo-dictionary-expo/mpaohidlipnfnkbogpmanchjfjpdgcml)
 
 # Как пользоваться
 1. Установите расширение из [маркета](https://chrome.google.com/webstore/detail/lingualeo-dictionary-expo/mpaohidlipnfnkbogpmanchjfjpdgcml) или из исходников
