@@ -49,7 +49,7 @@
 	};
 
 	var encloseInDoubleQuotes = function(string) {
-		if (string === '') return string;
+		if (string === '' || string == null) return '';
 		return '"' + string + '"';
 	};
 
