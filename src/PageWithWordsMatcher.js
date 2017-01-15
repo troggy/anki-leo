@@ -1,10 +1,10 @@
 var PageWithWordsMatcher = function() {
   this.targetUrls = [
-    '\/ru\/userdict$',
-    '\/ru\/userdict\/wordSets\/(\.+)$',
-    '\/ru\/glossary\/learn\/(\.+)$',
-    '\/ru\/glossary\/learned\/(\.+)$',
-    '\/ru\/glossary\/wordSets\/(\.+)$'
+    '\/.+?\/userdict$',
+    '\/.+?\/userdict\/wordSets\/(\.+)$',
+    '\/.+?\/glossary\/learn\/(\.+)$',
+    '\/.+?\/glossary\/learned\/(\.+)$',
+    '\/.+?\/glossary\/wordSets\/(\.+)$'
     ];
   this.targetUrlsRE = new Array();
   for (var i = 0; i < this.targetUrls.length; i++) {
