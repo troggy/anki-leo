@@ -23,7 +23,7 @@
 	      "matches": [
 					"*://lingualeo.com/*"
 				],
-	      "js": ["jquery.min.js", "FileSaver.js", "leo-export.js"],
+	      "js": ["jquery.min.js", "FileSaver.js", "i18next.min.js", "translations.js", "leo-export.js"],
 	      "css": ["leo-export.css"]
 	    }
 	],

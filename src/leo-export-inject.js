@@ -21,6 +21,7 @@ var initExportButton = function() {
 			type: 'LeoDict',
 			payload: {
 				wordsCount: getWordCount(),
+				language: CONFIG_GLOBAL.i18n.iface,
 				groupId: groupId,
 				wordSets: CONFIG.pages.glossary.wordSets
 			}

@@ -3,15 +3,16 @@
 	var isWorking,
 			wordSetsMap = [];
 
-	var html =
-	'<div class="filter-level leo-export-extension">' +
-		'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">Скачать</a>' +
-		'<ul class="leo-export-extension-menu-container" style="display:none">' +
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> Все </a></li>' +
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> Неизученные </a></li>' +
-			'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> Выбранные </a></li>' +
-		'</ul>' +
-	'</div>';
+	var html = function() {
+		return '<div class="filter-level leo-export-extension">' +
+			'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">' + i18next.t('Export') + '</a>' +
+			'<ul class="leo-export-extension-menu-container" style="display:none">' +
+				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> ' + i18next.t('All') + ' </a></li>' +
+				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> ' + i18next.t('New & Learning') + ' </a></li>' +
+				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> ' + i18next.t('Selected') + ' </a></li>' +
+			'</ul>' +
+		'</div>';
+	};
 
 	var mapWordSets = function(wordSets) {
 		return wordSets.reduce(function(wordSetsMap, wordSet, i) {
@@ -109,7 +110,7 @@
 			$.ajax(url + page, { dataType: 'json' })
 				.success(function(data) {
 					wordList = wordList.concat(flattenCategories(data.userdict3).filter(filter));
-			 		showToolTip("Загружаю слова.<br/>Готово: " + wordList.length + " из " + expectedNumberOfWords);
+			 		showToolTip(i18next.t('Exporting words', { done: wordList.length, total: expectedNumberOfWords }));
 
 					if (data.show_more && wordList.length < expectedNumberOfWords) {
 						getWordsPage(++page);
@@ -140,7 +141,7 @@
 		getAllWords(filter, groupId, expectedNumberOfWords)
 			.then(function(words) {
 				if (words.length === 0) {
-					showToolTip('Нет слов для экпорта.', "success");
+					showToolTip(i18next.t('Nothing to export'), "success");
 				} else {
 					var csv = words.map(wordToCSV).join('\n');
 			 		saveAs(
@@ -148,7 +149,7 @@
 			 			'lingualeo-dict-export.csv'
 			 		);
 
-			 		showToolTip('Экспортировано ' + words.length + ' слов', "success");
+			 		showToolTip(i18next.t('Export complete', { total: words.length }), "success");
 				}
 			})
 			.always(function() {
@@ -191,11 +192,10 @@
 
 	createExportButton = function(totalWordsCount, groupId) {
 		if ($(".leo-export-extension").length > 0) $(".leo-export-extension").remove();
-		$(html).appendTo("div.dict-title-inner");
+		$(html()).appendTo("div.dict-title-inner");
 
 		var menu = $(".leo-export-extension-menu-container");
 		menu.find("a").click(function() { $("body").click(); });
-		console.log("Bound events for: " + groupId);
 		$("#leo-export-extension-btn-all").click(function() {
 			download(progressFilter.all(), groupId, totalWordsCount);
 		});
@@ -248,7 +248,17 @@
 
 		  if (event.data.type && (event.data.type === "LeoDict")) {
 				wordSetsMap = mapWordSets(event.data.payload.wordSets || wordSets);
-		    createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
+				console.log(event.data.payload.language);
+				i18next
+	      .init({
+					fallbackLng: 'en',
+					nsSeparator: false,
+					keySeparator: false,
+	        lng: event.data.payload.language,
+	        resources: LeoExport.translations
+	      }, function(err, t) {
+					createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
+	      });
 		  }
 		}, false);
 	};
