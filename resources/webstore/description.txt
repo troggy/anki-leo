@@ -17,6 +17,7 @@
 Исходный код: https://github.com/troggy/anki-leo
 
 История изменений:
+2.5.1 Fixed: broken build
 2.5.0
       Features:
         - localize extension interface depending on Lingualeo profile settings. EN and RU supported.

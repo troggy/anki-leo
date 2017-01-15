@@ -59,6 +59,19 @@ bower install
 
 # История изменений:
 
+### 2.5.1
+  Fixed:
+  - broken build
+
+### 2.5.0
+
+Features:
+  - localize extension interface depending on Lingualeo profile settings. EN and RU supported.
+
+Fixed:
+  - export button wasn't shown for non-russian users
+  - export button wasn't shown right after login  
+
 2.4.0 Добавлено: текст для cloze-карточек
 
 2.3.1 Исправлено: отстутствие транскрипции отображается как null
