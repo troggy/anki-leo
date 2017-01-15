@@ -29,16 +29,16 @@ var initExportButton = function() {
 	}
 };
 
+// add handlers for history API
+for (var i = 0; i < pageMatcher.targetUrls.length; i++) {
+	LEO.HistoryListener.addListener({
+		regEx: new RegExp(pageMatcher.targetUrls[i]),
+		listener: initExportButton, name:"leoExport" + i,format: pageMatcher.targetUrls[i]});
+}
+
 di.require(["$tooltip"], function(tooltip) {
 
 	initExportButton();
-
-  // add handlers for history API
-	for (var i = 0; i < pageMatcher.targetUrls.length; i++) {
-		LEO.HistoryListener.addListener({
-			regEx: new RegExp(pageMatcher.targetUrls[i]),
-			listener: initExportButton, name:"leoExport" + i,format: pageMatcher.targetUrls[i]});
-	}
 
 	window.addEventListener("message", function(event) {
 	  // We only accept messages from ourselves
