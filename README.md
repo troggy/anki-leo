@@ -59,6 +59,18 @@ bower install
 
 # История изменений:
 
+### 2.5.4
+  Fixed:
+  - using chrome.downloads instead of FileSaver
+
+### 2.5.3
+  Fixed:
+  - rebuilt extension with updated FileSaver
+
+### 2.5.2
+  Fixed:
+  - rebuilt extension with updated deps
+
 ### 2.5.1
   Fixed:
   - broken build

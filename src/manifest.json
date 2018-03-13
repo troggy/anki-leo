@@ -4,30 +4,32 @@
 	"name": "Anki-leo - LinguaLeo dictionary export",
 	"short_name": "Anki-leo",
 	"description": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
-	"version": "2.5.1",
+	"version": "2.5.4",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 
 	"permissions": [
-		"http://lingualeo.com/"
+		"http://lingualeo.com/",
+		"downloads",
+		"background"
 	],
-
+	"background": {
+    "page": "background.html"
+  },
 	"icons": {
     "16": "16x16.png",
     "48": "48x48.png",
     "128": "128x128.png"
   },
 
-
 	"content_scripts": [
 	    {
 	      "matches": [
 					"*://lingualeo.com/*"
 				],
-	      "js": ["jquery.min.js", "FileSaver.js", "i18next.min.js", "translations.js", "leo-export.js"],
+	      "js": ["jquery.min.js", "i18next.min.js", "translations.js", "leo-export.js"],
 	      "css": ["leo-export.css"]
 	    }
 	],
 
-
-	"web_accessible_resources": ["PageWithWordsMatcher.js", "leo-export-inject.js"]
+	"web_accessible_resources": ["PageWithWordsMatcher.js", "translations.js", "leo-export-inject.js"]
 }

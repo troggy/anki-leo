@@ -17,6 +17,9 @@
 Исходный код: https://github.com/troggy/anki-leo
 
 История изменений:
+2.5.4 Fixed: extension stopped working in Chrome 65
+2.5.3 Fixed: extension stopped working
+2.5.2 Fixed: extension stopped working
 2.5.1 Fixed: broken build
 2.5.0
       Features:

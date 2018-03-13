@@ -144,12 +144,11 @@
 					showToolTip(i18next.t('Nothing to export'), "success");
 				} else {
 					var csv = words.map(wordToCSV).join('\n');
-			 		saveAs(
-			 			new Blob([csv], { type: "text/plain;charset=utf-8" }),
-			 			'lingualeo-dict-export.csv'
-			 		);
-
-			 		showToolTip(i18next.t('Export complete', { total: words.length }), "success");
+					chrome.runtime.sendMessage({
+						type: 'LeoExportExtension.DownloadCSV',
+						payload: [csv]
+					});
+					showToolTip(i18next.t('Export complete', { total: words.length }), "success");
 				}
 			})
 			.always(function() {

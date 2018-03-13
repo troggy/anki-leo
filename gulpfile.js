@@ -5,11 +5,10 @@ var gulp = require('gulp'),
 
 var srcWithDeps = function() {
 	var src = gulp.src('src/*');
-	var filesaver = gulp.src('bower_components/file-saver.js/FileSaver.js');
 	var jquery = gulp.src('bower_components/jquery/dist/jquery.min.js');
 	var i18next = gulp.src('bower_components/i18next/i18next.min.js');
 	var icons = gulp.src('resources/icons/*');
-  return es.merge(src, filesaver, jquery, i18next, icons);
+  return es.merge(src, jquery, i18next, icons);
 };
 
 gulp.task('build', function () {

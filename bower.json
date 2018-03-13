@@ -1,6 +1,6 @@
 {
   "name": "anki-leo",
-  "version": "2.5.1",
+  "version": "2.5.4",
   "homepage": "https://github.com/troggy/anki-leo",
   "authors": [
     "Kosta Korenkov <7r0ggy@gmail.com>"
@@ -22,7 +22,6 @@
     "tests"
   ],
   "dependencies": {
-    "file-saver.js": "~1.20150304.1",
     "jquery": "~2.1.4",
     "i18next": "^4.2.0"
   }
