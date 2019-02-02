@@ -1,7 +1,25 @@
 (function() {
 
 	var isWorking,
-			wordSetsMap = [];
+			wordSetsMap = [],
+			i18next;
+
+	var i18 = function(lang) {
+		this.lang = lang || 'en';
+
+		return {
+			t: function(key, params) {
+				var str = LeoExport.translations[lang].translation[key];
+				if (params) {
+					var keys = Object.keys(params);
+					for (var i = 0; i < keys.length; i++) {
+						str = str.replace(new RegExp('\{' + keys[i] + '\}'), params[keys[i]]);
+					}
+				}
+				return str;
+			}
+		};
+	};
 
 	var html = function() {
 		return '<div class="filter-level leo-export-extension">' +
@@ -247,17 +265,8 @@
 
 		  if (event.data.type && (event.data.type === "LeoDict")) {
 				wordSetsMap = mapWordSets(event.data.payload.wordSets || wordSets);
-				console.log(event.data.payload.language);
-				i18next
-	      .init({
-					fallbackLng: 'en',
-					nsSeparator: false,
-					keySeparator: false,
-	        lng: event.data.payload.language,
-	        resources: LeoExport.translations
-	      }, function(err, t) {
-					createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
-	      });
+				i18next = i18(event.data.payload.language);
+				createExportButton(event.data.payload.wordsCount, event.data.payload.groupId);
 		  }
 		}, false);
 	};
