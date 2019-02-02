@@ -91,8 +91,8 @@
 		var context = sanitizeString(word.context);
 		var highlightedContext = highlightWord(wordValue, context);
 		var clozefiedContext = clozefy(wordValue, context);
-		var picture = wordPicture(word);
-		var sound = word.sound_url;
+		var picture = '<img src=\'' + wordPicture(word) + '\'>';
+		var sound = '[sound:' + word.sound_url + ']';
 		var groups = word.groups ? word.groups.map(function(group) { return wordSetsMap[group]; }).join(" ") : '';
 
 		return [
