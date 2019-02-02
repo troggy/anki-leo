@@ -7,12 +7,12 @@
     "test": "test"
   },
   "devDependencies": {
-    "gulp": "~3.8.11",
-    "gulp-zip": "~3.0.2",
+    "chai": "~3.0.0",
     "event-stream": "~3.3.0",
+    "gulp": "~3.8.11",
     "gulp-watch": "~4.2.4",
-    "mocha": "~2.2.5",
-    "chai": "~3.0.0"
+    "gulp-zip": "~3.0.2",
+    "mocha": "~2.2.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/troggy/anki-leo/issues"
   },
-  "homepage": "http://troggy.github.io/anki-leo/"
+  "homepage": "http://troggy.github.io/anki-leo/",
+  "dependencies": {
+    "i18next": "^4.2.0",
+    "jquery": "^2.1.4"
+  }
 }
