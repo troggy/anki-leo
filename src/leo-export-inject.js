@@ -1,11 +1,11 @@
 var pageMatcher = LeoExport.PageWithWordsMatcher;
 
-var getWordCount = function() {
-	if (typeof CONFIG.pages.glossary.wordSets !== 'undefined') {
-		return CONFIG.pages.glossary
-										.wordSets.filter(function(g) {
-												return g.name === $(".dict-title-main").text();
-										})[0].countWords;
+var dictionaryName = document.getElementsByClassName('dict-title-main')[0].textContent;
+
+var getWordCount = () => {
+	var wordSets = CONFIG.pages.glossary.wordSets;
+	if (typeof wordSets !== 'undefined') {
+		return wordSets.filter((g) => g.name === dictionaryName)[0].countWords;
 	} else {
 		return CONFIG.pages.userdict3.count_words;
 	}
@@ -16,7 +16,7 @@ var initExportButton = function() {
 	// don't add export button, if there is no groupId in URL
 	if (groupId === false) return;
 
-	if ($("div.dict-title-inner").length > 0) {
+	if (document.querySelectorAll("div.dict-title-inner").length > 0) {
 		window.postMessage({
 			type: 'LeoDict',
 			payload: {
@@ -46,13 +46,22 @@ di.require(["$tooltip"], function(tooltip) {
 	    return;
 
 	  if (event.data.type && (event.data.type === "LeoExportExtension.ShowTooltip")) {
-	  	tooltip.show($("#leo-export-extension-btn"), { content:event.data.payload.message,position: "bottom", styleClass: event.data.payload.style });
+	  	tooltip.show(
+				document.getElementById("leo-export-extension-btn"), 
+				{ 
+					content:event.data.payload.message,
+					position: "bottom", 
+					styleClass: event.data.payload.style
+				}
+			);
 	  }
 
 	  if (event.data.type && (event.data.type === "LeoExportExtension.AddDropdownHideHandler")) {
 	  	LEO.ui.BodyClickHider
 	  		.removeItem(".leo-export-extension-menu-container")
-	  		.addItem(".leo-export-extension-menu-container", function() { $(".leo-export-extension-menu-container").hide(); });
+	  		.addItem(".leo-export-extension-menu-container", function() { 
+					document.querySelector(".leo-export-extension-menu-container").style.display = 'none'
+				});
 	  }
 	}, false);
 });

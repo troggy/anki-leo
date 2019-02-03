@@ -4,11 +4,10 @@
   "description": "Chrome extension to export dictionary from LinguaLeo to CSV/Anki",
   "main": "src/leo-export.js",
   "directories": {
-    "test": "test"
+    "test": "mocha test/*.js"
   },
   "devDependencies": {
     "chai": "~3.0.0",
-    "event-stream": "~3.3.0",
     "gulp": "~3.8.11",
     "gulp-watch": "~4.2.4",
     "gulp-zip": "~3.0.2",
@@ -26,9 +25,5 @@
   "bugs": {
     "url": "https://github.com/troggy/anki-leo/issues"
   },
-  "homepage": "http://troggy.github.io/anki-leo/",
-  "dependencies": {
-    "i18next": "^4.2.0",
-    "jquery": "^2.1.4"
-  }
+  "homepage": "http://troggy.github.io/anki-leo/"
 }

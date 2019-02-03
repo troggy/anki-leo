@@ -7,9 +7,9 @@ LeoExport.translations = {
       'All': 'All',
       'New & Learning': 'New & Learning',
       'Selected': 'Selected',
-      'Exporting words': 'Exporting words.<br/>Progress: {{done}} of {{total}}',
+      'Exporting words': 'Exporting words.<br/>Progress: {done} of {total}',
       'Nothing to export': 'Nothing to export',
-      'Export complete': 'Done. {{total}} words have been exported'
+      'Export complete': 'Done. {total} words have been exported'
     }
   },
   ru: {
@@ -18,9 +18,9 @@ LeoExport.translations = {
       'All': 'Все',
       'New & Learning': 'Неизученные',
       'Selected': 'Выбранные',
-      'Exporting words': 'Загружаю слова.<br/>Готово: {{done}} из {{total}}',
+      'Exporting words': 'Загружаю слова.<br/>Готово: {done} из {total}',
       'Nothing to export': 'Нет слов для экпорта.',
-      'Export complete': 'Экспортировано {{total}} слов'
+      'Export complete': 'Экспортировано {total} слов'
     }
   }
 };

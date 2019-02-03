@@ -21,15 +21,17 @@
 		};
 	};
 
-	var html = function() {
-		return '<div class="filter-level leo-export-extension">' +
+	var buttonElement = function() {
+		const buttonEl = document.createElement('div');
+		buttonEl.className = "filter-level leo-export-extension";
+		buttonEl.innerHTML = 
 			'<a class="btn leo-export-extension-btn" id="leo-export-extension-btn">' + i18next.t('Export') + '</a>' +
 			'<ul class="leo-export-extension-menu-container" style="display:none">' +
 				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-all"><i class="iconm-none"></i> ' + i18next.t('All') + ' </a></li>' +
 				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-new"><i class="iconm-w-big-25"></i> ' + i18next.t('New & Learning') + ' </a></li>' +
 				'<li class="active"><a href="javascript: void 0" id="leo-export-extension-btn-selected"><i class="iconm-checklight"></i> ' + i18next.t('Selected') + ' </a></li>' +
-			'</ul>' +
-		'</div>';
+			'</ul>';
+		return buttonEl;
 	};
 
 	var mapWordSets = function(wordSets) {
@@ -114,41 +116,25 @@
 	};
 
 	getAllWords = function(filter, groupId, expectedNumberOfWords) {
-		var wordType = $(".word-type-btn.selected").data("word-type");
-		var leoFilter = $(".dict-filter button.selected").data("filter");
+		var wordType = document.querySelector(".word-type-btn.selected").dataset.wordType;
+		var leoFilter = document.querySelector(".dict-filter button.selected").dataset.filter;
 		var url = '/userdict/json?groupId=' + groupId + '&filter=' + leoFilter + '&wordType=' + wordType + '&page=',
-			allWordsRecieved = [],
-			allWordsRequested = $.Deferred();
 			wordList = [];
 
-		var getWordsPage = function(page) {
-			var received = $.Deferred();
-			allWordsRecieved.push(received.promise());
-
-			$.ajax(url + page, { dataType: 'json' })
-				.success(function(data) {
-					wordList = wordList.concat(flattenCategories(data.userdict3).filter(filter));
-			 		showToolTip(i18next.t('Exporting words', { done: wordList.length, total: expectedNumberOfWords }));
-
-					if (data.show_more && wordList.length < expectedNumberOfWords) {
-						getWordsPage(++page);
-					} else {
-						allWordsRequested.resolve();
+		var getWordsPage = (page) => {
+			return fetch(url + page).then(resp => resp.json())
+				.then((data) => {
+					const words = flattenCategories(data.userdict3).filter(filter);
+					wordList = wordList.concat(words);
+					showToolTip(i18next.t('Exporting words', { done: wordList.length, total: expectedNumberOfWords }))
+					if (!data.show_more || wordList.length >= expectedNumberOfWords) {
+						return words;
 					}
-				}).always(function() {
-					received.resolve();
+					// we have more words to fetch, recurse deeper
+					return getWordsPage(++page).then(moreWords => words.concat(moreWords));
 				});
 		};
-		getWordsPage(1);
-
-		var done = $.Deferred();
-		allWordsRequested.promise().then(function() {
-			$.when.apply($, allWordsRecieved)
-				.then(function() {
-					done.resolve(wordList);
-				});
-		});
-		return done.promise();
+		return getWordsPage(1);
 	};
 
 	download = function(filter, groupId, expectedNumberOfWords) {
@@ -168,14 +154,15 @@
 					});
 					showToolTip(i18next.t('Export complete', { total: words.length }), "success");
 				}
-			})
-			.always(function() {
 				isWorking = false;
 			});
 	};
 
 	selectedWordsIds = function() {
-		return $("div.dict-item-word.checked").map(function(i, e) { return $(e).data("word-id"); }).get();
+		return Array.prototype.map.call(
+			document.querySelectorAll("div.dict-item-word.checked"), 
+			n => Number(n.dataset.wordId)
+		);
 	};
 
 	progressFilter = {
@@ -208,38 +195,51 @@
 	};
 
 	createExportButton = function(totalWordsCount, groupId) {
-		if ($(".leo-export-extension").length > 0) $(".leo-export-extension").remove();
-		$(html()).appendTo("div.dict-title-inner");
+		if (document.querySelector(".leo-export-extension")) {
+			document.querySelector(".leo-export-extension").remove();
+		}
+		document.querySelector("div.dict-title-inner").appendChild(buttonElement());
 
-		var menu = $(".leo-export-extension-menu-container");
-		menu.find("a").click(function() { $("body").click(); });
-		$("#leo-export-extension-btn-all").click(function() {
-			download(progressFilter.all(), groupId, totalWordsCount);
-		});
-		$("#leo-export-extension-btn-new").click(function() {
-			download(progressFilter.learning(), groupId, totalWordsCount);
-		});
-		$("#leo-export-extension-btn-selected").click(function() {
-			selectedWords = selectedWordsIds();
-			if (selectedWords.length === 0) return;
+		var menu = document.querySelector(".leo-export-extension-menu-container");
 
-			var allSelected = $(".checkbox-word-con").is(".checked");
-			var filterName = $(".dict-filter button.selected").data("filter");
-			var selectedWordsCount = $(".dict-search-count").text();
+		var bodyClick = () => document.getElementsByTagName("body")[0].click();
 
-			var filter = allSelected ? progressFilter[filterName]() : selectedFilter(selectedWords);
-			download(filter, groupId, selectedWordsCount);
-		});
+		for (let menuItem of menu.getElementsByTagName("a")) {
+			menuItem.addEventListener('click', bodyClick);
+		}
 
+		document.getElementById("leo-export-extension-btn-all")
+			.addEventListener('click', () => {
+				download(progressFilter.all(), groupId, totalWordsCount);
+			});
 
-		$("#leo-export-extension-btn").click(function() {
-			if (menu.is(":hidden")) {
-				bindCollapseHandler();
-				menu.show();
-			} else {
-				menu.hide();
-			}
-		});
+		document.getElementById("leo-export-extension-btn-new")
+			.addEventListener('click', () => {
+				download(progressFilter.learning(), groupId, totalWordsCount);
+			});
+
+		document.getElementById("leo-export-extension-btn-selected")
+			.addEventListener('click', () => {
+				selectedWords = selectedWordsIds();
+				if (selectedWords.length === 0) return;
+	
+				var allSelected = !!document.querySelector("span.checkbox-word-con.checked");
+				var filterName = document.querySelector('.dict-filter button.selected').dataset.filter;
+				var selectedWordsCount = document.querySelector('.dict-search-count').textContent;
+
+				var filter = allSelected ? progressFilter[filterName]() : selectedFilter(selectedWords);
+				download(filter, groupId, selectedWordsCount);	
+			});
+
+		document.getElementById("leo-export-extension-btn")
+			.addEventListener('click', () => {
+				if (menu.style.display === 'none') {
+					bindCollapseHandler();
+					menu.style.display = 'block';
+				} else {
+					menu.style.display = 'none';
+				}
+			});
 	};
 
   injectScript = function(script) {
