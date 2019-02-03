@@ -1,6 +1,6 @@
-var gulp = require('gulp'),
-	zip = require('gulp-zip'),
-	watch = require('gulp-watch');
+var gulp = require('gulp');
+var zip = require('gulp-zip');
+var watch = require('gulp-watch');
 
 gulp.task('build', function () {
     return gulp.src('src/**/*')

@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener(
-  function(arg, sender, sendResponse) {
+  (arg) => {
     if (arg.type && (arg.type === "LeoExportExtension.DownloadCSV")) {
       var resultBlob = new Blob(arg.payload, { type: "text/plain;charset=utf-8" })
       var url = URL.createObjectURL(resultBlob);

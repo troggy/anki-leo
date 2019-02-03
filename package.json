@@ -4,14 +4,15 @@
   "description": "Chrome extension to export dictionary from LinguaLeo to CSV/Anki",
   "main": "src/leo-export.js",
   "devDependencies": {
-    "chai": "~3.0.0",
+    "eslint": "^5.13.0",
     "gulp": "~3.8.11",
     "gulp-watch": "~4.2.4",
     "gulp-zip": "~3.0.2",
     "mocha": "~2.2.5"
   },
   "scripts": {
-    "test": "mocha src/*.test.js"
+    "test": "mocha src/*.test.js",
+    "lint": "eslint src/*.js"
   },
   "repository": {
     "type": "git",

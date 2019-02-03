@@ -1,10 +1,8 @@
-window = {};
+window = {}; // eslint-disable-line no-global-assign
 require('./PageWithWordsMatcher.js');
 var matcher = window.LeoExport.PageWithWordsMatcher;
 
-var assert = require("chai").assert;
-
-
+var assert = require('assert');
 
 describe('PageWithWordsMatcher', () => {
 
@@ -24,8 +22,7 @@ describe('PageWithWordsMatcher', () => {
 
     tests.forEach((test) => {
       it('should ' + (test.expected === false ? 'NOT ' : '') + 'match ' + test.url, () => {
-        var res = matcher.getWordGroupId(test.url);
-        assert.equal(res, test.expected);
+        assert.equal(matcher.getWordGroupId(test.url), test.expected);
       });
     });
   });

@@ -1,19 +1,19 @@
 var PageWithWordsMatcher = function() {
   this.targetUrls = [
-    '\/.+?\/userdict$',
-    '\/.+?\/userdict\/wordSets\/(\.+)$',
-    '\/.+?\/glossary\/learn\/(\.+)$',
-    '\/.+?\/glossary\/learned\/(\.+)$',
-    '\/.+?\/glossary\/wordSets\/(\.+)$'
+    '/.+?/userdict$',
+    '/.+?/userdict/wordSets/(.+)$',
+    '/.+?/glossary/learn/(.+)$',
+    '/.+?/glossary/learned/(.+)$',
+    '/.+?/glossary/wordSets/(.+)$'
     ];
   this.targetUrlsRE = new Array();
-  for (var i = 0; i < this.targetUrls.length; i++) {
+  for (let i = 0; i < this.targetUrls.length; i++) {
     this.targetUrlsRE.push(new RegExp(this.targetUrls[i]));
   }
 };
 
 PageWithWordsMatcher.prototype.getWordGroupId = function(url) {
-  for (var i = 0; i < this.targetUrlsRE.length; i++) {
+  for (let i = 0; i < this.targetUrlsRE.length; i++) {
     var match = url.match(this.targetUrlsRE[i]);
     if (match) {
       return match.length === 2 ? match[1] : '';
