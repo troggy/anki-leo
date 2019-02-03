@@ -1,9 +1,14 @@
-var matcher = require('../src/PageWithWordsMatcher.js');
+window = {};
+require('./PageWithWordsMatcher.js');
+var matcher = window.LeoExport.PageWithWordsMatcher;
+
 var assert = require("chai").assert;
 
-describe('PageWithWordsMatcher', function(){
 
-  describe('getWordGroupId', function() {
+
+describe('PageWithWordsMatcher', () => {
+
+  describe('getWordGroupId', () => {
     var tests = [
       { url: '/ru/userdict',                  expected: '' },
       { url: '/ru/userdict/wordSets/6505',    expected: '6505' },
@@ -17,8 +22,8 @@ describe('PageWithWordsMatcher', function(){
       { url: '/ru/glossary/learn/6506',       expected: '6506' },
     ];
 
-    tests.forEach(function(test) {
-      it('should ' + (test.expected === false ? 'NOT ' : '') + 'match ' + test.url, function() {
+    tests.forEach((test) => {
+      it('should ' + (test.expected === false ? 'NOT ' : '') + 'match ' + test.url, () => {
         var res = matcher.getWordGroupId(test.url);
         assert.equal(res, test.expected);
       });

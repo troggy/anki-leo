@@ -22,14 +22,5 @@ PageWithWordsMatcher.prototype.getWordGroupId = function(url) {
   return false;
 };
 
-if (typeof exports !== 'undefined') {
-  if (typeof module !== 'undefined' && module.exports) {
-    exports = module.exports = new PageWithWordsMatcher();
-  }
-  exports.PageWithWordsMatcher = new PageWithWordsMatcher();
-} else {
-  if (typeof window.LeoExport === 'undefined') {
-    window.LeoExport = {};
-  }
-  window.LeoExport.PageWithWordsMatcher = new PageWithWordsMatcher();
-}
+window.LeoExport = window.LeoExport || {};
+window.LeoExport.PageWithWordsMatcher = new PageWithWordsMatcher();
