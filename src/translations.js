@@ -1,6 +1,4 @@
-var LeoExport = LeoExport || {};
-
-LeoExport.translations = {
+export default {
   en: {
     translation: {
       'Export': 'Export',

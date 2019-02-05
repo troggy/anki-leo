@@ -13,7 +13,7 @@
 		"background"
 	],
 	"background": {
-    "page": "background.html"
+    "scripts": ["./background.js"]
   },
 	"icons": {
     "16": "icons/16x16.png",
@@ -26,10 +26,18 @@
 	      "matches": [
 					"*://lingualeo.com/*"
 				],
-	      "js": ["translations.js", "leo-export.js"],
-	      "css": ["leo-export.css"]
+	      "js": ["content.js"],
+				"css": ["leo-export.css"],
+				"run_at": "document_end",
+				"all_frames": false
 	    }
 	],
 
-	"web_accessible_resources": ["PageWithWordsMatcher.js", "translations.js", "leo-export-inject.js"]
+	"web_accessible_resources": [
+		"main.js",
+		"leo-export.js",
+		"js/pageMatcher.js",
+		"js/locale.js",
+		"translations.js"
+	]
 }

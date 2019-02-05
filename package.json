@@ -5,14 +5,16 @@
   "main": "src/leo-export.js",
   "devDependencies": {
     "eslint": "^5.13.0",
+    "esm": "^3.2.1",
     "gulp": "~3.8.11",
     "gulp-watch": "~4.2.4",
     "gulp-zip": "~3.0.2",
-    "mocha": "~2.2.5"
+    "tap-mocha-reporter": "^3.0.7",
+    "zora": "2"
   },
   "scripts": {
-    "test": "mocha src/*.test.js",
-    "lint": "eslint src/*.js"
+    "test": "node src/js/all.test.js | tap-mocha-reporter spec",
+    "lint": "eslint src/*/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/troggy/anki-leo/issues"
   },
-  "homepage": "http://troggy.github.io/anki-leo/"
+  "homepage": "http://troggy.github.io/anki-leo/",
+  "dependencies": {
+    "anki-apkg": "^0.0.4"
+  }
 }

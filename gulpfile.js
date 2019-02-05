@@ -10,7 +10,7 @@ gulp.task('build', function () {
 });
 
 gulp.task('default', function () {
-    return gulp.src('src/**/*')
+    return gulp.src(['src/**/*', '!src/**/*.test.js'])
         .pipe(zip('anki-leo.zip'))
         .pipe(gulp.dest('dist'));
 });
