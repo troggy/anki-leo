@@ -1,4 +1,4 @@
-import { format } from './util';
+import { format } from './util.js';
 
 export default class Locale {
 	constructor(lang = 'en', translations) {

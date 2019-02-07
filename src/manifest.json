@@ -34,10 +34,13 @@
 	],
 
 	"web_accessible_resources": [
-		"main.js",
-		"leo-export.js",
+		"js/fetchWordsFromLeo.js",
+		"js/button.html.js",
 		"js/pageMatcher.js",
+		"translations.js",
 		"js/locale.js",
-		"translations.js"
+		"js/index.js",
+		"js/toCsv.js",
+		"js/util.js"
 	]
 }
