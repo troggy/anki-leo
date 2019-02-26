@@ -21,4 +21,4 @@ export default {
       'Export complete': 'Экспортировано {total} слов'
     }
   }
-};
+}

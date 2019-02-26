@@ -17,6 +17,6 @@ const html = `
     </a>
   </li>
 </ul>
-`;
+`
 
-export default html;
+export default html

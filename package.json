@@ -5,19 +5,20 @@
   "main": "src/leo-export.js",
   "devDependencies": {
     "cross-zip-cli": "^1.0.0",
-    "eslint": "^5.13.0",
     "esm": "^3.2.1",
     "parcel-bundler": "^1.11.0",
     "parcel-plugin-web-extension": "^1.5.1",
+    "standard": "^12.0.1",
     "tap-mocha-reporter": "^3.0.7",
     "zora": "2"
   },
   "scripts": {
     "test": "node src/js/all.test.js | tap-mocha-reporter spec",
-    "lint": "eslint src/*/*.js",
+    "lint": "standard",
     "start": "parcel watch src/manifest.json",
     "build": "parcel build src/manifest.json",
-    "package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -"
+    "package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
+    "release": "yarn lint && yarn test && yarn package"
   },
   "repository": {
     "type": "git",

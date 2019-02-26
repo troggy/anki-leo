@@ -1,15 +1,15 @@
-import extractWordData from './extractWordData.js';
+import extractWordData from './extractWordData.js'
 
 const encloseInDoubleQuotes = string => {
-  if (string === "" || string == null) return "";
-  return '"' + string + '"';
-};
+  if (string === '' || string == null) return ''
+  return '"' + string + '"'
+}
 
 const wordToCSV = (rawWord, wordSetsMap) => {
-  const { 
-    word, translations, image, transcription, 
+  const {
+    word, translations, image, transcription,
     context, sound, groups, clozefiedContext
-  } = extractWordData(rawWord, wordSetsMap);
+  } = extractWordData(rawWord, wordSetsMap)
   return [
     word,
     translations,
@@ -21,11 +21,11 @@ const wordToCSV = (rawWord, wordSetsMap) => {
     clozefiedContext
   ]
     .map(encloseInDoubleQuotes)
-    .join(";");
-};
+    .join(';')
+}
 
 const toCsv = (words, wordSetsMap) => {
-  return words.map(w => wordToCSV(w, wordSetsMap)).join("\n");
-};
+  return words.map(w => wordToCSV(w, wordSetsMap)).join('\n')
+}
 
-export default toCsv;
+export default toCsv
