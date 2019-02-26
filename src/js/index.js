@@ -1,16 +1,13 @@
-import buttonHtml from './button.html.js';
-import toCsv from './toCsv.js';
 import fetchWordsFromLeo from './fetchWordsFromLeo.js';
-import Locale from './locale.js';
-import PageMatcher from './pageMatcher.js';
 import translations from '../translations.js';
+import PageMatcher from './pageMatcher.js';
+import buttonHtml from './button.html.js';
 import { format } from './util.js';
+import Locale from './locale.js';
+import toCsv from './toCsv.js';
 
 const menuSel = ".leo-export-extension-menu-container";
 const pageMatcher = new PageMatcher();
-
-const dictionaryName = document.getElementsByClassName("dict-title-main")[0]
-  .textContent;
 
 let isWorking,
   wordSetsMap = [],
@@ -74,12 +71,12 @@ const download = (filter, groupId, expectedNumberOfWords) => {
       if (words.length === 0) {
         showToolTip(locale.t("Nothing to export"), "success");
       } else {
-        const csv = toCsv(words, wordSetsMap);
+        const outfile = toCsv(words, wordSetsMap);
         window.postMessage({
           type: "ankileo.download",
           payload: {
-            data: [csv],
-            name: 'ankileo.csv',
+            data: [outfile],
+            name: 'lingualeo.csv',
           },
         });
         
@@ -167,6 +164,8 @@ const createExportButton = function(totalWordsCount, groupId) {
 };
 
 const getWordCount = () => {
+  const dictionaryName = document.getElementsByClassName("dict-title-main")[0]
+  .textContent;
   const wordSets = CONFIG.pages.glossary.wordSets;
   if (typeof wordSets !== "undefined") {
     return wordSets.filter(g => g.name === dictionaryName)[0].countWords;
