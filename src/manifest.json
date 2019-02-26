@@ -34,13 +34,6 @@
 	],
 
 	"web_accessible_resources": [
-		"js/fetchWordsFromLeo.js",
-		"js/button.html.js",
-		"js/pageMatcher.js",
-		"translations.js",
-		"js/locale.js",
-		"js/index.js",
-		"js/toCsv.js",
-		"js/util.js"
+		"js/index.js"
 	]
 }
