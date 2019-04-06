@@ -42,16 +42,13 @@
 
 # Разработка
 
-Вам понадобятся [npm](https://www.npmjs.com/) и [Bower](http://bower.io/).
-
 ````
-npm install
-bower install
+yarn
 ````
 
 ## Сборка
 
-``gulp build`` - обновляет расширение в папке `build` при изменении кода
+``yarn start`` - обновляет расширение в папке `build` при изменении кода
 
 ## Установка в Хром
 
