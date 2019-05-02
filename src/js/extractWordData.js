@@ -29,7 +29,8 @@ const extractWordData = (word, wordSetsMap) => {
   const context = sanitizeString(word.context)
   const highlightedContext = highlightWord(wordValue, context)
   const clozefiedContext = clozefy(wordValue, context)
-  const image = `<img src='${wordPicture(word)}'>`
+  const imageUrl = wordPicture(word);
+  const image = imageUrl ? `<img src='${wordPicture(word)}'>` : '';
   const sound = `[sound:${word.sound_url}]`
   const groups = (word.groups || []).map(group => wordSetsMap[group]).join(' ')
 
