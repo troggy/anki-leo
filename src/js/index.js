@@ -3,12 +3,11 @@
 import fetchWordsFromLeo from './fetchWordsFromLeo.js'
 import translations from '../translations.js'
 import PageMatcher from './pageMatcher.js'
-import buttonHtml from './button.html.js'
-import { format } from './util.js'
 import Locale from './locale.js'
+import LeoApi from './leoApi.js'
 import toCsv from './toCsv.js'
+import Button from './button.js';
 
-const menuSel = '.leo-export-extension-menu-container'
 const pageMatcher = new PageMatcher()
 
 let isWorking
@@ -19,20 +18,7 @@ let locale
 
 let leoTooltip
 
-const buttonElement = () => {
-  const buttonEl = document.createElement('div')
-  buttonEl.className = 'filter-level leo-export-extension'
-  buttonEl.innerHTML = format(
-    buttonHtml,
-    {
-      export: locale.t('Export'),
-      all: locale.t('All'),
-      learning: locale.t('New & Learning'),
-      selected: locale.t('Selected')
-    }
-  )
-  return buttonEl
-}
+let api
 
 const mapWordSets = (wordSets) => {
   return wordSets.reduce((map, wordSet) => {
@@ -48,11 +34,6 @@ const showToolTip = (message, style) => {
     styleClass: style
   })
 }
-
-const hideMenu = () => { document.querySelector(menuSel).style.display = 'none' }
-
-const bindCollapseHandler = () =>
-  LEO.ui.BodyClickHider.removeItem(menuSel).addItem(menuSel, hideMenu)
 
 const download = (filter, groupId, expectedNumberOfWords) => {
   if (isWorking) return
@@ -110,35 +91,15 @@ const progressFilter = {
 
 const selectedFilter = selectedWords => word => selectedWords.indexOf(word.word_id) > -1
 
-const createExportButton = function (totalWordsCount, groupId) {
-  if (document.querySelector('.leo-export-extension')) {
-    document.querySelector('.leo-export-extension').remove()
-  }
-  document.querySelector('div.dict-title-inner').appendChild(buttonElement())
-
-  const menu = document.querySelector(menuSel)
-
-  const bodyClick = () => document.getElementsByTagName('body')[0].click()
-
-  for (let menuItem of menu.getElementsByTagName('a')) {
-    menuItem.addEventListener('click', bodyClick)
-  }
-
-  document
-    .getElementById('leo-export-extension-btn-all')
-    .addEventListener('click', () => {
+const createExportButton = (locale, totalWordsCount, groupId) => {
+  const handlers = {
+    all: () => {
       download(progressFilter.all, groupId, totalWordsCount)
-    })
-
-  document
-    .getElementById('leo-export-extension-btn-new')
-    .addEventListener('click', () => {
+    },
+    new: () => {
       download(progressFilter.learning, groupId, totalWordsCount)
-    })
-
-  document
-    .getElementById('leo-export-extension-btn-selected')
-    .addEventListener('click', () => {
+    },
+    selected: () => {
       const selectedWords = selectedWordsIds()
       if (selectedWords.length === 0) return
 
@@ -154,47 +115,37 @@ const createExportButton = function (totalWordsCount, groupId) {
         ? progressFilter[filterName]
         : selectedFilter(selectedWords)
       download(filter, groupId, selectedWordsCount)
-    })
+    }
+  };
+  const button = new Button(locale, handlers);
+  document.querySelector('div.ll-page-vocabulary__filter__action')
+    .prepend(button.getDomElement(handlers));
 
-  document
-    .getElementById('leo-export-extension-btn')
-    .addEventListener('click', () => {
-      if (menu.style.display === 'none') {
-        bindCollapseHandler()
-        menu.style.display = 'block'
-      } else {
-        menu.style.display = 'none'
-      }
-    })
 }
 
-const getWordCount = () => {
-  const dictionaryName = document.getElementsByClassName('dict-title-main')[0]
-    .textContent
-  const wordSets = CONFIG.pages.glossary.wordSets
-  if (typeof wordSets !== 'undefined') {
-    return wordSets.filter(g => g.name === dictionaryName)[0].countWords
-  } else {
-    return CONFIG.pages.userdict3.count_words
-  }
+const getToken = () => {
+  const m = document.cookie.match('remember=(.+?);');
+  return m.length > 1 ? m[1] : '';
 }
 
 const initExportButton = () => {
-  const groupId = pageMatcher.getWordGroupId(window.location.pathname)
-  // don't add export button, if there is no groupId in URL
-  if (groupId === false) return
+  const { wordGroup, localeName } = pageMatcher.getSetup(window.location.pathname)
+  // don't add export button, if there  is no groupId in URL
+  if (wordGroup === false) return
 
-  if (document.querySelectorAll('div.dict-title-inner').length > 0) {
-    wordSetsMap = mapWordSets(CONFIG.pages.glossary.wordSets)
-    locale = new Locale(CONFIG_GLOBAL.i18n.iface, translations)
-    createExportButton(
-      getWordCount(),
-      groupId
+  if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
+    //wordSetsMap = mapWordSets(CONFIG.pages.glossary.wordSets)
+    locale = new Locale(localeName, translations)
+    api.getWordCount(wordGroup).then(wordCount => 
+      createExportButton(locale, wordCount, wordGroup)      
     )
   }
 }
 
+api = new LeoApi(getToken())
+initExportButton()
 // add handlers for history API
+/*
 for (let i = 0; i < pageMatcher.targetUrls.length; i++) {
   LEO.HistoryListener.addListener({
     regEx: new RegExp(pageMatcher.targetUrls[i]),
@@ -208,3 +159,4 @@ di.require(['$tooltip'], function (tooltip) {
   initExportButton()
   leoTooltip = tooltip
 })
+*/
