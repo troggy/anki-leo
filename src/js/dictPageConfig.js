@@ -3,5 +3,13 @@ const dictPageRE = new RegExp('https?://lingualeo.com/(.+?)/dictionary/vocabular
 export default (url) => {
   const match = url.match(dictPageRE)
   if (!match) return
-  return { localeName: match[1], wordGroup: parseInt(match[2]) || 1 }
+  let wordGroupId = match[2]
+  if (wordGroupId === 'my') {
+    wordGroupId = 1
+  } else if (wordGroupId === 'jungle') {
+    wordGroupId = 2
+  } else if (wordGroupId === 'internet') {
+    wordGroupId = 3
+  }
+  return { localeName: match[1], wordGroup: wordGroupId }
 }

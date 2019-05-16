@@ -10,6 +10,14 @@ describe('dictPageConfig', t => {
         expected: { localeName: 'ru', wordGroup: 1 }
       },
       { 
+        url: 'https://lingualeo.com/ru/dictionary/vocabulary/jungle', 
+        expected: { localeName: 'ru', wordGroup: 2 }
+      },
+      { 
+        url: 'https://lingualeo.com/ru/dictionary/vocabulary/internet', 
+        expected: { localeName: 'ru', wordGroup: 3 }
+      },
+      { 
         url: 'https://lingualeo.com/ru/dictionary/vocabulary/12', 
         expected: { localeName: 'ru', wordGroup: 12 }
       },
