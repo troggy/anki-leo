@@ -24,7 +24,7 @@ export default class Button {
 
 
   hideMenu(e) {
-    if (!document.getElementById('ankileo-btn').hasAttribute('open')) return
+    if (!document.getElementById('ankileo-btn') || !document.getElementById('ankileo-btn').hasAttribute('open')) return
     document.getElementById('ankileo-btn').removeAttribute('open')
   }
 

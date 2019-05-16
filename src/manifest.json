@@ -10,10 +10,12 @@
 	"permissions": [
 		"http://lingualeo.com/",
 		"downloads",
-		"background"
+		"background",
+		"webNavigation"
 	],
 	"background": {
-    "scripts": ["./background.js"]
+		"scripts": ["./background.js"],
+		"persistent": false
   },
 	"icons": {
     "16": "icons/16x16.png",

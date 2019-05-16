@@ -2,13 +2,11 @@
 
 import fetchWordsFromLeo from './fetchWordsFromLeo.js'
 import translations from '../translations.js'
-import PageMatcher from './pageMatcher.js'
+import dictPageConfig from './dictPageConfig.js'
 import Locale from './locale.js'
 import LeoApi from './leoApi.js'
 import toCsv from './toCsv.js'
 import Button from './button.js';
-
-const pageMatcher = new PageMatcher()
 
 let isWorking
 
@@ -128,8 +126,7 @@ const getToken = () => {
   return m.length > 1 ? m[1] : '';
 }
 
-const initExportButton = () => {
-  const { wordGroup, localeName } = pageMatcher.getSetup(window.location.pathname)
+const initExportButton = ({ wordGroup, localeName }) => {
   // don't add export button, if there  is no groupId in URL
   if (wordGroup === false) return
 
@@ -143,20 +140,19 @@ const initExportButton = () => {
 }
 
 api = new LeoApi(getToken())
-initExportButton()
-// add handlers for history API
-/*
-for (let i = 0; i < pageMatcher.targetUrls.length; i++) {
-  LEO.HistoryListener.addListener({
-    regEx: new RegExp(pageMatcher.targetUrls[i]),
-    listener: initExportButton,
-    name: 'AnkiLeo' + i,
-    format: pageMatcher.targetUrls[i]
-  })
+
+const pageConfig = dictPageConfig(window.location.href)
+if (pageConfig) {
+  initExportButton(pageConfig)
 }
 
-di.require(['$tooltip'], function (tooltip) {
-  initExportButton()
-  leoTooltip = tooltip
-})
-*/
+window.addEventListener("message", function(event) {
+  // We only accept messages from ourselves
+  if (event.source !== window) {
+    return
+  }
+
+  if (event.data.type === 'ankileo.init') {
+    initExportButton(event.data.payload)
+  }
+}, false);
