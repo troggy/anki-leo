@@ -10,15 +10,17 @@
 	"permissions": [
 		"http://lingualeo.com/",
 		"downloads",
-		"background"
+		"background",
+		"webNavigation"
 	],
 	"background": {
-    "page": "background.html"
+		"scripts": ["./background.js"],
+		"persistent": false
   },
 	"icons": {
-    "16": "16x16.png",
-    "48": "48x48.png",
-    "128": "128x128.png"
+    "16": "icons/16x16.png",
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png"
   },
 
 	"content_scripts": [
@@ -26,10 +28,14 @@
 	      "matches": [
 					"*://lingualeo.com/*"
 				],
-	      "js": ["jquery.min.js", "i18next.min.js", "translations.js", "leo-export.js"],
-	      "css": ["leo-export.css"]
+	      "js": ["content.js"],
+				"css": ["leo-export.css"],
+				"run_at": "document_end",
+				"all_frames": false
 	    }
 	],
 
-	"web_accessible_resources": ["PageWithWordsMatcher.js", "translations.js", "leo-export-inject.js"]
+	"web_accessible_resources": [
+		"js/index.js"
+	]
 }

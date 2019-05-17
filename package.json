@@ -3,19 +3,22 @@
   "version": "2.5.4",
   "description": "Chrome extension to export dictionary from LinguaLeo to CSV/Anki",
   "main": "src/leo-export.js",
-  "directories": {
-    "test": "test"
-  },
   "devDependencies": {
-    "gulp": "~3.8.11",
-    "gulp-zip": "~3.0.2",
-    "event-stream": "~3.3.0",
-    "gulp-watch": "~4.2.4",
-    "mocha": "~2.2.5",
-    "chai": "~3.0.0"
+    "cross-zip-cli": "^1.0.0",
+    "esm": "^3.2.1",
+    "parcel-bundler": "^1.11.0",
+    "parcel-plugin-web-extension": "^1.5.1",
+    "standard": "^12.0.1",
+    "tap-mocha-reporter": "^3.0.7",
+    "zora": "2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/js/all.test.js | tap-mocha-reporter spec",
+    "lint": "standard",
+    "start": "yarn build && parcel watch src/manifest.json",
+    "build": "parcel build src/manifest.json --no-minify && sed -i '' '1s;^;var ;' ./dist/js/index.js",
+    "package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
+    "release": "yarn lint && yarn test && yarn package"
   },
   "repository": {
     "type": "git",

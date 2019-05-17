@@ -1,60 +1,36 @@
-.dict-head .dict-title-inner {
-  overflow: visible !important;
+details#ankileo-btn > summary {
+  list-style: none;
 }
 
-.filter-level {
-  display: inline;
-  float: right;
-  margin-left: 10px;
+details#ankileo-btn > summary::-webkit-details-marker {
+  display: none;
 }
 
-.leo-export-extension-btn {
-  padding-right: 25px !important;
-}
-
-.leo-export-extension-btn:after {
-  content: ' ';
-  display: block;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: none;
-  border-top: 5px solid #666;
+details#ankileo-btn ul {
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
   position: absolute;
-  top: 15px;
-  right: 8px;
+  z-index: 10;
+  background-color: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 4px 12px 0 rgba(0,0,0,.06);
 }
 
-.leo-export-extension-menu-container {
-  position: absolute;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  top: 37px;
-  right: 0;
-  width: 230px;
-  z-index: 11;
-  border-radius: 2px;
-  overflow: hidden;
-  font-size: 15px;
-}
-
-.leo-export-extension-menu-container li a {
-  color: #666;
-  text-decoration: none !important;
-  white-space: nowrap;
-  padding: 9px 15px;
+details#ankileo-btn ul a {
   display: block;
+  margin: 4px 4px;
+  padding: 8px 12px;
+  color: #37383c;
+  border-radius: 4px;
 }
 
-.leo-export-extension-menu-container li a:hover {
-  background-color: #E8EDF5;
-}
-
-.leo-export-extension-menu-container .iconm-checklight {
-  background-position: -120px -60px;
-}
-
-.leo-export-extension-menu-container .iconm-none {
-  background-position: -120px -40px;
+details#ankileo-btn ul a:hover {
+  color: #2582e7;
+  background-color: rgba(37,130,231,.08)
 }
