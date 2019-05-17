@@ -15,8 +15,8 @@
   "scripts": {
     "test": "node src/js/all.test.js | tap-mocha-reporter spec",
     "lint": "standard",
-    "start": "parcel watch src/manifest.json",
-    "build": "parcel build src/manifest.json",
+    "start": "yarn build && parcel watch src/manifest.json",
+    "build": "parcel build src/manifest.json --no-minify && sed -i '' '1s;^;var ;' ./dist/js/index.js",
     "package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
     "release": "yarn lint && yarn test && yarn package"
   },

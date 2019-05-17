@@ -14,25 +14,33 @@ const sanitizeString = string => {
 }
 
 const wordPicture = word => {
-  if (!word.user_translates) return ''
-  const translation = word.user_translates.find(translation => !!translation.picture_url)
-  return translation ? `http:${translation.picture_url}` : ''
+  const translationWithPic = word.translations.find(tr => tr.pics && tr.pics.length > 0)
+  return translationWithPic ? `<img src='http:${translationWithPic.pics[0]}'>` : ''
+}
+
+const wordContext = (word) => {
+  if (!word.translations[0].ctx) return ''
+
+  const contextRaw = word.translations[0].ctx.startsWith('{')
+    ? JSON.parse(word.translations[0].ctx).context_text
+    : word.translations[0].ctx
+
+  return sanitizeString(contextRaw)
 }
 
 const clozefy = (word, string) => string.replace(wordRegExp(word), '{{c1::$&}}')
 
-const extractWordData = (word, wordSetsMap) => {
-  const translations = word.user_translates
-    .map(t => sanitizeString(t.translate_value))
+const extractWordData = (word) => {
+  const translations = word.translations
+    .map(t => sanitizeString(t.tr))
     .join(', ')
-  const wordValue = sanitizeString(word.word_value)
-  const context = sanitizeString(word.context)
+  const wordValue = sanitizeString(word.wordValue)
+  const context = wordContext(word)
   const highlightedContext = highlightWord(wordValue, context)
   const clozefiedContext = clozefy(wordValue, context)
-  const imageUrl = wordPicture(word);
-  const image = imageUrl ? `<img src='${wordPicture(word)}'>` : '';
-  const sound = `[sound:${word.sound_url}]`
-  const groups = (word.groups || []).map(group => wordSetsMap[group]).join(' ')
+  const image = wordPicture(word)
+  const sound = `[sound:${word.pronunciation}]`
+  const groups = (word.wordSets || []).map(ws => ws.name).join(',')
 
   return {
     word: wordValue,

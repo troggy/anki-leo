@@ -1,82 +1,40 @@
-/* global LEO CONFIG CONFIG_GLOBAL di */
-
-import fetchWordsFromLeo from './fetchWordsFromLeo.js'
 import translations from '../translations.js'
-import PageMatcher from './pageMatcher.js'
-import buttonHtml from './button.html.js'
-import { format } from './util.js'
+import dictPageConfig from './dictPageConfig.js'
+import getLeoFilters from './getLeoFilters.js'
 import Locale from './locale.js'
+import LeoApi from './leoApi.js'
 import toCsv from './toCsv.js'
-
-const menuSel = '.leo-export-extension-menu-container'
-const pageMatcher = new PageMatcher()
+import Button from './button.js';
 
 let isWorking
 
-let wordSetsMap = []
-
 let locale
 
-let leoTooltip
-
-const buttonElement = () => {
-  const buttonEl = document.createElement('div')
-  buttonEl.className = 'filter-level leo-export-extension'
-  buttonEl.innerHTML = format(
-    buttonHtml,
-    {
-      export: locale.t('Export'),
-      all: locale.t('All'),
-      learning: locale.t('New & Learning'),
-      selected: locale.t('Selected')
-    }
-  )
-  return buttonEl
-}
-
-const mapWordSets = (wordSets) => {
-  return wordSets.reduce((map, wordSet) => {
-    map[wordSet.id] = wordSet.name.replace(/\s/gi, '_')
-    return map
-  }, {})
-}
+let api
 
 const showToolTip = (message, style) => {
-  leoTooltip.show(document.getElementById('leo-export-extension-btn'), {
-    content: message,
-    position: 'bottom',
-    styleClass: style
-  })
+  document.querySelector('#ankileo-btn .ll-button__content').textContent = message
 }
 
-const hideMenu = () => { document.querySelector(menuSel).style.display = 'none' }
-
-const bindCollapseHandler = () =>
-  LEO.ui.BodyClickHider.removeItem(menuSel).addItem(menuSel, hideMenu)
+const resetToolTip = () => {
+  document.querySelector('#ankileo-btn .ll-button__content').textContent = locale.t('Export')
+}
 
 const download = (filter, groupId, expectedNumberOfWords) => {
   if (isWorking) return
   isWorking = true
 
-  const wordType = document.querySelector('.word-type-btn.selected').dataset
-    .wordType
-  const leoFilter = document.querySelector('.dict-filter button.selected')
-    .dataset.filter
-
   const progressReporter = (exported) =>
-    showToolTip(
-      locale.t('Exporting words', {
-        done: exported,
-        total: expectedNumberOfWords
-      })
-    )
+    showToolTip(locale.t('Progress', {
+      done: exported,
+      total: expectedNumberOfWords
+    }))
 
-  fetchWordsFromLeo(filter, groupId, expectedNumberOfWords, wordType, leoFilter, progressReporter)
-    .then(function (words) {
-      if (words.length === 0) {
-        showToolTip(locale.t('Nothing to export'), 'success')
-      } else {
-        const outfile = toCsv(words, wordSetsMap)
+  api.getWords(groupId, getLeoFilters(), expectedNumberOfWords, filter, progressReporter)
+    .then((words) => {
+      isWorking = false
+      if (words.length > 0) {
+        const outfile = toCsv(words)
         window.postMessage({
           type: 'ankileo.download',
           payload: {
@@ -86,125 +44,79 @@ const download = (filter, groupId, expectedNumberOfWords) => {
         })
 
         showToolTip(
-          locale.t('Export complete', { total: words.length }),
+          `✅ ${words.length}`,
           'success'
         )
+
+        setTimeout(resetToolTip, 2000)
       }
-      isWorking = false
     })
 }
 
 const selectedWordsIds = () => {
-  return Array.prototype.map.call(
-    document.querySelectorAll('div.dict-item-word.checked'),
-    n => Number(n.dataset.wordId)
-  )
+  return [].slice.call(document.querySelectorAll(
+    '.sets-words__col .ll-leokit__checkbox__input'
+  )).filter(a => a.checked).map(a => parseInt(a.id))
 }
 
-const progressFilter = {
-  all: () => true,
-  no_translate: word => word.progress_percent === 0,
-  learning: word => word.progress_percent < 100,
-  learned: word => word.progress_percent === 100
-}
+const selectedFilter = selectedWords => word => selectedWords.indexOf(word.id) > -1
 
-const selectedFilter = selectedWords => word => selectedWords.indexOf(word.word_id) > -1
-
-const createExportButton = function (totalWordsCount, groupId) {
-  if (document.querySelector('.leo-export-extension')) {
-    document.querySelector('.leo-export-extension').remove()
-  }
-  document.querySelector('div.dict-title-inner').appendChild(buttonElement())
-
-  const menu = document.querySelector(menuSel)
-
-  const bodyClick = () => document.getElementsByTagName('body')[0].click()
-
-  for (let menuItem of menu.getElementsByTagName('a')) {
-    menuItem.addEventListener('click', bodyClick)
-  }
-
-  document
-    .getElementById('leo-export-extension-btn-all')
-    .addEventListener('click', () => {
-      download(progressFilter.all, groupId, totalWordsCount)
-    })
-
-  document
-    .getElementById('leo-export-extension-btn-new')
-    .addEventListener('click', () => {
-      download(progressFilter.learning, groupId, totalWordsCount)
-    })
-
-  document
-    .getElementById('leo-export-extension-btn-selected')
-    .addEventListener('click', () => {
+const createExportButton = (locale, totalWordsCount, groupId) => {
+  console.log('ankileo', locale, totalWordsCount, groupId);
+  const handlers = {
+    all: () => download(null, groupId, totalWordsCount),
+    new: () => download(word => word.progress < 4, groupId, totalWordsCount),
+    selected: () => {
       const selectedWords = selectedWordsIds()
       if (selectedWords.length === 0) return
 
+      /*
       const allSelected = !!document.querySelector(
         'span.checkbox-word-con.checked'
-      )
-      const filterName = document.querySelector('.dict-filter button.selected')
-        .dataset.filter
-      const selectedWordsCount = document.querySelector('.dict-search-count')
-        .textContent
+      )*/
+      const allSelected = false
 
-      const filter = allSelected
-        ? progressFilter[filterName]
-        : selectedFilter(selectedWords)
-      download(filter, groupId, selectedWordsCount)
-    })
-
-  document
-    .getElementById('leo-export-extension-btn')
-    .addEventListener('click', () => {
-      if (menu.style.display === 'none') {
-        bindCollapseHandler()
-        menu.style.display = 'block'
-      } else {
-        menu.style.display = 'none'
-      }
-    })
+      const filter = allSelected ? null : selectedFilter(selectedWords)
+      download(filter, groupId, selectedWords.length)
+    }
+  };
+  const button = new Button(locale, handlers);
+  document.querySelector('div.ll-page-vocabulary__filter__action')
+    .prepend(button.getDomElement(handlers));
 }
 
-const getWordCount = () => {
-  const dictionaryName = document.getElementsByClassName('dict-title-main')[0]
-    .textContent
-  const wordSets = CONFIG.pages.glossary.wordSets
-  if (typeof wordSets !== 'undefined') {
-    return wordSets.filter(g => g.name === dictionaryName)[0].countWords
-  } else {
-    return CONFIG.pages.userdict3.count_words
-  }
+const getToken = () => {
+  const m = document.cookie.match('remember=(.+?);');
+  return m.length > 1 ? m[1] : '';
 }
 
-const initExportButton = () => {
-  const groupId = pageMatcher.getWordGroupId(window.location.pathname)
-  // don't add export button, if there is no groupId in URL
-  if (groupId === false) return
+const initExportButton = ({ wordGroup, localeName }) => {
+  // don't add export button, if there  is no groupId in URL
+  if (wordGroup === false) return
 
-  if (document.querySelectorAll('div.dict-title-inner').length > 0) {
-    wordSetsMap = mapWordSets(CONFIG.pages.glossary.wordSets)
-    locale = new Locale(CONFIG_GLOBAL.i18n.iface, translations)
-    createExportButton(
-      getWordCount(),
-      groupId
+  if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
+    locale = new Locale(localeName, translations)
+    api.getWordCount(wordGroup).then(wordCount => 
+      createExportButton(locale, wordCount, wordGroup)      
     )
   }
 }
 
-// add handlers for history API
-for (let i = 0; i < pageMatcher.targetUrls.length; i++) {
-  LEO.HistoryListener.addListener({
-    regEx: new RegExp(pageMatcher.targetUrls[i]),
-    listener: initExportButton,
-    name: 'AnkiLeo' + i,
-    format: pageMatcher.targetUrls[i]
-  })
+api = new LeoApi(getToken())
+
+const pageConfig = dictPageConfig(window.location.href)
+console.log(pageConfig);
+if (pageConfig) {
+  initExportButton(pageConfig)
 }
 
-di.require(['$tooltip'], function (tooltip) {
-  initExportButton()
-  leoTooltip = tooltip
-})
+window.addEventListener("message", function(event) {
+  // We only accept messages from ourselves
+  if (event.source !== window) {
+    return
+  }
+
+  if (event.data.type === 'ankileo.init') {
+    initExportButton(event.data.payload)
+  }
+}, false);

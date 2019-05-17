@@ -15,3 +15,13 @@ window.addEventListener('message', (event) => {
     chrome.runtime.sendMessage(event.data)
   }
 }, false)
+
+let contentPort = chrome.runtime.connect({
+  name: 'ankileo.background-content'
+})
+
+contentPort.onMessage.addListener((event) => {
+  if (event.type === 'ankileo.init') {
+    window.postMessage(event);
+  }
+})

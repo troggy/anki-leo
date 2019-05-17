@@ -1,3 +1,3 @@
 require = require('esm')(module) // eslint-disable-line
-require('./pageMatcher.test.js')
+require('./dictPageConfig.test.js')
 require('./util.test.js')
