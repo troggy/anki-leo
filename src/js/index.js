@@ -13,7 +13,11 @@ let locale
 let api
 
 const showToolTip = (message, style) => {
-  console.log(message)
+  document.querySelector('#ankileo-btn .ll-button__content').textContent = message
+}
+
+const resetToolTip = () => {
+  document.querySelector('#ankileo-btn .ll-button__content').textContent = locale.t('Export')
 }
 
 const download = (filter, groupId, expectedNumberOfWords) => {
@@ -21,7 +25,7 @@ const download = (filter, groupId, expectedNumberOfWords) => {
   isWorking = true
 
   const progressReporter = (exported) =>
-    showToolTip(locale.t('Exporting words', {
+    showToolTip(locale.t('Progress', {
       done: exported,
       total: expectedNumberOfWords
     }))
@@ -29,10 +33,7 @@ const download = (filter, groupId, expectedNumberOfWords) => {
   api.getWords(groupId, getLeoFilters(), expectedNumberOfWords, filter, progressReporter)
     .then((words) => {
       isWorking = false
-      console.log(words)
-      if (words.length === 0) {
-        showToolTip(locale.t('Nothing to export'), 'success')
-      } else {
+      if (words.length > 0) {
         const outfile = toCsv(words)
         window.postMessage({
           type: 'ankileo.download',
@@ -43,9 +44,11 @@ const download = (filter, groupId, expectedNumberOfWords) => {
         })
 
         showToolTip(
-          locale.t('Export complete', { total: words.length }),
+          `✅ ${words.length}`,
           'success'
         )
+
+        setTimeout(resetToolTip, 2000)
       }
     })
 }
