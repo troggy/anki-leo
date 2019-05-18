@@ -10,6 +10,8 @@ export default (url) => {
     wordGroupId = 2
   } else if (wordGroupId === 'internet') {
     wordGroupId = 3
+  } else {
+    wordGroupId = parseInt(wordGroupId)
   }
   return { localeName: match[1], wordGroup: wordGroupId }
 }
