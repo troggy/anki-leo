@@ -45,7 +45,7 @@ layout: index
     <div>{{FrontSide}}</div>
     <hr id=answer>
     <div>{{Back}}</div>
-    <div><img src="{{Image}}"></div>
+    <div>{{Image}}</div>
     <div class="context">{{Context}}</div>
     ```
     {% endraw %}
