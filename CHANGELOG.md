@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2019-05-17
+
+Major code rework
+
+### Fixed
+- Support latest Lingualeo API and website changes #30
+
+### Changed
+- Image attribute value is now wrapped in <img> #29
+
+
 ## [2.5.4] - 2018-03-13
 
 ### Fixed
