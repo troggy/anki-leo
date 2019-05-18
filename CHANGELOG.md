@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [3.0.1] - 2019-05-18
+
+### Fixed
+- Export button is not shown on word set pages (other than my/jungle/internet)
+
 ## [3.0.0] - 2019-05-17
 
 Major code rework
