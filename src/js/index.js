@@ -94,6 +94,9 @@ const initExportButton = ({ wordGroup, localeName }) => {
   // don't add export button, if there  is no groupId in URL
   if (wordGroup === false) return
 
+  // don't add export button, if there is one already
+  if (document.getElementById('ankileo-btn')) return
+
   if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
     locale = new Locale(localeName, translations)
     api.getWordCount(wordGroup).then(wordCount => 
