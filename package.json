@@ -9,6 +9,7 @@
     "parcel-bundler": "^1.11.0",
     "parcel-plugin-web-extension": "^1.5.1",
     "standard": "^12.0.1",
+    "standard-version": "^6.0.1",
     "tap-mocha-reporter": "^3.0.7",
     "zora": "2"
   },
@@ -17,8 +18,9 @@
     "lint": "standard",
     "start": "yarn build && parcel watch src/manifest.json",
     "build": "parcel build src/manifest.json --no-minify && sed -i '' '1s;^;var ;' ./dist/js/index.js",
-    "package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
-    "release": "yarn lint && yarn test && yarn package"
+    "release:package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
+    "release:version": "standard-version",
+    "release": "yarn lint && yarn test && yarn release:package && yarn release:version"
   },
   "repository": {
     "type": "git",
