@@ -21,11 +21,12 @@ const wordPicture = word => {
 const wordContext = (word) => {
   if (!word.translations[0].ctx) return ''
 
-  const contextRaw = word.translations[0].ctx.startsWith('{')
-    ? JSON.parse(word.translations[0].ctx).context_text
-    : word.translations[0].ctx
-
-  return sanitizeString(contextRaw)
+  try {
+    const contextObj = JSON.parse(word.translations[0].ctx) || {}
+    return sanitizeString(contextObj.context_text)
+  } catch (e) {
+    return sanitizeString(word.translations[0].ctx)
+  }
 }
 
 const clozefy = (word, string) => string.replace(wordRegExp(word), '{{c1::$&}}')
