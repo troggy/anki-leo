@@ -5,10 +5,7 @@ export default {
       'All': 'All',
       'New & Learning': 'New & Learning',
       'Selected': 'Selected',
-      'Exporting words': 'Exporting words.<br/>Progress: {done} of {total}',
-      'Progress': '🔄 {done} of {total}',
-      'Nothing to export': 'Nothing to export',
-      'Export complete': 'Done. {total} words have been exported'
+      'Progress': '🔄 {done} of {total}'
     }
   },
   ru: {
@@ -17,10 +14,7 @@ export default {
       'All': 'Все',
       'New & Learning': 'Неизученные',
       'Selected': 'Выбранные',
-      'Exporting words': 'Загружаю слова.<br/>Готово: {done} из {total}',
-      'Progress': '🔄 {done} из {total}',
-      'Nothing to export': 'Нет слов для экпорта.',
-      'Export complete': 'Экспортировано {total} слов'
+      'Progress': '🔄 {done} из {total}'
     }
   }
 }
