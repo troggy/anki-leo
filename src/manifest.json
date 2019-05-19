@@ -3,7 +3,7 @@
 	"name": "__MSG_manifest_name__",
 	"short_name": "Anki-leo",
 	"description": "__MSG_manifest_description__",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"author": "Kosta Korenkov <7r0ggy@gmail.com>",
 	"default_locale": "en",
 	"permissions": [
