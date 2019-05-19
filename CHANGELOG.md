@@ -1,6 +1,22 @@
 # Changelog
 
-## [Unreleased]
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [3.1.0](https://github.com/troggy/anki-leo/compare/v3.0.1...v3.1.0) (2019-05-19)
+
+
+### Bug Fixes
+
+* don't add the button if there is one on the page already ([0edbf2a](https://github.com/troggy/anki-leo/commit/0edbf2a))
+* don't fail on json-like context strings ([0a31efb](https://github.com/troggy/anki-leo/commit/0a31efb))
+* error reading error cookie ([de6fb74](https://github.com/troggy/anki-leo/commit/de6fb74))
+
+
+### Features
+
+* detecting user locale (hack) ([3c2177e](https://github.com/troggy/anki-leo/commit/3c2177e))
+
+
 
 ## [3.0.1] - 2019-05-18
 
