@@ -19,13 +19,14 @@ const wordPicture = word => {
 }
 
 const wordContext = (word) => {
-  if (!word.translations[0].ctx) return ''
+  const rawContext = word.translations[0].ctx
+  if (!rawContext) return ''
 
   try {
-    const contextObj = JSON.parse(word.translations[0].ctx) || {}
-    return sanitizeString(contextObj.context_text)
+    const contextObj = JSON.parse(rawContext) || {}
+    return sanitizeString(contextObj.context_text || rawContext)
   } catch (e) {
-    return sanitizeString(word.translations[0].ctx)
+    return sanitizeString(rawContext)
   }
 }
 
