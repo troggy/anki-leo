@@ -86,7 +86,7 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
 }
 
 const getToken = () => {
-  const m = document.cookie.match('remember=(.+?);');
+  const m = document.cookie.match('remember=(.+?)(;|$)');
   return m.length > 1 ? m[1] : '';
 }
 
