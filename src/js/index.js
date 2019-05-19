@@ -90,7 +90,22 @@ const getToken = () => {
   return m.length > 1 ? m[1] : '';
 }
 
-const initExportButton = ({ wordGroup, localeName }) => {
+const getUserLocale = () => {
+  try {
+    // Lingualeo sets window['context'] with an inline script
+    // however at the runtime window.context is overwritten by something else
+    // hacking around it by parsing inline script body
+    return [].slice.call(document.querySelectorAll('head script'))
+    .find(n => 
+        n.textContent.trim().startsWith('window[\'context\']')
+    ).textContent.match('"interfaceLang":"(.+?)"')[1]
+  } catch (e) {
+    console.error(e)
+    return 'en'
+  }
+}
+
+const initExportButton = ({ wordGroup }) => {
   // don't add export button, if there  is no groupId in URL
   if (wordGroup === false) return
 
@@ -98,7 +113,7 @@ const initExportButton = ({ wordGroup, localeName }) => {
   if (document.getElementById('ankileo-btn')) return
 
   if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
-    locale = new Locale(localeName, translations)
+    locale = new Locale(getUserLocale(), translations)
     api.getWordCount(wordGroup).then(wordCount => 
       createExportButton(locale, wordCount, wordGroup)      
     )
