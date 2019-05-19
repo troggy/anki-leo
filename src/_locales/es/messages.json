@@ -1,0 +1,30 @@
+{
+  "manifest_name": {
+    "message": "Anki-leo - Descargar diccionario Lingualeo",
+    "description": ""
+  },
+  "manifest_description": {
+    "message": "Exporta tu diccionario Lingualeo a un archivo CSV compatible con Anki",
+    "description": ""
+  },
+  "web_btn_export": {
+    "message": "Descargar",
+    "description": ""
+  },
+  "web_btn_all": {
+    "message": "Todas",
+    "description": ""
+  },
+  "web_btn_learning": {
+    "message": "Estudiadas",
+    "description": ""
+  },
+  "web_btn_selected": {
+    "message": "Seleccionadas",
+    "description": ""
+  },
+  "web_msg_progress": {
+    "message": "🔄 {done} de {total}",
+    "description": ""
+  }
+}

@@ -12,10 +12,10 @@ export default class Button {
     buttonEl.innerHTML = format(
       buttonHtml,
       {
-        export: this.locale.t('Export'),
-        all: this.locale.t('All'),
-        learning: this.locale.t('New & Learning'),
-        selected: this.locale.t('Selected')
+        export: this.locale.t('web_btn_export'),
+        all: this.locale.t('web_btn_all'),
+        learning: this.locale.t('web_btn_learning'),
+        selected: this.locale.t('web_btn_selected')
       }
     )
     return buttonEl.firstChild

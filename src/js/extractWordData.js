@@ -47,7 +47,7 @@ const selectedTranslations = (word) => {
 
 const extractWordData = (word) => {
   const userTranslations = selectedTranslations(word)
-  const translations = userTranslations
+  const translations = (userTranslations || [])
     .map(t => sanitizeString(t.tr))
     .join(', ')
   const wordValue = sanitizeString(word.wordValue)

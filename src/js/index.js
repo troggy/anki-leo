@@ -1,4 +1,3 @@
-import translations from '../translations.js'
 import dictPageConfig from './dictPageConfig.js'
 import getLeoFilters from './getLeoFilters.js'
 import Locale from './locale.js'
@@ -17,7 +16,7 @@ const showToolTip = (message, style) => {
 }
 
 const resetToolTip = () => {
-  document.querySelector('#ankileo-btn .ll-button__content').textContent = locale.t('Export')
+  document.querySelector('#ankileo-btn .ll-button__content').textContent = locale.t('web_btn_export')
 }
 
 const download = (filter, groupId, expectedNumberOfWords) => {
@@ -25,7 +24,7 @@ const download = (filter, groupId, expectedNumberOfWords) => {
   isWorking = true
 
   const progressReporter = (exported) =>
-    showToolTip(locale.t('Progress', {
+    showToolTip(locale.t('web_msg_progress', {
       done: exported,
       total: expectedNumberOfWords
     }))
@@ -113,7 +112,7 @@ const initExportButton = ({ wordGroup }) => {
   if (document.getElementById('ankileo-btn')) return
 
   if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
-    locale = new Locale(getUserLocale(), translations)
+    locale = new Locale(getUserLocale())
     api.getWordCount(wordGroup).then(wordCount =>
       createExportButton(locale, wordCount, wordGroup)
     )

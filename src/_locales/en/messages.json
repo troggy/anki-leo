@@ -1,0 +1,30 @@
+{
+  "manifest_name": {
+    "message": "Anki-leo - LinguaLeo dictionary export",
+    "description": ""
+  },
+  "manifest_description": {
+    "message": "Export your Lingualeo dictionary into CSV file compatible with Anki",
+    "description": ""
+  },
+  "web_btn_export": {
+    "message": "Export",
+    "description": ""
+  },
+  "web_btn_all": {
+    "message": "All",
+    "description": ""
+  },
+  "web_btn_learning": {
+    "message": "New & Learning",
+    "description": ""
+  },
+  "web_btn_selected": {
+    "message": "Selected",
+    "description": ""
+  },
+  "web_msg_progress": {
+    "message": "🔄 {done} of {total}",
+    "description": ""
+  }
+}

@@ -7,7 +7,7 @@
     "cross-zip-cli": "^1.0.0",
     "esm": "^3.2.1",
     "parcel-bundler": "^1.11.0",
-    "parcel-plugin-web-extension": "^1.5.1",
+    "parcel-plugin-web-extension": "^1.5.2",
     "standard": "^12.0.1",
     "standard-version": "^6.0.1",
     "tap-mocha-reporter": "^3.0.7",
@@ -17,7 +17,8 @@
     "test": "node src/js/all.test.js | tap-mocha-reporter spec",
     "lint": "standard",
     "start": "yarn build && parcel watch src/manifest.json",
-    "build": "parcel build src/manifest.json --no-minify && sed -i '' '1s;^;var ;' ./dist/js/index.js",
+    "build:locales": "cp -r src/_locales/ src/js/locales",
+    "build": "yarn build:locales && parcel build src/manifest.json --no-minify && sed -i '' '1s;^;var ;' ./dist/js/index.js",
     "release:package": "yarn build && cd dist/ && cross-zip . ../anki-leo.zip && cd -",
     "release:version": "standard-version",
     "release": "yarn lint && yarn test && yarn release:package && yarn release:version"

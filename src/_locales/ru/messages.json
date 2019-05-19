@@ -1,0 +1,30 @@
+{
+  "manifest_name": {
+    "message": "Anki-leo - Экспорт словаря LinguaLeo",
+    "description": ""
+  },
+  "manifest_description": {
+    "message": "Экспорт словаря из LinguaLeo в CSV формат, совместимый с Anki",
+    "description": ""
+  },
+  "web_btn_export": {
+    "message": "Скачать",
+    "description": ""
+  },
+  "web_btn_all": {
+    "message": "Все",
+    "description": ""
+  },
+  "web_btn_learning": {
+    "message": "Неизученные",
+    "description": ""
+  },
+  "web_btn_selected": {
+    "message": "Выбранные",
+    "description": ""
+  },
+  "web_msg_progress": {
+    "message": "🔄 {done} из {total}",
+    "description": ""
+  }
+}
