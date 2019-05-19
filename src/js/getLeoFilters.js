@@ -33,13 +33,12 @@ const getSelectedStatus = () => {
 
   const selectedStatusIndex = [].slice.call(toggleGroup.childNodes)
     .findIndex(a => a.classList.contains('ll-toggle-group-option__m-selected'))
-  
-    console.log(selectedStatusIndex);
+
   return statuses[selectedStatusIndex]
 }
 
 const getSearchQuery = () => {
-  const activeSearch = document.querySelector('.ll-leokit__input__m-with-action');
+  const activeSearch = document.querySelector('.ll-leokit__input__m-with-action')
   if (!activeSearch) return ''
 
   return activeSearch.value
@@ -48,5 +47,5 @@ const getSearchQuery = () => {
 export default () => ({
   category: getSelectedCategory(),
   status: getSelectedStatus(),
-  search: getSearchQuery(),
+  search: getSearchQuery()
 })

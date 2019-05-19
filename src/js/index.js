@@ -4,7 +4,7 @@ import getLeoFilters from './getLeoFilters.js'
 import Locale from './locale.js'
 import LeoApi from './leoApi.js'
 import toCsv from './toCsv.js'
-import Button from './button.js';
+import Button from './button.js'
 
 let isWorking
 
@@ -62,7 +62,7 @@ const selectedWordsIds = () => {
 const selectedFilter = selectedWords => word => selectedWords.indexOf(word.id) > -1
 
 const createExportButton = (locale, totalWordsCount, groupId) => {
-  console.log('ankileo', locale, totalWordsCount, groupId);
+  console.log('ankileo', locale, totalWordsCount, groupId)
   const handlers = {
     all: () => download(null, groupId, totalWordsCount),
     new: () => download(word => word.progress < 4, groupId, totalWordsCount),
@@ -73,21 +73,21 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
       /*
       const allSelected = !!document.querySelector(
         'span.checkbox-word-con.checked'
-      )*/
+      ) */
       const allSelected = false
 
       const filter = allSelected ? null : selectedFilter(selectedWords)
       download(filter, groupId, selectedWords.length)
     }
-  };
-  const button = new Button(locale, handlers);
+  }
+  const button = new Button(locale, handlers)
   document.querySelector('div.ll-page-vocabulary__filter__action')
-    .prepend(button.getDomElement(handlers));
+    .prepend(button.getDomElement(handlers))
 }
 
 const getToken = () => {
-  const m = document.cookie.match('remember=(.+?)(;|$)');
-  return m.length > 1 ? m[1] : '';
+  const m = document.cookie.match('remember=(.+?)(;|$)')
+  return m.length > 1 ? m[1] : ''
 }
 
 const getUserLocale = () => {
@@ -96,9 +96,9 @@ const getUserLocale = () => {
     // however at the runtime window.context is overwritten by something else
     // hacking around it by parsing inline script body
     return [].slice.call(document.querySelectorAll('head script'))
-    .find(n => 
+      .find(n =>
         n.textContent.trim().startsWith('window[\'context\']')
-    ).textContent.match('"interfaceLang":"(.+?)"')[1]
+      ).textContent.match('"interfaceLang":"(.+?)"')[1]
   } catch (e) {
     console.error(e)
     return 'en'
@@ -114,8 +114,8 @@ const initExportButton = ({ wordGroup }) => {
 
   if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
     locale = new Locale(getUserLocale(), translations)
-    api.getWordCount(wordGroup).then(wordCount => 
-      createExportButton(locale, wordCount, wordGroup)      
+    api.getWordCount(wordGroup).then(wordCount =>
+      createExportButton(locale, wordCount, wordGroup)
     )
   }
 }
@@ -123,12 +123,11 @@ const initExportButton = ({ wordGroup }) => {
 api = new LeoApi(getToken())
 
 const pageConfig = dictPageConfig(window.location.href)
-console.log(pageConfig);
 if (pageConfig) {
   initExportButton(pageConfig)
 }
 
-window.addEventListener("message", function(event) {
+window.addEventListener('message', function (event) {
   // We only accept messages from ourselves
   if (event.source !== window) {
     return
@@ -137,4 +136,4 @@ window.addEventListener("message", function(event) {
   if (event.data.type === 'ankileo.init') {
     initExportButton(event.data.payload)
   }
-}, false);
+}, false)

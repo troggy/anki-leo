@@ -22,6 +22,6 @@ let contentPort = chrome.runtime.connect({
 
 contentPort.onMessage.addListener((event) => {
   if (event.type === 'ankileo.init') {
-    window.postMessage(event);
+    window.postMessage(event)
   }
 })
