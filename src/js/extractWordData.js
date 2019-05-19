@@ -18,8 +18,16 @@ const wordPicture = word => {
   return translationWithPic ? `<img src='http:${translationWithPic.pics[0]}'>` : ''
 }
 
-const wordContext = (word) => {
-  const rawContext = word.translations[0].ctx
+const isWrappedContext = (contextStr) => {
+  try {
+    return !!(JSON.parse(contextStr) || {}).context_text
+  } catch (e) {
+    return false
+  }
+}
+
+const wordContext = (translation) => {
+  const rawContext = translation.ctx
   if (!rawContext) return ''
 
   try {
@@ -32,12 +40,18 @@ const wordContext = (word) => {
 
 const clozefy = (word, string) => string.replace(wordRegExp(word), '{{c1::$&}}')
 
+const selectedTranslations = (word) => {
+  const fromInternet = word.translations.filter(tr => isWrappedContext(tr.ctx))
+  return fromInternet.length > 0 ? fromInternet : [word.translations[0]]
+}
+
 const extractWordData = (word) => {
-  const translations = word.translations
+  const userTranslations = selectedTranslations(word)
+  const translations = userTranslations
     .map(t => sanitizeString(t.tr))
     .join(', ')
   const wordValue = sanitizeString(word.wordValue)
-  const context = wordContext(word)
+  const context = wordContext(userTranslations[0])
   const highlightedContext = highlightWord(wordValue, context)
   const clozefiedContext = clozefy(wordValue, context)
   const image = wordPicture(word)
