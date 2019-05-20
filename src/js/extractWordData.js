@@ -41,15 +41,14 @@ const wordContext = (translation) => {
 const clozefy = (word, string) => string.replace(wordRegExp(word), '{{c1::$&}}')
 
 const selectedTranslations = (word) => {
+  if (!word.translations) return []
   const fromInternet = word.translations.filter(tr => isWrappedContext(tr.ctx))
   return fromInternet.length > 0 ? fromInternet : [word.translations[0]]
 }
 
 const extractWordData = (word) => {
   const userTranslations = selectedTranslations(word)
-  const translations = (userTranslations || [])
-    .map(t => sanitizeString(t.tr))
-    .join(', ')
+  const translations = userTranslations.map(t => sanitizeString(t.tr)).join(', ')
   const wordValue = sanitizeString(word.wordValue)
   const context = wordContext(userTranslations[0])
   const highlightedContext = highlightWord(wordValue, context)
