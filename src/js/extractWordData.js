@@ -27,8 +27,9 @@ const isWrappedContext = (contextStr) => {
 }
 
 const wordContext = (translation) => {
+  if (!translation || !translation.ctx) return ''
+
   const rawContext = translation.ctx
-  if (!rawContext) return ''
 
   try {
     const contextObj = JSON.parse(rawContext) || {}
