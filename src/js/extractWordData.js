@@ -14,6 +14,7 @@ const sanitizeString = string => {
 }
 
 const wordPicture = word => {
+  if (!word.translations) return ''
   const translationWithPic = word.translations.find(tr => tr.pics && tr.pics.length > 0)
   return translationWithPic ? `<img src='http:${translationWithPic.pics[0]}'>` : ''
 }
