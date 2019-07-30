@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.4](https://github.com/troggy/anki-leo/compare/v3.3.3...v3.3.4) (2019-07-30)
+
+
+### Bug Fixes
+
+* missing translation images ([#38](https://github.com/troggy/anki-leo/issues/38)) ([483db9d](https://github.com/troggy/anki-leo/commit/483db9d))
+
 ### [3.3.3](https://github.com/troggy/anki-leo/compare/v3.3.2...v3.3.3) (2019-06-06)
 
 
