@@ -10,11 +10,11 @@
     "parcel-plugin-web-extension": "^1.5.2",
     "standard": "^13.1.0",
     "standard-version": "^7.0.0",
-    "tap-mocha-reporter": "^4.0.0",
+    "tap-min": "^2.0.0",
     "zora": "3.0.1"
   },
   "scripts": {
-    "test": "node src/js/all.test.js | tap-mocha-reporter spec",
+    "test": "node src/js/all.test.js | tap-min",
     "lint": "standard",
     "start": "yarn build && parcel watch src/manifest.json",
     "build:locales": "cp -r src/_locales/ src/js/locales",
