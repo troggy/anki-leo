@@ -13,10 +13,12 @@ const sanitizeString = string => {
     .replace(/"/g, '""')
 }
 
-const wordPicture = word => {
-  if (!word.translations) return ''
-  const translationWithPic = word.translations.find(tr => tr.pics && tr.pics.length > 0)
-  return translationWithPic ? `<img src='http:${translationWithPic.pics[0]}'>` : ''
+const wordPicture = translations => {
+  if (!translations) return ''
+  const translationWithPic = translations.find(tr => 
+    tr.pic && !tr.pic.startsWith('https://contentcdn.lingualeo.com/uploads/upimages')
+  )
+  return translationWithPic ? `<img src='${translationWithPic.pic}'>` : ''
 }
 
 const isWrappedContext = (contextStr) => {
@@ -55,7 +57,7 @@ const extractWordData = (word) => {
   const context = wordContext(userTranslations[0])
   const highlightedContext = highlightWord(wordValue, context)
   const clozefiedContext = clozefy(wordValue, context)
-  const image = wordPicture(word)
+  const image = wordPicture(userTranslations) || wordPicture(word.translations);
   const sound = `[sound:${word.pronunciation}]`
   const groups = (word.wordSets || []).map(ws => ws.name).join(',')
 
