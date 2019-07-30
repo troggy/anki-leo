@@ -16,7 +16,7 @@ window.addEventListener('message', (event) => {
   }
 }, false)
 
-let contentPort = chrome.runtime.connect({
+const contentPort = chrome.runtime.connect({
   name: 'ankileo.background-content'
 })
 

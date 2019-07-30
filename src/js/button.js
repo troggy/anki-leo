@@ -31,7 +31,7 @@ export default class Button {
     fragment.appendChild(this.createButtonElement())
     const menuElements = fragment.querySelectorAll('#ankileo-btn ul a')
 
-    for (let menuItem of menuElements) {
+    for (const menuItem of menuElements) {
       menuItem.addEventListener('click', this.hideMenuHandler)
     }
 

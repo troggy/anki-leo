@@ -28,7 +28,7 @@ export default class LeoApi {
   }
 
   getWordSets () {
-    return this._request('GetWordSets', { request: [ { type: 'user', 'perPage': 500 } ] })
+    return this._request('GetWordSets', { request: [{ type: 'user', perPage: 500 }] })
   }
 
   getWordCount (groupId) {

@@ -9,7 +9,12 @@ let isWorking
 
 let locale
 
-let api
+const getToken = () => {
+  const m = document.cookie.match('remember=(.+?)(;|$)')
+  return m.length > 1 ? m[1] : ''
+}
+
+const api = new LeoApi(getToken())
 
 const showToolTip = (message, style) => {
   document.querySelector('#ankileo-btn .ll-button__content').textContent = message
@@ -84,11 +89,6 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
     .prepend(button.getDomElement(handlers))
 }
 
-const getToken = () => {
-  const m = document.cookie.match('remember=(.+?)(;|$)')
-  return m.length > 1 ? m[1] : ''
-}
-
 const getUserLocale = () => {
   try {
     // Lingualeo sets window['context'] with an inline script
@@ -118,8 +118,6 @@ const initExportButton = ({ wordGroup }) => {
     )
   }
 }
-
-api = new LeoApi(getToken())
 
 const pageConfig = dictPageConfig(window.location.href)
 if (pageConfig) {
