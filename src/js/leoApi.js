@@ -16,8 +16,9 @@ export default class LeoApi {
         },
         mode: 'cors',
         body: JSON.stringify({
-          apiVersion: '1.0.0',
+          apiVersion: '1.0.1',
           token: this.token,
+          api_call: api,
           ...requestData
         })
       })
@@ -40,7 +41,6 @@ export default class LeoApi {
 
   _requestWords (wordSetId, leoFilter, totalWords, filter, progressHandler, page, result) {
     return this._request('GetWords', {
-      op: 'loadWordsForDict',
       ...leoFilter,
       attrList: {
         id: 'id',
@@ -52,19 +52,55 @@ export default class LeoApi {
         transcription: 'scr',
         pronunciation: 'pron'
       },
-      wordSetIds: [wordSetId],
+      mode: "basic",
+      training: null,
+      wordSetId: wordSetId,
       perPage: 300,
-      page: page
-    }).then(data => {
+      dateGroup: page.dataGroup,
+      offset: page.wordId ? { wordId: page.wordId } : undefined,
+    }).then((data) => {
       if (data.length === 0) return result
-      result = result.concat(data.filter(filter || emptyFilter))
+      const groupsWithWords = data.filter(g => g.words)
+      
+      let currentGroup = groupsWithWords.length 
+        ? groupsWithWords[groupsWithWords.length - 1].groupName
+        : page.dataGroup
+
+      const words = groupsWithWords.map(g => g.words).flat().filter(filter || emptyFilter)
+
+      console.log(page.dataGroup, page.wordId, words.length, currentGroup);
+      if (words.length) console.log(
+        words[0].wordValue, 
+        words[words.length - 1].wordValue
+      );
+      result = result.concat(words)
       progressHandler && progressHandler(result.length)
-      if (result.length >= totalWords) return result
-      return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page + 1, result)
+      
+      const currentGroupIndex = data.findIndex(e => e.groupName === currentGroup)
+
+      if (
+        (currentGroupIndex === data.length - 1 && !words.length)
+        || result.length >= totalWords
+      ) {
+        return result
+      }
+
+      const nextGroupIndex = currentGroupIndex === data.length - 1 || words.length
+        ? currentGroupIndex
+        : currentGroupIndex + 1
+
+      page = { 
+        dataGroup: data[nextGroupIndex].groupName, 
+        wordId: words.length ? words[words.length - 1].id : undefined
+      }
+      return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page, result)
     })
   }
 
   getWords (wordSetId, leoFilter, totalWords, filter, progressHandler) {
-    return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, 1, [])
+    const page = {
+        dataGroup: 'start'
+    }
+    return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page, [])
   }
 }
