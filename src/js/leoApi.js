@@ -40,35 +40,64 @@ export default class LeoApi {
   }
 
   _requestWords (wordSetId, leoFilter, totalWords, filter, progressHandler, page, result) {
-    return this._request('GetWords', {
-      ...leoFilter,
-      attrList: {
-        id: 'id',
-        wordValue: 'wd',
-        wordSets: 'ws',
-        translations: 'trs',
-        learningStatus: 'ls',
-        progress: 'pi',
-        transcription: 'scr',
-        pronunciation: 'pron'
-      },
-      mode: "basic",
-      training: null,
-      wordSetId: wordSetId,
-      perPage: 300,
-      dateGroup: page.dataGroup,
-      offset: page.wordId ? { wordId: page.wordId } : undefined,
-    }).then((data) => {
+    const requestWords = (wordIds) => {
+      return this._request('GetWords', {
+        ...leoFilter,
+        attrList: {
+          "id": "id",
+          "wordValue": "wd",
+          "origin": "wo",
+          "wordType": "wt",
+          "translations": "trs",
+          "wordSets": "ws",
+          "created": "cd",
+          "learningStatus": "ls",
+          "progress": "pi",
+          "transcription": "scr",
+          "pronunciation": "pron",
+          "relatedWords": "rw",
+          "association": "as",
+          "trainings": "trainings",
+          "listWordSets": "listWordSets",
+          "combinedTranslation": "trc",
+          "picture": "pic",
+          "speechPartId": "pid",
+          "wordLemmaId": "lid",
+          "wordLemmaValue": "lwd"
+        },
+        mode: wordIds ? "4" : "basic",
+        training: null,
+        wordSetId: wordSetId,
+        perPage: 300,
+        dateGroup: page.dataGroup,
+        offset: page.wordId ? { wordId: page.wordId } : undefined,
+        wordIds,
+      })
+    }
+  
+    return requestWords()
+    .then((data) => {
       if (data.length === 0) return result
-      const groupsWithWords = data.filter(g => g.words)
+      // extracting word Ids so we can repeat a call to get words' context
+      const wordIds = [].concat.apply(
+        [], 
+        data.reduce((arr, i) => { 
+          arr.push(i.words)
+          return arr
+        }, []).filter(i => i)).map(w => w.id)
+      return Promise.all([requestWords(wordIds.length > 0 ? wordIds : null), data]);
+    })
+    .then(([data, basicRequest]) => {
+      if (basicRequest.length === 0) return result
+      const groupsWithWords = basicRequest.filter(g => g.words)
       
       let currentGroup = groupsWithWords.length 
         ? groupsWithWords[groupsWithWords.length - 1].groupName
         : page.dataGroup
 
-      const words = groupsWithWords.map(g => g.words).flat().filter(filter || emptyFilter)
+      const words = data.filter(g => g.words)
+        .map(g => g.words).flat().filter(filter || emptyFilter)
 
-      console.log(page.dataGroup, page.wordId, words.length, currentGroup);
       if (words.length) console.log(
         words[0].wordValue, 
         words[words.length - 1].wordValue
@@ -76,21 +105,21 @@ export default class LeoApi {
       result = result.concat(words)
       progressHandler && progressHandler(result.length)
       
-      const currentGroupIndex = data.findIndex(e => e.groupName === currentGroup)
+      const currentGroupIndex = basicRequest.findIndex(e => e.groupName === currentGroup)
 
       if (
-        (currentGroupIndex === data.length - 1 && !words.length)
+        (currentGroupIndex === basicRequest.length - 1 && !words.length)
         || result.length >= totalWords
       ) {
         return result
       }
 
-      const nextGroupIndex = currentGroupIndex === data.length - 1 || words.length
+      const nextGroupIndex = currentGroupIndex === basicRequest.length - 1 || words.length
         ? currentGroupIndex
         : currentGroupIndex + 1
 
       page = { 
-        dataGroup: data[nextGroupIndex].groupName, 
+        dataGroup: basicRequest[nextGroupIndex].groupName, 
         wordId: words.length ? words[words.length - 1].id : undefined
       }
       return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page, result)
