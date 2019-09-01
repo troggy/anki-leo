@@ -52,7 +52,7 @@ const selectedTranslations = (word) => {
 
 const extractWordData = (word) => {
   const userTranslations = selectedTranslations(word)
-  const translations = userTranslations.map(t => sanitizeString(t.tr)).join(', ')
+  const translations = sanitizeString(word.combinedTranslation)
   const wordValue = sanitizeString(word.wordValue)
   const context = wordContext(userTranslations[0])
   const highlightedContext = highlightWord(wordValue, context)

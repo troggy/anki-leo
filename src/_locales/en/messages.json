@@ -26,5 +26,9 @@
   "web_msg_progress": {
     "message": "🔄 {done} of {total}",
     "description": ""
+  },
+  "web_msg_done_nothing": {
+    "message": "✅ Nothing to export",
+    "description": ""
   }
 }
