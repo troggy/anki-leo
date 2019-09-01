@@ -98,12 +98,6 @@ export default class LeoApi {
         const words = data.filter(g => g.words)
           .map(g => g.words).flat().filter(filter || emptyFilter)
 
-        if (words.length) {
-          console.log(
-            words[0].wordValue,
-            words[words.length - 1].wordValue
-          )
-        }
         result = result.concat(words)
         progressHandler && progressHandler(result.length)
 
