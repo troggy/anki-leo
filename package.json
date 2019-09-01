@@ -8,10 +8,10 @@
     "esm": "^3.2.25",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-web-extension": "^1.5.2",
-    "standard": "^13.1.0",
+    "standard": "^14.1.0",
     "standard-version": "^7.0.0",
     "tap-min": "^2.0.0",
-    "zora": "3.0.1"
+    "zora": "3.0.3"
   },
   "scripts": {
     "test": "node src/js/all.test.js | tap-min",
