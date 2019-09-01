@@ -76,17 +76,23 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
     all: () => download(null, groupId, totalWordsCount),
     new: () => download(word => word.progress < 4, groupId, totalWordsCount),
     selected: () => {
-      const selectedWords = selectedWordsIds()
-      if (selectedWords.length === 0) return
+      const allSelected = document.querySelector(
+        '.ll-page-vocabulary__filter-col .ll-leokit__checkbox__input'
+      ).checked
 
-      /*
-      const allSelected = !!document.querySelector(
-        'span.checkbox-word-con.checked'
-      ) */
-      const allSelected = false
+      let filter, wordCount
+      if (allSelected) {
+         filter = null
+         wordCount = totalWordsCount
+      } else {
+        const selectedWords = selectedWordsIds()
+        filter = selectedFilter(selectedWords)
+        wordCount = selectedWords.length
+      }
 
-      const filter = allSelected ? null : selectedFilter(selectedWords)
-      download(filter, groupId, selectedWords.length)
+      if (wordCount.length === 0) return
+
+      download(filter, groupId, wordCount)
     }
   }
   const button = new Button(locale, handlers)
