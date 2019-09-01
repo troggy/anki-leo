@@ -26,5 +26,9 @@
   "web_msg_progress": {
     "message": "🔄 {done} из {total}",
     "description": ""
+  },
+  "web_msg_done_nothing": {
+    "message": "✅ Нет слов",
+    "description": ""
   }
 }

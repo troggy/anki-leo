@@ -53,6 +53,11 @@ const download = (filter, groupId, expectedNumberOfWords) => {
         )
 
         setTimeout(resetToolTip, 2000)
+      } else {
+        showToolTip(
+          locale.t('web_msg_done_nothing'),
+          'success'
+        )
       }
     })
 }
