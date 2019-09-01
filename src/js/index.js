@@ -82,8 +82,8 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
 
       let filter, wordCount
       if (allSelected) {
-         filter = null
-         wordCount = totalWordsCount
+        filter = null
+        wordCount = totalWordsCount
       } else {
         const selectedWords = selectedWordsIds()
         filter = selectedFilter(selectedWords)
