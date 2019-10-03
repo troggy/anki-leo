@@ -8,17 +8,16 @@ export default class LeoApi {
   }
 
   _request (api, requestData, method = 'POST') {
-    return fetch(`https://mobile-api.lingualeo.com/${api}`,
+    return fetch(`https://api.lingualeo.com/${api}`,
       {
         method,
         headers: {
-          'Content-Type': 'text/plain'
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         mode: 'cors',
         body: JSON.stringify({
           apiVersion: '1.0.1',
-          token: this.token,
-          api_call: api,
           ...requestData
         })
       })
@@ -29,12 +28,62 @@ export default class LeoApi {
   }
 
   getWordSets () {
-    return this._request('GetWordSets', { request: [{ type: 'user', perPage: 500 }] })
+    return this._request('GetWordSets', {
+      "op": "loadSets: \n[\n  {\n    \"req\": \"recomm\",\n    \"opts\": {\n      \"category\": \"all\",\n      \"page\": 1,\n      \"perPage\": 20\n    },\n    \"attrs\": [\n      \"type\",\n      \"id\",\n      \"name\",\n      \"countWords\",\n      \"countWordsLearned\",\n      \"picture\",\n      \"category\",\n      \"status\",\n      \"source\",\n      \"level\"\n    ]\n  },\n  {\n    \"req\": \"myOnLearning\",\n    \"opts\": {\n      \"category\": \"word\",\n      \"page\": 1,\n      \"perPage\": 20\n    },\n    \"attrs\": [\n      \"type\",\n      \"id\",\n      \"name\",\n      \"countWords\",\n      \"countWordsLearned\",\n      \"picture\",\n      \"category\",\n      \"status\",\n      \"source\",\n      \"level\"\n    ]\n  }\n]",
+      "request": [
+        {
+          "subOp": "recomm",
+          "type": "global",
+          "contentType": "recommended",
+          "category": "all",
+          "page": 1,
+          "perPage": 20,
+          "sortBy": "created",
+          "attrList": {
+            "type": "type",
+            "id": "id",
+            "name": "name",
+            "countWords": "cw",
+            "wordSetId": "wordSetId",
+            "picture": "pic",
+            "category": "cat",
+            "level": "level"
+          }
+        },
+        {
+          "subOp": "myOnLearning",
+          "type": "user",
+          "status": "learning",
+          "sortBy": "created",
+          "category": "word",
+          "page": 1,
+          "perPage": 999,
+          "attrList": {
+            "type": "type",
+            "id": "id",
+            "category": "cat",
+            "name": "name",
+            "countWords": "cw",
+            "wordSetId": "wordSetId",
+            "picture": "pic",
+            "status": "st",
+            "source": "src"
+          }
+        }
+      ],
+      "ctx": {
+        "config": {
+          "isCheckData": true,
+          "isLogging": true
+        }
+      }
+    })
   }
 
   getWordCount (groupId) {
     return this.getWordSets().then(wordSets => {
-      const wordSet = wordSets[0].items.filter(g => g.id === groupId)[0]
+      const sets = wordSets.reduce((r, { items }) => r.concat(r, items), [])
+      const wordSet = sets.filter(g => g.id === groupId)[0]
       return wordSet.cw || wordSet.countWords
     })
   }
@@ -89,7 +138,7 @@ export default class LeoApi {
       })
       .then(([data, basicRequest]) => {
         if (basicRequest.length === 0) return result
-        const groupsWithWords = basicRequest.filter(g => g.words)
+        const groupsWithWords = basicRequest.filter(g => g.words && g.words.length > 0)
 
         const currentGroup = groupsWithWords.length
           ? groupsWithWords[groupsWithWords.length - 1].groupName
