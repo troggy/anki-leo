@@ -1,0 +1,27 @@
+{
+  "attrList": {
+    "id": "id",
+    "wordValue": "wd",
+    "origin": "wo",
+    "wordType": "wt",
+    "translations": "trs",
+    "wordSets": "ws",
+    "created": "cd",
+    "learningStatus": "ls",
+    "progress": "pi",
+    "transcription": "scr",
+    "pronunciation": "pron",
+    "relatedWords": "rw",
+    "association": "as",
+    "trainings": "trainings",
+    "listWordSets": "listWordSets",
+    "combinedTranslation": "trc",
+    "picture": "pic",
+    "speechPartId": "pid",
+    "wordLemmaId": "lid",
+    "wordLemmaValue": "lwd"
+  },
+  "mode": "basic",
+  "training": null,
+  "perPage": 300
+}
