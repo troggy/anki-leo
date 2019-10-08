@@ -1,0 +1,50 @@
+{
+  "op": "loadSets: \n[\n  {\n    \"req\": \"recomm\",\n    \"opts\": {\n      \"category\": \"all\",\n      \"page\": 1,\n      \"perPage\": 20\n    },\n    \"attrs\": [\n      \"type\",\n      \"id\",\n      \"name\",\n      \"countWords\",\n      \"countWordsLearned\",\n      \"picture\",\n      \"category\",\n      \"status\",\n      \"source\",\n      \"level\"\n    ]\n  },\n  {\n    \"req\": \"myOnLearning\",\n    \"opts\": {\n      \"category\": \"word\",\n      \"page\": 1,\n      \"perPage\": 20\n    },\n    \"attrs\": [\n      \"type\",\n      \"id\",\n      \"name\",\n      \"countWords\",\n      \"countWordsLearned\",\n      \"picture\",\n      \"category\",\n      \"status\",\n      \"source\",\n      \"level\"\n    ]\n  }\n]",
+  "request": [
+    {
+      "subOp": "recomm",
+      "type": "global",
+      "contentType": "recommended",
+      "category": "all",
+      "page": 1,
+      "perPage": 20,
+      "sortBy": "created",
+      "attrList": {
+        "type": "type",
+        "id": "id",
+        "name": "name",
+        "countWords": "cw",
+        "wordSetId": "wordSetId",
+        "picture": "pic",
+        "category": "cat",
+        "level": "level"
+      }
+    },
+    {
+      "subOp": "myOnLearning",
+      "type": "user",
+      "status": "learning",
+      "sortBy": "created",
+      "category": "word",
+      "page": 1,
+      "perPage": 999,
+      "attrList": {
+        "type": "type",
+        "id": "id",
+        "category": "cat",
+        "name": "name",
+        "countWords": "cw",
+        "wordSetId": "wordSetId",
+        "picture": "pic",
+        "status": "st",
+        "source": "src"
+      }
+    }
+  ],
+  "ctx": {
+    "config": {
+      "isCheckData": true,
+      "isLogging": true
+    }
+  }
+}

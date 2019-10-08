@@ -1,20 +1,15 @@
-import dictPageConfig from './dictPageConfig.js'
-import getLeoFilters from './getLeoFilters.js'
-import Locale from './locale.js'
-import LeoApi from './leoApi.js'
-import toCsv from './toCsv.js'
-import Button from './button.js'
+import dictPageConfig from './dictPageConfig'
+import getLeoFilters from './getLeoFilters'
+import Locale from './locale'
+import LeoApi from './lingualeo/api'
+import toCsv from './toCsv'
+import Button from './button'
 
 let isWorking
 
 let locale
 
-const getToken = () => {
-  const m = document.cookie.match('remember=(.+?)(;|$)')
-  return m.length > 1 ? m[1] : ''
-}
-
-const api = new LeoApi(getToken())
+const api = new LeoApi()
 
 const showToolTip = (message, style) => {
   document.querySelector('#ankileo-btn .ll-button__content').textContent = message
