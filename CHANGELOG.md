@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/troggy/anki-leo/compare/v3.3.5...v3.4.0) (2019-10-08)
+
+
+### Features
+
+* winging code to another Lingualeo API change ([#52](https://github.com/troggy/anki-leo/issues/52)) ([c10d306](https://github.com/troggy/anki-leo/commit/c10d306))
+
 ### [3.3.5](https://github.com/troggy/anki-leo/compare/v3.3.4...v3.3.5) (2019-09-01)
 
 
