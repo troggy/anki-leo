@@ -1,0 +1,34 @@
+{
+  "manifest_name": {
+    "message": "Anki-leo - LinguaLeo sözlüğü aktar",
+    "description": ""
+  },
+  "manifest_description": {
+    "message": "Lingualeo sözlüğünü Anki uyumlu bir CSV dosyası olarak aktar",
+    "description": ""
+  },
+  "web_btn_export": {
+    "message": "Aktar",
+    "description": ""
+  },
+  "web_btn_all": {
+    "message": "Tüm",
+    "description": ""
+  },
+  "web_btn_learning": {
+    "message": "Yeni & Öğrenme",
+    "description": ""
+  },
+  "web_btn_selected": {
+    "message": "Seçili",
+    "description": ""
+  },
+  "web_msg_progress": {
+    "message": "🔄 {done} / {total}",
+    "description": ""
+  },
+  "web_msg_done_nothing": {
+    "message": "✅ Aktarılacak bir şey yok",
+    "description": ""
+  }
+}
