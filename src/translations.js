@@ -16,5 +16,14 @@ export default {
       Selected: 'Выбранные',
       Progress: '🔄 {done} из {total}'
     }
+  },
+  tr: {
+    translation: {
+      Export: 'Aktar',
+      All: 'Tüm',
+      'New & Learning': 'Yeni & Öğrenme',
+      Selected: 'Seçili',
+      Progress: '🔄 {done} / {total}'
+    }
   }
 }
