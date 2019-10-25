@@ -1,16 +1,16 @@
-This extension allows you to download your words from the LinguaLeo dictionary as CSV file. The file is ready for import to Anki.
+Esta extensión te permite descargar tus palabras del diccionario LinguaLeo como un fichero CSV. El fichero está listo para ser importado a Anki.
 
-Once added, you should see "Export" button on all the dictionary pages.
-Works for all the wordsets and supports all the build-in Lingualeo filtering.
+Una vez añadida, deberás ver el botón de "Exportar" en todas las páginas del diccionario.
+Funciona para todos los conjuntos de palabras y soporta todos los filtros integrados de Lingualeo.
 
-Downloaded for each word:
-- translation
-- link to the picture
-- transcription
-- example of use (context)
-- link to mp3 file with pronunciation
-- sets of words in which the word enters
-- example of use (context) for cloze cards
+Para cada palabra descarga:
+- traducción
+- enlace a imagen
+- transcripción
+- ejemplo de uso (contexto)
+- enlace a archivo mp3 con pronunciación
+- conjunto de palabras en las que la palabra está incluida
+- ejemplo de uso (contexto) para cartas cloze
 
-Source code: https://github.com/troggy/anki-leo
-Report errors: open a github issue (preferrable) or ping me by email or on Telegram (https://t.me/troggy)
+Código fuente: https://github.com/troggy/anki-leo
+Informe de errores: abre un issue en github (preferible) o mándame un email o un mensaje por Telegram (https://t.me/troggy)
