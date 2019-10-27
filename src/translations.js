@@ -25,5 +25,14 @@ export default {
       Selected: 'Seçili',
       Progress: '🔄 {done} / {total}'
     }
+  },
+  es: {
+    translation: {
+      Export: 'Exportar',
+      All: 'Todo',
+      'New & Learning': 'Nuevo & Aprendiendo',
+      Selected: 'Seleccionado',
+      Progress: '🔄 {done} / {total}'
+    }
   }
 }
