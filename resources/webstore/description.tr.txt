@@ -1,16 +1,16 @@
-This extension allows you to download your words from the LinguaLeo dictionary as CSV file. The file is ready for import to Anki.
+Bu eklenti LinguaLeo sözlüğünden kelimelerinizi bir CSV dosyası olarak indirmenizi sağlar. Dosya Anki'ye aktarılmaya hazır.
 
-Once added, you should see "Export" button on all the dictionary pages.
-Works for all the wordsets and supports all the build-in Lingualeo filtering.
+Eklendiğinde, "Aktar" butonunu tüm sözlük sayfalarında görmelisiniz.
+Bütüm kelime setleri için çalışır ve bütün dahili Lingualeo filtrelemesini destekler.
 
-Downloaded for each word:
-- translation
-- link to the picture
-- transcription
-- example of use (context)
-- link to mp3 file with pronunciation
-- sets of words in which the word enters
-- example of use (context) for cloze cards
+İndirilen her kelime için:
+- çeviri
+- resme link
+- transkripsiyon
+- kullanım örneği
+- telaffuz için mp3 dosyasına link
+- kelimenin bulunduğu kelime kümeleri
+- çıkartma kartları için kullanım örneği
 
-Source code: https://github.com/troggy/anki-leo
-Report errors: open a github issue (preferrable) or ping me by email or on Telegram (https://t.me/troggy)
+Kaynak kod: https://github.com/troggy/anki-leo
+Hata bildirimi: github konusu açın (tercih edilen) yada email yada Telegram üzerinden bana ulaşın (https://t.me/troggy)
