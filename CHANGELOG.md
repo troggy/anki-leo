@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/troggy/anki-leo/compare/v3.4.0...v3.4.1) (2019-11-27)
+
+### Features
+
+* add Turkish language support (thanks to @bariskisir) #56, #60
+* add Spanish description for webstore (thanks to @daviddetorres) #59
+
 ## [3.4.0](https://github.com/troggy/anki-leo/compare/v3.3.5...v3.4.0) (2019-10-08)
 
 
