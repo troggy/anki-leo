@@ -8,7 +8,7 @@ const encloseInDoubleQuotes = string => {
 const wordToCSV = (rawWord, wordSetsMap) => {
   const {
     word, translations, image, transcription,
-    context, sound, groups, clozefiedContext
+    context, sound, groups, association, clozefiedContext
   } = extractWordData(rawWord, wordSetsMap)
   return [
     word,
@@ -18,7 +18,8 @@ const wordToCSV = (rawWord, wordSetsMap) => {
     context,
     sound,
     groups,
-    clozefiedContext
+    clozefiedContext,
+    association
   ]
     .map(encloseInDoubleQuotes)
     .join(';')

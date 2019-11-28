@@ -60,6 +60,7 @@ const extractWordData = (word) => {
   const image = wordPicture(userTranslations) || wordPicture(word.translations)
   const sound = `[sound:${word.pronunciation}]`
   const groups = (word.wordSets || []).map(ws => ws.name).join(',')
+  const association = sanitizeString(word.association)
 
   return {
     word: wordValue,
@@ -69,6 +70,7 @@ const extractWordData = (word) => {
     context: highlightedContext,
     sound,
     groups,
+    association,
     clozefiedContext
   }
 }
