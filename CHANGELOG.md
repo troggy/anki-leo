@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/troggy/anki-leo/compare/v3.4.1...v4.0.0) (2019-11-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* export word Groups as the last field of CSV (#68)
+
+### Features
+
+* **locale:** Support Portuguese interface and webstore description ([#64](https://github.com/troggy/anki-leo/issues/64)) ([e78d338](https://github.com/troggy/anki-leo/commit/e78d338))
+* export word association ([#67](https://github.com/troggy/anki-leo/issues/67)) ([d383cda](https://github.com/troggy/anki-leo/commit/d383cda))
+* export word Groups as the last field of CSV ([#68](https://github.com/troggy/anki-leo/issues/68)) ([65c031f](https://github.com/troggy/anki-leo/commit/65c031f))
+
 ### [3.4.1](https://github.com/troggy/anki-leo/compare/v3.4.0...v3.4.1) (2019-11-27)
 
 ### Features
