@@ -17,9 +17,9 @@ const wordToCSV = (rawWord, wordSetsMap) => {
     transcription,
     context,
     sound,
-    groups,
     clozefiedContext,
-    association
+    association,
+    groups
   ]
     .map(encloseInDoubleQuotes)
     .join(';')
