@@ -1,6 +1,6 @@
 [![anki-leo](https://raw.githubusercontent.com/troggy/anki-leo/master/resources/webstore/1400x560.png)](#)
 
-# AnkiLeo [![Code Climate](https://codeclimate.com/github/troggy/anki-leo/badges/gpa.svg)](https://codeclimate.com/github/troggy/anki-leo) [![Greenkeeper badge](https://badges.greenkeeper.io/troggy/anki-leo.svg)](https://greenkeeper.io/)
+# AnkiLeo [![Code Climate](https://codeclimate.com/github/troggy/anki-leo/badges/gpa.svg)](https://codeclimate.com/github/troggy/anki-leo) 
 
 ## Chrome extension to export dictionary from [LinguaLeo](http://lingualeo.com/) to CSV/[Anki](http://ankisrs.net/).
 
