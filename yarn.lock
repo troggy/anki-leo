@@ -7040,9 +7040,7 @@ yargs@13.3.0:
     y18n "^4.0.0"
     yargs-parser "^13.1.1"
 
-zora@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/zora/-/zora-3.1.5.tgz#005f70e41a0a7e52d171fa535625d1253aa24d9c"
-  integrity sha512-cCq2pZX7Y4omnqy8IwVoUJGOQ7eN1CzOwVbJrvGGGmY2Bn3QjTQ5d7hkQ4o3/hQY5hnBUQ4uDVP0bppyFOU0HA==
-  dependencies:
-    fast-deep-equal "^2.0.1"
+zora@3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/zora/-/zora-3.1.7.tgz#09b94d9000697d549f4f6de99d4c384d7405492f"
+  integrity sha512-6m8+mSnJ5hanwII27okXRFUlt9PFv4vWnYZEbz5GasZkwK9U0Lj4hQxy5AFjL7sqNo9W7NUR1EPXUY1IxxWdeg==
