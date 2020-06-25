@@ -21,7 +21,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(state => {
 chrome.runtime.onMessage.addListener(
   (arg) => {
     if (arg.type && (arg.type === 'ankileo.download')) {
-      const resultBlob = new Blob(arg.payload.data, { type: 'text/plain;charset=utf-8' })
+      const resultBlob = new Blob(arg.payload.data, { type: 'text/csv;charset=utf-8' })
       const url = URL.createObjectURL(resultBlob)
       chrome.downloads.download({
         url: url,
