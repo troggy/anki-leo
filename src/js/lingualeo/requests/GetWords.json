@@ -19,7 +19,8 @@
     "picture": "pic",
     "speechPartId": "pid",
     "wordLemmaId": "lid",
-    "wordLemmaValue": "lwd"
+    "wordLemmaValue": "lwd",
+    "context": "ctx"
   },
   "mode": "basic",
   "training": null,
