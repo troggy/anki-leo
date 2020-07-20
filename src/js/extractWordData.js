@@ -13,26 +13,15 @@ const sanitizeString = string => {
     .replace(/"/g, '""')
 }
 
-const wordPicture = translations => {
-  if (!translations) return ''
-  const translationWithPic = translations.find(tr =>
-    tr.pic && !tr.pic.startsWith('https://contentcdn.lingualeo.com/uploads/upimages')
-  )
-  return translationWithPic ? `<img src='${translationWithPic.pic}'>` : ''
+const wordPicture = word => {
+  if (!word) return ''
+  return word.picture && word.picture.startsWith('https://contentcdn.lingualeo.com/uploads/picture') ? `<img src='${word.picture}'>` : ''
 }
 
-const isWrappedContext = (contextStr) => {
-  try {
-    return !!(JSON.parse(contextStr) || {}).context_text
-  } catch (e) {
-    return false
-  }
-}
+const wordContext = (word) => {
+  if (!word || !word.context) return ''
 
-const wordContext = (translation) => {
-  if (!translation || !translation.ctx) return ''
-
-  const rawContext = translation.ctx
+  const rawContext = word.context
 
   try {
     const contextObj = JSON.parse(rawContext) || {}
@@ -44,20 +33,13 @@ const wordContext = (translation) => {
 
 const clozefy = (word, string) => string.replace(wordRegExp(word), '{{c1::$&}}')
 
-const selectedTranslations = (word) => {
-  if (!word.translations) return []
-  const fromInternet = word.translations.filter(tr => isWrappedContext(tr.ctx))
-  return fromInternet.length > 0 ? fromInternet : [word.translations[0]]
-}
-
 const extractWordData = (word) => {
-  const userTranslations = selectedTranslations(word)
   const translations = sanitizeString(word.combinedTranslation)
   const wordValue = sanitizeString(word.wordValue)
-  const context = wordContext(userTranslations[0])
+  const context = wordContext(word)
   const highlightedContext = highlightWord(wordValue, context)
   const clozefiedContext = clozefy(wordValue, context)
-  const image = wordPicture(userTranslations) || wordPicture(word.translations)
+  const image = wordPicture(word)
   const sound = `[sound:${word.pronunciation}]`
   const groups = (word.wordSets || []).map(ws => ws.name).join(',')
   const association = sanitizeString(word.association)
