@@ -49,42 +49,42 @@ export default class LeoApi {
       dateGroup: page.dataGroup,
       offset: page.wordId ? { wordId: page.wordId } : undefined
     }).then((data) => {
-        if (data.length === 0) return result
-        const groupsWithWords = data.filter(g => g.words.length > 0)
-        console.log({ groupsWithWords })
+      if (data.length === 0) return result
+      const groupsWithWords = data.filter(g => g.words.length > 0)
+      console.log({ groupsWithWords })
 
-        const currentGroup = groupsWithWords.length
-          ? groupsWithWords[groupsWithWords.length - 1].groupName
-          : page.dataGroup
+      const currentGroup = groupsWithWords.length
+        ? groupsWithWords[groupsWithWords.length - 1].groupName
+        : page.dataGroup
 
-        console.log( { currentGroup })
-        
-        const words = data.map(g => g.words).flat().filter(filter || emptyFilter)
+      console.log({ currentGroup })
 
-        result = result.concat(words)
-        progressHandler && progressHandler(result.length)
+      const words = data.map(g => g.words).flat().filter(filter || emptyFilter)
 
-        const currentGroupIndex = data.findIndex(e => e.groupName === currentGroup)
+      result = result.concat(words)
+      progressHandler && progressHandler(result.length)
 
-        if (
-          (currentGroupIndex === data.length - 1 && !words.length) ||
+      const currentGroupIndex = data.findIndex(e => e.groupName === currentGroup)
+
+      if (
+        (currentGroupIndex === data.length - 1 && !words.length) ||
         result.length >= totalWords
-        ) {
-          return result
-        }
+      ) {
+        return result
+      }
 
-        const nextGroupIndex = currentGroupIndex === data.length - 1 || words.length
-          ? currentGroupIndex
-          : currentGroupIndex + 1
+      const nextGroupIndex = currentGroupIndex === data.length - 1 || words.length
+        ? currentGroupIndex
+        : currentGroupIndex + 1
 
-        console.log({ nextGroupIndex });
+      console.log({ nextGroupIndex })
 
-        page = {
-          dataGroup: data[nextGroupIndex].groupName,
-          wordId: words.length ? words[words.length - 1].id : undefined
-        }
-        return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page, result)
-      })
+      page = {
+        dataGroup: data[nextGroupIndex].groupName,
+        wordId: words.length ? words[words.length - 1].id : undefined
+      }
+      return this._requestWords(wordSetId, leoFilter, totalWords, filter, progressHandler, page, result)
+    })
   }
 
   getWords (wordSetId, leoFilter, totalWords, filter, progressHandler) {
