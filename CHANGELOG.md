@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/troggy/anki-leo/compare/v4.0.0...v4.0.1) (2020-07-20)
+
+
+### Bug Fixes
+
+* better user interface language detection ([#80](https://github.com/troggy/anki-leo/issues/80)) ([70a9286](https://github.com/troggy/anki-leo/commit/70a9286))
+* downloaded file is with CSV extension ([91b41c5](https://github.com/troggy/anki-leo/commit/91b41c5)), closes [#74](https://github.com/troggy/anki-leo/issues/74)
+* revert back to api 1.0.1 + context attribute ([#79](https://github.com/troggy/anki-leo/issues/79)) ([1a57217](https://github.com/troggy/anki-leo/commit/1a57217))
+
 ## [4.0.0](https://github.com/troggy/anki-leo/compare/v3.4.1...v4.0.0) (2019-11-29)
 
 
