@@ -104,7 +104,7 @@ const getUserLocale = () => {
     return [].slice.call(document.querySelectorAll('head script'))
       .find(n =>
         n.textContent.trim().startsWith('window[\'context\']')
-      ).textContent.match('"interfaceLang":"(.+?)"')[1]
+      ).textContent.match('"userLang":"(.+?)"')[1]
   } catch (e) {
     console.error(e)
     return 'en'
