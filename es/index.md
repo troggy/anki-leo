@@ -1,5 +1,5 @@
 ---
-layout: index_en
+layout: index_es
 ---
 
 This extension allows your to export your words from [LinguaLeo](http://lingualeo.com/) in CSV format, so you can use them elsewhere. For instance, you can import them into [Anki](http://ankisrs.net/).

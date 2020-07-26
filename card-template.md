@@ -10,7 +10,7 @@ Tools > Manage Note Types.. > Add
   ```
 
 2. Создайте поля (Fields..) для этого типа карточки:
-  ![Fields..](img/fields.png)
+  ![Fields..](/ankileo/img/fields.png)
 
 3. Измените шаблон карточки (Cards..) по вкусу, чтобы в нём использовались новые поля.  
   
@@ -69,4 +69,4 @@ Tools > Manage Note Types.. > Add
 
 #### Всё вместе
 
-  ![Cards..](img/cards.png)  
+  ![Cards..](/ankileo/img/cards.png)  

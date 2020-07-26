@@ -37,6 +37,6 @@ layout: index
 - "Разрешить использование HTML в полях" (Allow HTML in fields)
 - "Обновлять существующие записи.." (Update existing notes when first field matches)
 
-![Import File](img/import.png)
+![Import File](/ankileo/img/import.png)
 
 Повторять при появлении новых слов в вашем словаре LinguaLeo

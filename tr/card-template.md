@@ -1,5 +1,5 @@
 ---
-layout: basic_en
+layout: basic_tr
 ---
 
 # Create and configure Anki card type manually
