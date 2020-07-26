@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/troggy/anki-leo/compare/v4.0.1...v4.0.2) (2020-07-26)
+
+
+### Bug Fixes
+
+* download from word sets is broken ([6209740](https://github.com/troggy/anki-leo/commit/6209740))
+
 ### [4.0.1](https://github.com/troggy/anki-leo/compare/v4.0.0...v4.0.1) (2020-07-20)
 
 
