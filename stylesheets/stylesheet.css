@@ -24,6 +24,10 @@ a:hover {
   text-decoration: none;
 }
 
+.lang a {
+  padding: 5px;
+}
+
 .btn {
   border: 1px solid #1e6bb8;
   padding: 20px;
