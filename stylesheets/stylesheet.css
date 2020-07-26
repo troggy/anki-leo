@@ -1,5 +1,15 @@
+@font-face {
+  font-family: "body";
+  src: url("../fonts/IBMPlexSans-Text.woff") format("woff");
+}
+
+@font-face {
+  font-family: "bold";
+  src: url("/fonts/IBMPlexSans-Bold.woff") format("woff");
+}
+
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "body", sans-serif;
   font-size: 20px;
   line-height: 28px;
   color: #000000;
@@ -27,11 +37,15 @@ a:hover {
 .page-header {
   color: #000;
   text-align: center;
+  padding: 100px 0;
 }
 
-.page-header img {
-  margin: 25px auto;
-  width: 40%;
+.page-header .logo {
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+  font-family: "bold", sans-serif;
+  font-weight: 700;
 }
 
 .donate-prompt a {
@@ -45,12 +59,31 @@ a:hover {
   margin-bottom: 0.1rem;
 }
 
-.main-content :first-child {
+.main-content { 
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.main-content > :first-child {
   margin-top: 0;
 }
+
 .main-content img {
-  max-width: 100%;
+  display: block;
+  width: 660px;
+  margin: 0 auto;
+  margin-left: -30px;
+  -webkit-box-shadow: 0px 7px 15px 0px rgba(0,0,0,0.36); 
+  box-shadow: 0px 7px 15px 0px rgba(0,0,0,0.36);
 }
+
+@media screen and (max-width: 600px) {
+  .main-content img {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 h2,
 .main-content h1,
 .main-content h2,
@@ -58,33 +91,26 @@ h2,
 .main-content h4,
 .main-content h5,
 .main-content h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "bold", sans-serif;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #000000;
 }
 .main-content p {
   margin-bottom: 1em;
 }
-.main-content code {
-  padding: 2px 4px;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 0.9rem;
-  color: #383e41;
-  background-color: #f3f6fa;
-  border-radius: 0.3rem;
-}
+
 .main-content pre {
-  padding: 0.8rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
   font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  color: #567482;
-  word-wrap: normal;
-  background-color: #f3f6fa;
-  border: solid 1px #dce6f0;
-  border-radius: 0.3rem;
+  font-size: 16px;
+  background: rgba(0,0,0,0.06);
+  padding: 16px 30px 14px;
+  margin: 1em -30px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-style: normal;
 }
 .main-content pre > code {
   padding: 0;
@@ -96,39 +122,12 @@ h2,
   background: transparent;
   border: 0;
 }
-.main-content .highlight {
-  margin-bottom: 1rem;
+.main-content .highlight,
+.main-content img {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
-.main-content .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
-}
-.main-content .highlight pre,
-.main-content pre {
-  padding: 0.8rem;
-  overflow: auto;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  border-radius: 0.3rem;
-}
-.main-content pre code,
-.main-content pre tt {
-  display: inline;
-  max-width: initial;
-  padding: 0;
-  margin: 0;
-  overflow: initial;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
-}
-.main-content pre code:before,
-.main-content pre code:after,
-.main-content pre tt:before,
-.main-content pre tt:after {
-  content: normal;
-}
+
 .main-content ul,
 .main-content ol {
   margin-top: 0;
@@ -183,7 +182,6 @@ h2,
 
 @media screen and (min-width: 64em) {
   nav, .main-content {
-    max-width: 64rem;
     padding: 2rem 6rem;
     margin: 0 auto;
     font-size: 1.1rem;
@@ -243,6 +241,7 @@ h2,
   gap: 7px;
 }
 
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -260,9 +259,10 @@ ol > li {
 }
 
 ol > li::before {
-  content: counter(my-awesome-counter) ".";
+  content: counter(my-awesome-counter);
   min-width: 40px;
   display: inline-block;
   position: absolute;
-  margin-left: -40px;
+  margin-left: -100px;
+  font-size: 24px;
 }
