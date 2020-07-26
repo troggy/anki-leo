@@ -45,7 +45,7 @@ export default class LeoApi {
     return this._request('GetWords', {
       ...GetWordsRequest,
       ...leoFilter,
-      wordSetIds: [wordSetId],
+      wordSetId,
       dateGroup: page.dataGroup,
       offset: page.wordId ? { wordId: page.wordId } : undefined
     }).then((data) => {
