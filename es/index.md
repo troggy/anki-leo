@@ -1,43 +1,41 @@
 ---
 layout: index_es
 ---
+Esta extensión permite exportar tus palabras de [LinguaLeo](http://lingualeo.com/) en formato CSV para que puedas usarlas en cualquier otro sitio. Por ejemlpo, puedes importarlas en [Anki](http://ankisrs.net/).
 
-This extension allows your to export your words from [LinguaLeo](http://lingualeo.com/) in CSV format, so you can use them elsewhere. For instance, you can import them into [Anki](http://ankisrs.net/).
+La extensión añade el botón "Exportar" a la página del diccionario en la web de Lingualeo.
 
-Extension adds "Export" button to the Dictionary pages on Lingualeo website.
+## Lo que se exporta
 
-## What's exported
+- traducción
+- URL de la imagen
+- transcripción
+- ejemplo de uso (contexto)
+- URL del archivo de sonido con la pronunciación
+- conjuntos de palabras en las que la palabra está incluida
+- texto para carta cloze Anki
+- asociación (si la hay)
 
-- translation
-- image URL
-- transcription
-- usage example (context)
-- URL to sound file with pronounciation
-- word sets the word is included to
-- text for Anki's cloze cards
-- association (if any)
+## Importar en Anki
 
-## Import into Anki
+### Crea un mazo y un tipo de carta
+Primero tienes que crear un tipo de carta.
 
-### Create a deck and card type
+El método simple: abre [fichero de mazo vacío](../LingualeoWords.apkg) en Anki. Esto creará un mazo vacío y un tipo de carta "carta Lingualeo".
 
-You need to create a card type first.
+Método avanzado: [crear un tipo de carta manualmente](card-template)
 
-Simple method: open [empty deck file](../LingualeoWords.apkg) in Anki. It will create an empty deck and "Lingualeo Card" card type.
+Este paso solo es necesario una vez.
 
-Advanced method: [create card type manually](card-template)
+### Añade tus palabras
 
-This step is needed just once.
+Descarga tus palabras usando la extensión. Puedes exportar de forma segura todas las palabras cada vez - no habrá duplicados, ya que Anki se encarga de ello automáticamente.
+Luego usa "importar archivo" en Anki con las siguientes opciones:
 
-### Add your words
+- Tipo: Carta LinguaLeo
+- Marca "Permitir HTML en campos"
+- Marca "Actualizar notas existentes cuando el primer campo coincida" 
 
-Download your words using the extension. You can safely export all the words every time — there won't be any duplicates as Anki takes care of it automatically. 
-Then use "Import file" in Anki with the following settings:
+![Importar archivo](/anki-leo/img/import.png)
 
-- Type: LinguaLeo Card
-- Set "Allow HTML in fields"
-- Set "Update existing notes when first field matches"
-
-![Import File](/anki-leo/img/import.png)
-
-Repeat this step to add news words once you have them.
+Repita este paso para agregar palabras nuevas una vez que las tenga.
