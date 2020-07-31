@@ -2,21 +2,21 @@
 layout: basic_es
 ---
 
-# Create and configure Anki card type manually
+# Crear y configurar el tipo de carta Anki manualmente
 
-1. Create Anki Card type:
+1. Crear tipo de carta Anki:
   ```
-Tools > Manage Note Types.. > Add
+Herramientas > Gestionar tipos de notas.. > Añadir
   ```
 
-2. Create Fields for your new card type:
-  ![Fields..](/anki-leo/img/fields.png)
+2. Crea campos para tu nuevo tipo de carta:
+  ![Campos..](/anki-leo/img/fields.png)
 
-3. Change Card template according to your taste, so that it uses new fields.
+3. Cambia la plantilla de la carta de acuerdo a tu gusto, para que use nuevos campos.
   
-  Here are some examples.
+  Aquí hay algunos ejemplos.
   
-#### Front template
+#### Plantilla frontal
 
   {% raw %}
 
@@ -28,7 +28,7 @@ Tools > Manage Note Types.. > Add
 
   {% endraw %}
 
-#### Back template
+#### Plantilla trasera
 
   {% raw %}
 
@@ -42,7 +42,7 @@ Tools > Manage Note Types.. > Add
 
   {% endraw %}
 
-#### Styling
+#### Estilo
 
   {% raw %}
 
@@ -67,6 +67,6 @@ Tools > Manage Note Types.. > Add
 
   {% endraw %}
 
-#### All together
+#### Todo junto
 
-  ![Cards..](/anki-leo/img/cards.png)  
+  ![Cartas..](/anki-leo/img/cards.png)  
