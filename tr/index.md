@@ -2,42 +2,43 @@
 layout: index_tr
 ---
 
-This extension allows your to export your words from [LinguaLeo](http://lingualeo.com/) in CSV format, so you can use them elsewhere. For instance, you can import them into [Anki](http://ankisrs.net/).
+Bu uzantı, kelimelerinizi [LinguaLeo](http://lingualeo.com/)'dan CSV formatında dışa aktarmanıza olanak tanır, böylece onları başka yerde kullanabilirsin. Örneğin, bunnları [Anki](http://ankisrs.net/)'ye aktarabilirsin.
 
-Extension adds "Export" button to the Dictionary pages on Lingualeo website.
+Eklenti, Lingualeo sitesindeki sözlük sayfalarına "Dışa aktar" butonu ekler. 
 
-## What's exported
 
-- translation
-- image URL
-- transcription
-- usage example (context)
-- URL to sound file with pronounciation
-- word sets the word is included to
-- text for Anki's cloze cards
-- association (if any)
+## Neler dışa aktarılır
 
-## Import into Anki
+- Tercümeler
+- Resim URL'leri
+- Transkripsiyon
+- Örnek kullanım
+- Telaffuz için ses dosyasının URL'i
+- kelimenin dahil edildiği kelime kümeleri
+- Anki'nin cloze kartları için metin
+- çağrıştırma (varsa)
 
-### Create a deck and card type
+## Anki'ye aktar
 
-You need to create a card type first.
+### Bir deste ve kart türü oluşturma
 
-Simple method: open [empty deck file](../LingualeoWords.apkg) in Anki. It will create an empty deck and "Lingualeo Card" card type.
+Önce bir kart türü oluşturmanız gerekir
 
-Advanced method: [create card type manually](card-template)
+Basit yöntem: Anki içerisinden [boş kart destesi](../LingualeoWords.apkg) aç. Bu, boş bir kart destesi ve "Lingualeo Card" tipi yaratacak.
 
-This step is needed just once.
+Gelişmiş yöntem: [kart tipini el ile yarat](card-template)
 
-### Add your words
+Bu adım sadece bir kez gereklidir.
 
-Download your words using the extension. You can safely export all the words every time — there won't be any duplicates as Anki takes care of it automatically. 
-Then use "Import file" in Anki with the following settings:
+### Kelimelerini ekle
 
-- Type: LinguaLeo Card
-- Set "Allow HTML in fields"
-- Set "Update existing notes when first field matches"
+Kelimelerini eklentiyi kullanarak indir. Her zaman tüm kelimelerini güvenli olarak dışa aktarabilirsin - Anti otomatik halledeceği için herhangi bir kopya oluşmayacaktır.
+Sonra Anki içerisindeki "Dosyayı içe aktar" özelliğini aşağıdaki ayarlarda kullan.
 
-![Import File](/anki-leo/img/import.png)
+- Tip: LinguaLeo Card
+- "Allow HTML in fields" olarak ayarla
+- "Update existing notes when first field matches" olarak ayarla
 
-Repeat this step to add news words once you have them.
+![Dosyayı içe aktar](/anki-leo/img/import.png)
+
+Elinize geçtikten sonra haber kelimeleri eklemek için bu adımı tekrarlayın.
