@@ -2,19 +2,19 @@
 layout: basic_tr
 ---
 
-# Create and configure Anki card type manually
+# Anki kart türünü el ile oluşturun ve yapılandırın
 
-1. Create Anki Card type:
+1. Anki kart türü yarat:
   ```
 Tools > Manage Note Types.. > Add
   ```
 
-2. Create Fields for your new card type:
+2. Yeni kart türünüz için alanlar oluşturun:
   ![Fields..](/anki-leo/img/fields.png)
 
-3. Change Card template according to your taste, so that it uses new fields.
+3. Yeni alanları kullanması için Kart şablonunu zevkinize göre değiştirin
   
-  Here are some examples.
+  İşte bazı örnekler.
   
 #### Front template
 
@@ -42,7 +42,7 @@ Tools > Manage Note Types.. > Add
 
   {% endraw %}
 
-#### Styling
+#### Şekillendirme
 
   {% raw %}
 
@@ -67,6 +67,6 @@ Tools > Manage Note Types.. > Add
 
   {% endraw %}
 
-#### All together
+#### Hepsi birden
 
   ![Cards..](/anki-leo/img/cards.png)  
