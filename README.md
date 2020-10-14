@@ -4,6 +4,8 @@
 
 ## Chrome extension to export dictionary from [LinguaLeo](http://lingualeo.com/) to CSV/[Anki](http://ankisrs.net/).
 
+> Lightweight (~33kb zipped) and zero-dependencies.
+
 [![install from chrome web store](https://raw.githubusercontent.com/troggy/anki-leo/master/resources/webstore/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/lingualeo-dictionary-expo/mpaohidlipnfnkbogpmanchjfjpdgcml)
 
 # How to use
