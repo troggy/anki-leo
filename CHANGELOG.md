@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/troggy/anki-leo/compare/v4.0.2...v4.0.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* make it work again ([12c854e](https://github.com/troggy/anki-leo/commit/12c854e7a1101e329fc56ab6ab8a73b06196bb8b))
+
 ### [4.0.2](https://github.com/troggy/anki-leo/compare/v4.0.1...v4.0.2) (2020-07-26)
 
 
