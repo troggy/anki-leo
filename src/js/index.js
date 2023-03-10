@@ -134,7 +134,7 @@ const onNewPageElement = (mutationsList) =>
         if (pageConfig) {
           initExportButton(pageConfig)
         }
-      }, 500);
+      }, 500)
     }
   })
 const observer = new window.MutationObserver(onNewPageElement)
