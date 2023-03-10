@@ -1,4 +1,4 @@
-const dictPageRE = new RegExp('https?://lingualeo.com/(.+?)/dictionary/vocabulary/(.+)$')
+const dictPageRE = /https?:\/\/lingualeo.com\/(.+?)\/dictionary\/vocabulary\/(.+)$/
 
 export default (url) => {
   const match = url.match(dictPageRE)

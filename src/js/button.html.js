@@ -1,7 +1,7 @@
 const html =
 `<details id="ankileo-btn" class="ll-page-vocabulary__filter__action-item mobile-hidden">
-  <summary class="ll-button ll-button__m-color-white ll-button__m-size-default ll-button__m-bluish-grey">
-    <span class="ll-button__content">
+  <summary class="ll-leokit__button ll-leokit__button__m-color-bluish-grey">
+    <span class="ll-leokit__button__content">
       {Export}
     </span>
   </summary>

@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(
       const resultBlob = new Blob(arg.payload.data, { type: 'text/csv;charset=utf-8' })
       const url = URL.createObjectURL(resultBlob)
       chrome.downloads.download({
-        url: url,
+        url,
         filename: arg.payload.name
       })
     }

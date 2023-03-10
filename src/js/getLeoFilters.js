@@ -31,6 +31,8 @@ const getSelectedStatus = () => {
     '.ll-page-vocabulary__filter__toggle .ll-toggle-group'
   )
 
+  if (!toggleGroup) return statuses[0];
+
   const selectedStatusIndex = [].slice.call(toggleGroup.childNodes)
     .findIndex(a => a.classList.contains('ll-toggle-group-option__m-selected'))
 

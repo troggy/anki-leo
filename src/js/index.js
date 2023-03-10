@@ -12,11 +12,11 @@ let locale
 const api = new LeoApi()
 
 const showToolTip = (message, style) => {
-  document.querySelector('#ankileo-btn .ll-button__content').textContent = message
+  document.querySelector('#ankileo-btn .ll-leokit__button__content').textContent = message
 }
 
 const resetToolTip = () => {
-  document.querySelector('#ankileo-btn .ll-button__content').textContent = locale.t('web_btn_export')
+  document.querySelector('#ankileo-btn .ll-leokit__button__content').textContent = locale.t('web_btn_export')
 }
 
 const download = (filter, groupId, expectedNumberOfWords) => {
@@ -59,7 +59,7 @@ const download = (filter, groupId, expectedNumberOfWords) => {
 
 const selectedWordsIds = () => {
   return [].slice.call(document.querySelectorAll(
-    '.sets-words__col .ll-leokit__checkbox__input'
+    '.ll-sets-words__col .ll-leokit__checkbox__input'
   )).filter(a => a.checked).map(a => parseInt(a.id))
 }
 
@@ -96,18 +96,14 @@ const createExportButton = (locale, totalWordsCount, groupId) => {
     .prepend(button.getDomElement(handlers))
 }
 
-const getUserLocale = () => {
+const getUserLocale = async () => {
   try {
-    // Lingualeo sets window['context'] with an inline script
-    // however at the runtime window.context is overwritten by something else
-    // hacking around it by parsing inline script body
-    return [].slice.call(document.querySelectorAll('head script'))
-      .find(n =>
-        n.textContent.trim().startsWith('window[\'context\']')
-      ).textContent.match('"userLang":"(.+?)"')[1]
+    return api.getProfile().then(profile => {
+      return profile.lang_interface
+    })
   } catch (e) {
     console.error(e)
-    return 'en'
+    return Promise.resolve('en')
   }
 }
 
@@ -117,19 +113,34 @@ const initExportButton = ({ wordGroup }) => {
 
   // don't add export button, if there is one already
   if (document.getElementById('ankileo-btn')) return
-
   if (document.querySelectorAll('div.ll-page-vocabulary__header').length > 0) {
-    locale = new Locale(getUserLocale())
-    api.getWordCount(wordGroup).then(wordCount =>
-      createExportButton(locale, wordCount, wordGroup)
-    )
+    getUserLocale().then(localeStr => {
+      locale = new Locale(localeStr)
+      api.getWordCount(wordGroup).then(wordCount =>
+        createExportButton(locale, wordCount, wordGroup)
+      )
+    })
   }
 }
 
-const pageConfig = dictPageConfig(window.location.href)
-if (pageConfig) {
-  initExportButton(pageConfig)
-}
+let inited = false
+
+const onNewPageElement = (mutationsList) =>
+  mutationsList.forEach((m) => {
+    if (!inited && m.target.classList[0] === 'll-page-vocabulary') {
+      inited = true
+      setTimeout(() => {
+        const pageConfig = dictPageConfig(window.location.href)
+        if (pageConfig) {
+          initExportButton(pageConfig)
+        }
+      }, 500);
+    }
+  })
+const observer = new window.MutationObserver(onNewPageElement)
+const pageBody = document.getElementsByTagName('body')[0]
+const config = { attributes: false, childList: true, subtree: true }
+observer.observe(pageBody, config)
 
 window.addEventListener('message', function (event) {
   // We only accept messages from ourselves

@@ -4,7 +4,7 @@ const dictPageConfig = require('./dictPageConfig').default
 
 describe('dictPageConfig', t => {
   t.test('dictPage', t => {
-    var tests = [
+    const tests = [
       {
         url: 'https://lingualeo.com/ru/dictionary/vocabulary/my',
         expected: { localeName: 'ru', wordGroup: 1 }

@@ -29,6 +29,10 @@ export default class LeoApi {
       .then(rsp => JSON.parse(rsp).data)
   }
 
+  getProfile () {
+    return this._request('GetUserProfile')
+  }
+
   getWordSets () {
     return this._request('GetWordSets', GetWordSetsRequest)
   }

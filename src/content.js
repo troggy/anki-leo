@@ -20,6 +20,8 @@ const contentPort = chrome.runtime.connect({
   name: 'ankileo.background-content'
 })
 
+console.log('Yo', contentPort)
+
 contentPort.onMessage.addListener((event) => {
   if (event.type === 'ankileo.init') {
     window.postMessage(event)

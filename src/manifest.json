@@ -8,6 +8,7 @@
 	"default_locale": "en",
 	"permissions": [
 		"http://lingualeo.com/",
+		"https://lingualeo.com/",
 		"downloads",
 		"background",
 		"webNavigation"
